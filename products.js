@@ -16,6 +16,7 @@ const products = [
         renewed: true
     },
 
+
     {
         id: 2,
         title: "Wireless Headphones - Premium Bluetooth Audio",
@@ -31,6 +32,7 @@ const products = [
         description: "Premium wireless Bluetooth headphones with clear sound, comfortable design and long-lasting battery.",
         renewed: false
     },
+
 
     {
         id: 3,
@@ -48,6 +50,7 @@ const products = [
         renewed: false
     },
 
+
     {
         id: 4,
         title: "Laptop Computer - Fast Performance for Work & Entertainment",
@@ -61,6 +64,40 @@ const products = [
         category: "Computers",
         image: "",
         description: "Fast and reliable laptop computer designed for work, study, browsing and entertainment.",
+        renewed: false
+    },
+
+
+    {
+        id: 5,
+        title: "Premium Smartphone 256GB - Unlocked Android Phone",
+        price: 449.99,
+        oldPrice: 699.99,
+        discount: 36,
+        condition: "New",
+        rating: 4.5,
+        reviews: 156,
+        stock: 10,
+        category: "Mobiles",
+        image: "",
+        description: "Powerful unlocked smartphone with 256GB storage, high-quality camera, fast performance and modern design.",
+        renewed: false
+    },
+
+
+    {
+        id: 6,
+        title: "Wireless Gaming Mouse - RGB High Precision",
+        price: 34.99,
+        oldPrice: 59.99,
+        discount: 42,
+        condition: "New",
+        rating: 4.6,
+        reviews: 98,
+        stock: 18,
+        category: "Electronics",
+        image: "",
+        description: "High-precision wireless gaming mouse with RGB lighting, comfortable grip and responsive controls.",
         renewed: false
     }
 
