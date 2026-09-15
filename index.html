@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
+
+<title>amaz0n</title>
+
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+
+<style>
+
+    .product-image {
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .product h2 {
+        cursor: pointer;
+    }
+
+    .stock-text {
+        font-weight: bold;
+    }
+
+    .stock-good {
+        color: #007600 !important;
+    }
+
+    .stock-low {
+        color: #b12704 !important;
+    }
+
+    .stock-out {
+        color: #cc0000 !important;
+    }
+
+    /* STORE LOGO */
+    .store-logo-link {
+        text-decoration: none;
+        color: inherit;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    #storeLogo {
+        cursor: pointer;
+    }
+
+    #storeLogo img {
+        max-height: 45px;
+        max-width: 180px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        display: block;
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<header class="top-header">
+
+<a href="./index.html" class="store-logo-link">
+
+<div class="logo" id="storeLogo">
+    amaz<span>0n</span>
+</div>
+
+</a>
+
+<div class="deliver">
+    📍 <small>Deliver to</small>
+    <b>United States</b>
+</div>
+
+<div class="search-box">
+
+<select>
+
+<option>All</option>
+<option>Electronics</option>
+<option>Mobiles</option>
+<option>Fashion</option>
+<option>Computers</option>
+
+</select>
+
+<input
+type="text"
+id="search"
+placeholder="Search amaz0n"
+
+>
+
+<button
+onclick="searchProducts()"
+
+>
+
+🔍
+
+</button>
+
+</div>
+
+<div class="language">
+    🇺🇸 EN ▾
+</div>
+
+<div class="account">
+    <small>Hello, sign in</small>
+    <b>Account & Lists ▾</b>
+</div>
+
+<div class="orders">
+    <small>Returns</small>
+    <b>& Orders</b>
+</div>
+
+<div
+    class="cart"
+    onclick="showCart()"
+>
+    🛒 <b>Cart</b>
+    <span id="cartCount">0</span>
+</div>
+
+</header>
+
+<nav class="main-nav">
+
+<div class="all">☰ All</div>
+
+<div>Today's Deals</div>
+<div>Coupons</div>
+<div>Electronics</div>
+<div>Mobiles</div>
+<div>Fashion</div>
+<div>Home</div>
+<div>Computers</div>
+<div>Beauty</div>
+<div>Sports</div>
+<div>Best Sellers</div>
+
+</nav>
+
+<div class="category-bar">
+
+<h2>Products</h2>
+
+<span>Today's Deals</span> <span>Mobiles</span> <span>Computers</span> <span>Accessories</span> <span>Headphones</span> <span>Gaming</span>
+
+</div>
+
+<main>
+
+<div class="breadcrumb">
+    Home › Featured Products
+</div>
+
+<h1>
+    Featured Products
+</h1>
+
+<div
+    class="products"
+    id="productsContainer"
+></div>
+
+</main>
+
+<div
+    id="cartBox"
+    class="cart-box"
+>
+
+<h2>
+    Shopping Cart
+</h2>
+
+<div id="cartItems"></div>
+
+<h3>
+    Total:
+    $<span id="cartTotal">0.00</span>
+</h3>
+
+<button
+onclick="checkout()"
+class="checkout"
+
+>
+
+Proceed to Checkout
+
+</button>
+
+</div>
+
+<footer>
+
+<div>
+    Back to top ↑
+</div>
+
+<p>
+    © 2026 amaz0n — All Rights Reserved
+</p>
+
+</footer>
+
+<script src="products.js"></script>
+
+<script src="script.js"></script>
+
+<script>
+
+// ========================================
+// STORE LOGO
+// ========================================
+
+function loadStoreLogo() {
+
+    const savedLogo =
+        localStorage.getItem(
+            "amaz0nLogo"
+        );
+
+    const logo =
+        document.getElementById(
+            "storeLogo"
+        );
+
+    if (!logo || !savedLogo) {
+        return;
+    }
+
+    logo.innerHTML = `
+
+        <img
+            src="${savedLogo}"
+            alt="Store Logo"
+        >
+
+    `;
+
+}
+
+
+// Load saved logo
+loadStoreLogo();
+
+
+// ========================================
+// GET PRODUCTS
+// ========================================
+
+function getProducts() {
+
+    const saved =
+        localStorage.getItem(
+            "amaz0nProducts"
+        );
+
+
+    if (saved) {
+
+        try {
+
+            return JSON.parse(saved);
+
+        } catch (error) {
+
+            console.log(
+                "Saved products error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    return products;
+
+}
+
+
+// ========================================
+// STOCK STATUS
+// ========================================
+
+function getStockStatus(stock) {
+
+    stock =
+        Number(stock);
+
+
+    if (stock <= 0) {
+
+        return {
+            text: "Out of Stock",
+            className: "stock-out"
+        };
+
+    }
+
+
+    if (stock <= 5) {
+
+        return {
+            text:
+                "Only " +
+                stock +
+                " left in stock",
+
+            className: "stock-low"
+        };
+
+    }
+
+
+    return {
+        text: "In Stock",
+        className: "stock-good"
+    };
+
+}
+
+
+// ========================================
+// SHOW PRODUCTS
+// ========================================
+
+function displayProducts(
+    productList = getProducts()
+) {
+
+    const container =
+        document.getElementById(
+            "productsContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (productList.length === 0) {
+
+        container.innerHTML =
+            "<h2>No products found.</h2>";
+
+        return;
+
+    }
+
+
+    productList.forEach(product => {
+
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "product";
+
+
+        let imageContent =
+            "📦";
+
+
+        if (product.image) {
+
+            imageContent = `
+
+                <img
+                    src="${product.image}"
+                    alt="${product.title}"
+                    onerror="this.parentElement.innerHTML='📦';"
+                >
+
+            `;
+
+        } else {
+
+            if (
+                product.category ===
+                "Mobiles"
+            ) {
+
+                imageContent =
+                    "📱";
+
+            }
+
+            if (
+                product.category ===
+                "Electronics"
+            ) {
+
+                imageContent =
+                    "🎧";
+
+            }
+
+            if (
+                product.category ===
+                "Computers"
+            ) {
+
+                imageContent =
+                    "💻";
+
+            }
+
+        }
+
+
+        const stock =
+            getStockStatus(
+                product.stock
+            );
+
+
+        // ========================================
+        // BUY NOW BUTTON
+        // ========================================
+
+        const addButton =
+            product.stock > 0
+
+                ? `
+
+                    <button
+                        onclick="buyNow(${product.id})"
+                    >
+                        Buy Now
+                    </button>
+
+                `
+
+                : `
+
+                    <button
+                        disabled
+                        style="
+                            background:#ddd;
+                            cursor:not-allowed;
+                        "
+                    >
+                        Out of Stock
+                    </button>
+
+                `;
+
+
+        card.innerHTML = `
+
+            <div
+                class="product-image"
+                onclick="openProduct(${product.id})"
+            >
+                ${imageContent}
+            </div>
+
+
+            <h2
+                onclick="openProduct(${product.id})"
+            >
+                ${product.title}
+            </h2>
+
+
+            <div class="stars">
+
+                ${getStars(product.rating)}
+
+                <span>
+                    (${product.reviews})
+                </span>
+
+            </div>
+
+
+            <p>
+                ${product.description}
+            </p>
+
+
+            <div class="price">
+
+                <sup>$</sup>
+                ${Number(product.price).toFixed(2)}
+
+            </div>
+
+
+            ${
+                product.oldPrice > product.price
+
+                ? `
+
+                    <p style="
+                        color:#555;
+                        margin:5px 0;
+                    ">
+
+                        List Price:
+                        <del>
+                            $${Number(product.oldPrice).toFixed(2)}
+                        </del>
+
+                        <strong
+                            style="
+                                color:#b12704;
+                                margin-left:6px;
+                            "
+                        >
+                            ${product.discount}% OFF
+                        </strong>
+
+                    </p>
+
+                `
+
+                : ""
+
+            }
+
+
+            <p
+                class="stock-text ${stock.className}"
+            >
+                ${stock.text}
+            </p>
+
+
+            <p class="delivery">
+                FREE Delivery
+            </p>
+
+
+            ${addButton}
+
+        `;
+
+
+        card.addEventListener(
+            "dblclick",
+            function() {
+
+                openProduct(
+                    product.id
+                );
+
+            }
+        );
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+// ========================================
+// BUY NOW
+// ========================================
+
+function buyNow(id) {
+
+    const allProducts =
+        getProducts();
+
+
+    const product =
+        allProducts.find(
+            p =>
+                Number(p.id) ===
+                Number(id)
+        );
+
+
+    if (!product) {
+
+        alert(
+            "Product not found."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "amaz0nBuyNow",
+        JSON.stringify(product)
+    );
+
+
+    window.location.href =
+        "checkout.html";
+
+}
+
+
+// ========================================
+// STARS
+// ========================================
+
+function getStars(rating) {
+
+    let stars = "";
+
+
+    for (
+        let i = 1;
+        i <= 5;
+        i++
+    ) {
+
+        if (
+            i <=
+            Math.floor(rating)
+        ) {
+
+            stars += "★";
+
+        } else {
+
+            stars += "☆";
+
+        }
+
+    }
+
+
+    return stars;
+
+}
+
+
+// ========================================
+// OPEN PRODUCT
+// ========================================
+
+function openProduct(id) {
+
+    window.location.href =
+        "product.html?id=" +
+        id;
+
+}
+
+
+// ========================================
+// SEARCH
+// ========================================
+
+function searchProducts() {
+
+    const input =
+        document.getElementById(
+            "search"
+        );
+
+
+    const search =
+        input.value
+            .toLowerCase()
+            .trim();
+
+
+    const allProducts =
+        getProducts();
+
+
+    if (search === "") {
+
+        displayProducts(
+            allProducts
+        );
+
+        return;
+
+    }
+
+
+    const results =
+        allProducts.filter(
+            product =>
+
+                product.title
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                product.category
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                product.description
+                    .toLowerCase()
+                    .includes(search)
+        );
+
+
+    displayProducts(
+        results
+    );
+
+}
+
+
+// ========================================
+// ENTER SEARCH
+// ========================================
+
+document
+    .getElementById("search")
+    .addEventListener(
+        "keypress",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                searchProducts();
+
+            }
+
+        }
+    );
+
+
+// ========================================
+// START
+// ========================================
+
+displayProducts(
+    getProducts()
+);
+
+</script>
+
+</body>
+</html>
