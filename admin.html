@@ -1,65 +1,66 @@
-<!DOCTYPE html> 
- 
-<html lang="en"> 
- 
-<head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
- 
-    <title>amaz0n - Admin Products</title> 
- 
-    <link rel="stylesheet" href="style.css"> 
- 
-    <style> 
- 
-        body { 
-            background: #eaeded; 
-        } 
- 
-        .admin-header { 
-            background: #131921; 
-            color: white; 
-            padding: 18px 25px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-        } 
- 
-        .admin-header h1 { 
-            margin: 0; 
-            font-size: 25px; 
-        } 
- 
-        .back-btn { 
-            background: #febd69; 
-            color: #111; 
-            border: 0; 
-            padding: 10px 18px; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            font-weight: bold; 
-        } 
- 
-        .admin-container { 
-            max-width: 1200px; 
-            margin: 25px auto; 
-            padding: 0 20px; 
-        } 
- 
-        .admin-box { 
-            background: white; 
-            padding: 25px; 
-            margin-bottom: 25px; 
-            border-radius: 5px; 
-            box-shadow: 0 1px 5px #ccc; 
-        } 
- 
-        .admin-box h2 { 
-            margin-top: 0; 
-            border-bottom: 1px solid #ddd; 
-            padding-bottom: 15px; 
-        } 
- 
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>amaz0n - Admin Products</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+            background: #eaeded;
+        }
+
+        .admin-header {
+            background: #131921;
+            color: white;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        .back-btn {
+            background: #febd69;
+            color: #111;
+            border: 0;
+            padding: 10px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        .admin-box {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            box-shadow: 0 1px 5px #ccc;
+        }
+
+        .admin-box h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+        }
+
         /* =========================
            STORE LOGO
         ========================= */
@@ -138,520 +139,520 @@
         /* =========================
            PRODUCT FORM
         ========================= */
- 
-        .form-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 15px; 
-        } 
- 
-        .form-group { 
-            display: flex; 
-            flex-direction: column; 
-        } 
- 
-        .form-group.full { 
-            grid-column: 1 / -1; 
-        } 
- 
-        .form-group label { 
-            font-weight: bold; 
-            margin-bottom: 6px; 
-            font-size: 14px; 
-        } 
- 
-        .form-group input, 
-        .form-group select, 
-        .form-group textarea { 
-            padding: 11px; 
-            border: 1px solid #aaa; 
-            border-radius: 4px; 
-            font-size: 14px; 
-        } 
- 
-        .form-group textarea { 
-            min-height: 100px; 
-            resize: vertical; 
-        } 
- 
-        .image-upload { 
-            border: 2px dashed #aaa; 
-            padding: 20px; 
-            background: #fafafa; 
-            text-align: center; 
-            border-radius: 5px; 
-        } 
- 
-        .image-upload input { 
-            margin-top: 10px; 
-            border: 0; 
-            padding: 0; 
-        } 
- 
-        .image-help { 
-            color: #666; 
-            font-size: 13px; 
-            margin-top: 8px; 
-        } 
- 
-        /* ========================= 
-           MULTIPLE IMAGE PREVIEW 
-        ========================= */ 
- 
-        .image-preview { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 12px; 
-            margin-top: 15px; 
-            justify-content: center; 
-        } 
- 
-        .uploaded-image { 
-            position: relative; 
-            width: 120px; 
-            height: 120px; 
-            background: #f7f7f7; 
-            border: 1px solid #ddd; 
-            border-radius: 5px; 
-            overflow: hidden; 
-        } 
- 
-        .uploaded-image img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: contain; 
-        } 
- 
-        .remove-image { 
-            position: absolute; 
-            top: 5px; 
-            right: 5px; 
-            width: 25px; 
-            height: 25px; 
-            padding: 0; 
-            border: 0; 
-            border-radius: 50%; 
-            background: #d11a2a; 
-            color: white; 
-            font-size: 18px; 
-            line-height: 25px; 
-            cursor: pointer; 
-        } 
- 
-        .main-image-label { 
-            position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
-            background: rgba(0,0,0,.65); 
-            color: white; 
-            font-size: 11px; 
-            padding: 4px; 
-        } 
- 
-        .discount-display { 
-            margin-top: 7px; 
-            color: #b12704; 
-            font-weight: bold; 
-        } 
- 
-        .stock-status { 
-            margin-top: 7px; 
-            font-weight: bold; 
-        } 
- 
-        .stock-good { 
-            color: #007600; 
-            font-weight: bold; 
-        } 
- 
-        .stock-low { 
-            color: #b12704; 
-            font-weight: bold; 
-        } 
- 
-        .stock-out { 
-            color: #cc0000; 
-            font-weight: bold; 
-        } 
- 
-        .checkbox-row { 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            margin-top: 25px; 
-        } 
- 
-        .checkbox-row input { 
-            width: 18px; 
-            height: 18px; 
-        } 
- 
-        .form-buttons { 
-            margin-top: 20px; 
-            display: flex; 
-            gap: 10px; 
-        } 
- 
-        .save-btn { 
-            background: #ffd814; 
-            border: 1px solid #fcd200; 
-            padding: 12px 25px; 
-            border-radius: 20px; 
-            cursor: pointer; 
-            font-weight: bold; 
-        } 
- 
-        .cancel-btn { 
-            background: #ddd; 
-            border: 1px solid #aaa; 
-            padding: 12px 25px; 
-            border-radius: 20px; 
-            cursor: pointer; 
-        } 
- 
-        .preview-box { 
-            margin-top: 25px; 
-            border-top: 1px solid #ddd; 
-            padding-top: 20px; 
-        } 
- 
-        .preview-card { 
-            border: 1px solid #ddd; 
-            padding: 20px; 
-            max-width: 500px; 
-            background: white; 
-        } 
- 
-        .preview-image { 
-            height: 180px; 
-            background: #f7f7f7; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            overflow: hidden; 
-            margin-bottom: 15px; 
-            font-size: 80px; 
-        } 
- 
-        .preview-image img { 
-            max-width: 100%; 
-            max-height: 100%; 
-            object-fit: contain; 
-        } 
- 
-        .preview-title { 
-            font-size: 20px; 
-            margin-bottom: 8px; 
-        } 
- 
-        .preview-price { 
-            font-size: 27px; 
-            margin: 10px 0; 
-        } 
- 
-        .preview-old-price { 
-            color: #555; 
-        } 
- 
-        .preview-discount { 
-            color: #b12704; 
-            font-weight: bold; 
-            margin-left: 8px; 
-        } 
- 
-        .preview-stock { 
-            margin-top: 10px; 
-            font-weight: bold; 
-        } 
- 
-        .products-table { 
-            width: 100%; 
-            border-collapse: collapse; 
-        } 
- 
-        .products-table th, 
-        .products-table td { 
-            border-bottom: 1px solid #ddd; 
-            padding: 12px 8px; 
-            text-align: left; 
-            vertical-align: middle; 
-        } 
- 
-        .products-table th { 
-            background: #f3f3f3; 
-        } 
- 
-        .product-admin-image { 
-            width: 60px; 
-            height: 60px; 
-            object-fit: contain; 
-            background: #f7f7f7; 
-        } 
- 
-        .edit-btn { 
-            background: #ffd814; 
-            border: 0; 
-            padding: 8px 14px; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            margin-right: 5px; 
-        } 
- 
-        .delete-btn { 
-            background: #e7e7e7; 
-            border: 1px solid #999; 
-            padding: 8px 14px; 
-            border-radius: 4px; 
-            cursor: pointer; 
-        } 
- 
-        .empty-message { 
-            text-align: center; 
-            padding: 25px; 
-            color: #666; 
-        } 
- 
-        /* ========================= 
-           PRODUCT INFORMATION 
-        ========================= */ 
- 
-        .builder-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            gap: 10px; 
-            margin-bottom: 15px; 
-        } 
- 
-        .builder-header h2 { 
-            margin: 0; 
-            border: 0; 
-            padding: 0; 
-        } 
- 
-        .add-section-btn, 
-        .add-review-btn { 
-            background: #007185; 
-            color: white; 
-            border: 0; 
-            padding: 10px 16px; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            font-weight: bold; 
-        } 
- 
-        .add-section-btn:hover, 
-        .add-review-btn:hover { 
-            background: #005f6b; 
-        } 
- 
-        .builder-help { 
-            color: #666; 
-            font-size: 13px; 
-            margin-bottom: 15px; 
-        } 
- 
-        .section-item { 
-            border: 1px solid #ccc; 
-            background: #fafafa; 
-            padding: 15px; 
-            margin-bottom: 12px; 
-            border-radius: 5px; 
-        } 
- 
-        .section-top { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 12px; 
-        } 
- 
-        .section-number { 
-            font-weight: bold; 
-            color: #555; 
-        } 
- 
-        .remove-section-btn, 
-        .remove-review-btn { 
-            background: #d11a2a; 
-            color: white; 
-            border: 0; 
-            padding: 7px 12px; 
-            border-radius: 4px; 
-            cursor: pointer; 
-        } 
- 
-        .section-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 12px; 
-        } 
- 
-        .section-field { 
-            display: flex; 
-            flex-direction: column; 
-        } 
- 
-        .section-field.full { 
-            grid-column: 1 / -1; 
-        } 
- 
-        .section-field label { 
-            font-weight: bold; 
-            font-size: 13px; 
-            margin-bottom: 5px; 
-        } 
- 
-        .section-field input, 
-        .section-field textarea { 
-            padding: 10px; 
-            border: 1px solid #aaa; 
-            border-radius: 4px; 
-            font-size: 14px; 
-        } 
- 
-        .section-field textarea { 
-            min-height: 110px; 
-            resize: vertical; 
-        } 
- 
-        /* ========================= 
-           REVIEWS 
-        ========================= */ 
- 
-        .review-item { 
-            border: 1px solid #ccc; 
-            background: #fafafa; 
-            padding: 15px; 
-            margin-bottom: 12px; 
-            border-radius: 5px; 
-        } 
- 
-        .review-top { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 12px; 
-        } 
- 
-        .review-number { 
-            font-weight: bold; 
-            color: #555; 
-        } 
- 
-        .review-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 12px; 
-        } 
- 
-        .review-field { 
-            display: flex; 
-            flex-direction: column; 
-        } 
- 
-        .review-field.full { 
-            grid-column: 1 / -1; 
-        } 
- 
-        .review-field label { 
-            font-weight: bold; 
-            font-size: 13px; 
-            margin-bottom: 5px; 
-        } 
- 
-        .review-field input, 
-        .review-field select, 
-        .review-field textarea { 
-            padding: 10px; 
-            border: 1px solid #aaa; 
-            border-radius: 4px; 
-            font-size: 14px; 
-        } 
- 
-        .review-field textarea { 
-            min-height: 100px; 
-            resize: vertical; 
-        } 
- 
-        .no-builder-items { 
-            padding: 20px; 
-            text-align: center; 
-            color: #777; 
-            border: 1px dashed #bbb; 
-            background: #fafafa; 
-        } 
- 
-        .section-image-preview { 
-            margin-top: 7px; 
-        } 
- 
-        .section-image-preview img { 
-            max-width: 120px; 
-            max-height: 100px; 
-            object-fit: contain; 
-            border: 1px solid #ddd; 
-            background: white; 
-        } 
- 
-        @media (max-width: 700px) { 
- 
-            .form-grid { 
-                grid-template-columns: 1fr; 
-            } 
- 
-            .products-table { 
-                font-size: 12px; 
-            } 
- 
-            .products-table th, 
-            .products-table td { 
-                padding: 7px 4px; 
-            } 
- 
-            .admin-container { 
-                padding: 0 10px; 
-            } 
- 
-            .section-grid, 
-            .review-grid { 
-                grid-template-columns: 1fr; 
-            } 
- 
-            .section-field.full, 
-            .review-field.full { 
-                grid-column: auto; 
-            } 
- 
-            .builder-header { 
-                align-items: flex-start; 
-                flex-direction: column; 
-            } 
- 
-        } 
- 
-    </style> 
- 
-</head> 
- 
-<body> 
- 
-<div class="admin-header"> 
- 
-    <h1>amaz0n Admin Panel</h1> 
- 
-    <button 
-        class="back-btn" 
-        onclick="goHome()" 
-    > 
-        ← Back to Store 
-    </button> 
- 
-</div> 
- 
- 
-<div class="admin-container"> 
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 11px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .image-upload {
+            border: 2px dashed #aaa;
+            padding: 20px;
+            background: #fafafa;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .image-upload input {
+            margin-top: 10px;
+            border: 0;
+            padding: 0;
+        }
+
+        .image-help {
+            color: #666;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        /* =========================
+           MULTIPLE IMAGE PREVIEW
+        ========================= */
+
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .uploaded-image {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            background: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .uploaded-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 25px;
+            height: 25px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: #d11a2a;
+            color: white;
+            font-size: 18px;
+            line-height: 25px;
+            cursor: pointer;
+        }
+
+        .main-image-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,.65);
+            color: white;
+            font-size: 11px;
+            padding: 4px;
+        }
+
+        .discount-display {
+            margin-top: 7px;
+            color: #b12704;
+            font-weight: bold;
+        }
+
+        .stock-status {
+            margin-top: 7px;
+            font-weight: bold;
+        }
+
+        .stock-good {
+            color: #007600;
+            font-weight: bold;
+        }
+
+        .stock-low {
+            color: #b12704;
+            font-weight: bold;
+        }
+
+        .stock-out {
+            color: #cc0000;
+            font-weight: bold;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .checkbox-row input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .form-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .save-btn {
+            background: #ffd814;
+            border: 1px solid #fcd200;
+            padding: 12px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cancel-btn {
+            background: #ddd;
+            border: 1px solid #aaa;
+            padding: 12px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .preview-box {
+            margin-top: 25px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .preview-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            max-width: 500px;
+            background: white;
+        }
+
+        .preview-image {
+            height: 180px;
+            background: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-bottom: 15px;
+            font-size: 80px;
+        }
+
+        .preview-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .preview-title {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .preview-price {
+            font-size: 27px;
+            margin: 10px 0;
+        }
+
+        .preview-old-price {
+            color: #555;
+        }
+
+        .preview-discount {
+            color: #b12704;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .preview-stock {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .products-table th,
+        .products-table td {
+            border-bottom: 1px solid #ddd;
+            padding: 12px 8px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .products-table th {
+            background: #f3f3f3;
+        }
+
+        .product-admin-image {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            background: #f7f7f7;
+        }
+
+        .edit-btn {
+            background: #ffd814;
+            border: 0;
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .delete-btn {
+            background: #e7e7e7;
+            border: 1px solid #999;
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 25px;
+            color: #666;
+        }
+
+        /* =========================
+           PRODUCT INFORMATION
+        ========================= */
+
+        .builder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .builder-header h2 {
+            margin: 0;
+            border: 0;
+            padding: 0;
+        }
+
+        .add-section-btn,
+        .add-review-btn {
+            background: #007185;
+            color: white;
+            border: 0;
+            padding: 10px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .add-section-btn:hover,
+        .add-review-btn:hover {
+            background: #005f6b;
+        }
+
+        .builder-help {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .section-item {
+            border: 1px solid #ccc;
+            background: #fafafa;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 5px;
+        }
+
+        .section-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .section-number {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .remove-section-btn,
+        .remove-review-btn {
+            background: #d11a2a;
+            color: white;
+            border: 0;
+            padding: 7px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .section-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .section-field label {
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .section-field input,
+        .section-field textarea {
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .section-field textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        /* =========================
+           REVIEWS
+        ========================= */
+
+        .review-item {
+            border: 1px solid #ccc;
+            background: #fafafa;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 5px;
+        }
+
+        .review-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .review-number {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .review-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .review-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .review-field label {
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .review-field input,
+        .review-field select,
+        .review-field textarea {
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .review-field textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .no-builder-items {
+            padding: 20px;
+            text-align: center;
+            color: #777;
+            border: 1px dashed #bbb;
+            background: #fafafa;
+        }
+
+        .section-image-preview {
+            margin-top: 7px;
+        }
+
+        .section-image-preview img {
+            max-width: 120px;
+            max-height: 100px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            background: white;
+        }
+
+        @media (max-width: 700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-table {
+                font-size: 12px;
+            }
+
+            .products-table th,
+            .products-table td {
+                padding: 7px 4px;
+            }
+
+            .admin-container {
+                padding: 0 10px;
+            }
+
+            .section-grid,
+            .review-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-field.full,
+            .review-field.full {
+                grid-column: auto;
+            }
+
+            .builder-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="admin-header">
+
+    <h1>amaz0n Admin Panel</h1>
+
+    <button
+        class="back-btn"
+        onclick="goHome()"
+    >
+        ← Back to Store
+    </button>
+
+</div>
+
+
+<div class="admin-container">
 
 
 <!-- =========================
@@ -721,500 +722,525 @@
 </div>
 
 
-<div class="admin-box"> 
- 
-<h2 id="formTitle"> 
-    Add New Product 
-</h2> 
- 
- 
-<form id="productForm"> 
- 
- 
-    <div class="form-grid"> 
- 
- 
-        <div class="form-group full"> 
- 
-            <label> 
-                Product Name 
-            </label> 
- 
-            <input 
-                type="text" 
-                id="title" 
-                placeholder="Example: Apple iPhone 17e" 
-                required 
-            > 
- 
-        </div> 
- 
- 
-        <div class="form-group"> 
- 
-            <label> 
-                Sale Price ($) 
-            </label> 
- 
-            <input 
-                type="number" 
-                id="price" 
-                step="0.01" 
-                min="0" 
-                required 
-            > 
- 
-        </div> 
- 
- 
-        <div class="form-group"> 
- 
-            <label> 
-                Old Price ($) 
-            </label> 
- 
-            <input 
-                type="number" 
-                id="oldPrice" 
-                step="0.01" 
-                min="0" 
-            > 
- 
-            <div 
-                class="discount-display" 
-                id="discountDisplay" 
-            > 
-                Discount: 0% 
-            </div> 
- 
-        </div> 
- 
- 
-        <div class="form-group"> 
- 
-            <label> 
-                Stock Quantity 
-            </label> 
- 
-            <input 
-                type="number" 
-                id="stock" 
-                min="0" 
-                value="0" 
-                required 
-            > 
- 
-            <div 
-                class="stock-status" 
-                id="stockStatus" 
-            > 
-                Out of Stock 
-            </div> 
- 
-        </div> 
- 
- 
-        <div class="form-group"> 
- 
-            <label> 
-                Rating 
-            </label> 
- 
-            <input 
-                type="number" 
-                id="rating" 
-                min="0" 
-                max="5" 
-                step="0.1" 
-                value="4.5" 
-            > 
- 
-        </div> 
- 
- 
-        <div class="form-group"> 
- 
-            <label> 
-                Reviews 
-            </label> 
- 
-            <input 
-                type="number" 
-                id="reviews" 
-                min="0" 
-                value="0" 
-            > 
- 
-        </div> 
- 
- 
-        <div class="form-group"> 
- 
-            <label> 
-                Category 
-            </label> 
- 
-            <select id="category"> 
- 
-                <option value="Mobiles">Mobiles</option> 
-                <option value="Electronics">Electronics</option> 
-                <option value="Computers">Computers</option> 
-                <option value="Home">Home</option> 
-                <option value="Fashion">Fashion</option> 
-                <option value="Beauty">Beauty</option> 
-                <option value="Other">Other</option> 
- 
-            </select> 
- 
-        </div> 
- 
- 
-        <div class="form-group"> 
- 
-            <label> 
-                Condition 
-            </label> 
- 
-            <select id="condition"> 
- 
-                <option value="New">New</option> 
- 
-                <option value="Renewed"> 
-                    Renewed 
-                </option> 
- 
-                <option value="Renewed Premium"> 
-                    Renewed Premium 
-                </option> 
- 
-                <option value="Used"> 
-                    Used 
-                </option> 
- 
-            </select> 
- 
-        </div> 
- 
- 
-        <!-- ========================= 
-             MULTIPLE IMAGE UPLOAD 
-        ========================== --> 
- 
-        <div class="form-group full"> 
- 
-            <label> 
-                Product Images 
-            </label> 
- 
-            <div class="image-upload"> 
- 
-                <strong> 
-                    Choose multiple product images 
-                </strong> 
- 
-                <br> 
- 
-                <input 
-                    type="file" 
-                    id="imageFiles" 
-                    accept="image/*" 
-                    multiple 
-                > 
- 
-                <div class="image-help"> 
-                    JPG, PNG or WEBP recommended. 
-                    You can select multiple images. 
-                    Maximum 2MB each. 
-                </div> 
- 
-                <div 
-                    class="image-preview" 
-                    id="imagePreview" 
-                ></div> 
- 
-            </div> 
- 
-        </div> 
- 
- 
-        <div class="form-group full"> 
- 
-            <label> 
-                Image URL (optional) 
-            </label> 
- 
-            <input 
-                type="text" 
-                id="image" 
-                placeholder="Or paste an image URL" 
-            > 
- 
-        </div> 
- 
- 
-        <div class="form-group full"> 
- 
-            <label> 
-                Description 
-            </label> 
- 
-            <textarea 
-                id="description" 
-                placeholder="Write product description..." 
-            ></textarea> 
- 
-        </div> 
- 
- 
-        <div class="checkbox-row"> 
- 
-            <input 
-                type="checkbox" 
-                id="renewed" 
-            > 
- 
-            <label for="renewed"> 
-                Renewed Product 
-            </label> 
- 
-        </div> 
- 
- 
-    </div> 
- 
- 
-    <!-- ========================= 
-         PRODUCT INFORMATION BUILDER 
-    ========================== --> 
- 
-    <div class="admin-box" style="padding:0; margin-top:25px; box-shadow:none;"> 
- 
-        <div class="builder-header"> 
- 
-            <h2> 
-                Product Information 
-            </h2> 
- 
-            <button 
-                type="button" 
-                class="add-section-btn" 
-                onclick="addInformationSection()" 
-            > 
-                + Add Information Section 
-            </button> 
- 
-        </div> 
- 
-        <div class="builder-help"> 
- 
-            Add as many sections as you want. 
-            Each product can have different sections. 
-            Example: Item details, Features & Specs, 
-            Style, Materials & Care, Warranty, What's Included, etc. 
- 
-        </div> 
- 
-        <div 
-            id="informationSections" 
-        ></div> 
- 
-    </div> 
- 
- 
-    <!-- ========================= 
-         CUSTOMER REVIEWS 
-    ========================== --> 
- 
-    <div class="admin-box" style="padding:0; margin-top:25px; box-shadow:none;"> 
- 
-        <div class="builder-header"> 
- 
-            <h2> 
-                Customer Reviews 
-            </h2> 
- 
-            <button 
-                type="button" 
-                class="add-review-btn" 
-                onclick="addReview()" 
-            > 
-                + Add Review 
-            </button> 
- 
-        </div> 
- 
-        <div class="builder-help"> 
- 
-            Add reviews manually for this product. 
-            You can add as many reviews as you want. 
- 
-        </div> 
- 
-        <div 
-            id="reviewsContainer" 
-        ></div> 
- 
-    </div> 
- 
- 
-    <div class="form-buttons"> 
- 
-        <button 
-            type="submit" 
-            class="save-btn" 
-            id="saveButton" 
-        > 
-            Add Product 
-        </button> 
- 
-        <button 
-            type="button" 
-            class="cancel-btn" 
-            onclick="resetForm()" 
-        > 
-            Cancel 
-        </button> 
- 
-    </div> 
- 
- 
-</form> 
- 
- 
-<!-- LIVE PREVIEW --> 
- 
-<div class="preview-box"> 
- 
-    <h2> 
-        Product Preview 
-    </h2> 
- 
-    <div class="preview-card"> 
- 
-        <div 
-            class="preview-image" 
-            id="previewImage" 
-        > 
-            📦 
-        </div> 
- 
-        <div 
-            class="preview-title" 
-            id="previewTitle" 
-        > 
-            Product Name 
-        </div> 
- 
-        <div class="stars"> 
- 
-            <span id="previewStars"> 
-                ☆☆☆☆☆ 
-            </span> 
- 
-            <span id="previewReviews"> 
-                (0) 
-            </span> 
- 
-        </div> 
- 
-        <div class="preview-price"> 
- 
-            $<span id="previewPrice"> 
-                0.00 
-            </span> 
- 
-        </div> 
- 
-        <div class="preview-old-price"> 
- 
-            List Price: 
- 
-            <del> 
-                $<span id="previewOldPrice"> 
-                    0.00 
-                </span> 
-            </del> 
- 
-            <span 
-                class="preview-discount" 
-                id="previewDiscount" 
-            > 
-                0% off 
-            </span> 
- 
-        </div> 
- 
-        <div 
-            class="preview-stock" 
-            id="previewStock" 
-        > 
-            Out of Stock 
-        </div> 
- 
-        <p id="previewDescription"> 
-            Product description will appear here. 
-        </p> 
- 
-    </div> 
- 
-</div> 
- 
-</div> 
- 
- 
-<!-- ALL PRODUCTS --> 
- 
-<div class="admin-box"> 
- 
-<h2> 
-    All Products 
-</h2> 
- 
-<div style="overflow-x:auto;"> 
- 
-    <table class="products-table"> 
- 
-        <thead> 
- 
-            <tr> 
- 
-                <th>Image</th> 
-                <th>Product</th> 
-                <th>Price</th> 
-                <th>Discount</th> 
-                <th>Stock</th> 
-                <th>Category</th> 
-                <th>Action</th> 
- 
-            </tr> 
- 
-        </thead> 
- 
-        <tbody id="adminProducts"></tbody> 
- 
-    </table> 
- 
-</div> 
- 
-</div> 
- 
-</div> 
- 
- 
-<script src="products.js"></script> 
- 
- 
-<script> 
- 
-let adminProducts = []; 
- 
-let editingId = null; 
- 
-let selectedImages = []; 
- 
-let informationSections = []; 
- 
-let productReviews = []; 
+<div class="admin-box">
+
+<h2 id="formTitle">
+    Add New Product
+</h2>
+
+
+<form id="productForm">
+
+
+    <div class="form-grid">
+
+
+        <div class="form-group full">
+
+            <label>
+                Product Name
+            </label>
+
+            <input
+                type="text"
+                id="title"
+                placeholder="Example: Apple iPhone 17e"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Sale Price ($)
+            </label>
+
+            <input
+                type="number"
+                id="price"
+                step="0.01"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Old Price ($)
+            </label>
+
+            <input
+                type="number"
+                id="oldPrice"
+                step="0.01"
+                min="0"
+            >
+
+            <div
+                class="discount-display"
+                id="discountDisplay"
+            >
+                Discount: 0%
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Stock Quantity
+            </label>
+
+            <input
+                type="number"
+                id="stock"
+                min="0"
+                value="0"
+                required
+            >
+
+            <div
+                class="stock-status"
+                id="stockStatus"
+            >
+                Out of Stock
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Rating
+            </label>
+
+            <input
+                type="number"
+                id="rating"
+                min="0"
+                max="5"
+                step="0.1"
+                value="4.5"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Reviews
+            </label>
+
+            <input
+                type="number"
+                id="reviews"
+                min="0"
+                value="0"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Category
+            </label>
+
+            <select id="category">
+
+                <option value="Mobiles">Mobiles</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Computers">Computers</option>
+                <option value="Home">Home</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Beauty">Beauty</option>
+                <option value="Other">Other</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Condition
+            </label>
+
+            <select id="condition">
+
+                <option value="New">New</option>
+
+                <option value="Renewed">
+                    Renewed
+                </option>
+
+                <option value="Renewed Premium">
+                    Renewed Premium
+                </option>
+
+                <option value="Used">
+                    Used
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- =========================
+             MULTIPLE IMAGE UPLOAD
+        ========================== -->
+
+        <div class="form-group full">
+
+            <label>
+                Product Images
+            </label>
+
+            <div class="image-upload">
+
+                <strong>
+                    Choose multiple product images
+                </strong>
+
+                <br>
+
+                <input
+                    type="file"
+                    id="imageFiles"
+                    accept="image/*"
+                    multiple
+                >
+
+                <div class="image-help">
+                    JPG, PNG or WEBP recommended.
+                    You can select multiple images.
+                    Maximum 2MB each.
+                </div>
+
+                <div
+                    class="image-preview"
+                    id="imagePreview"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group full">
+
+            <label>
+                Image URL (optional)
+            </label>
+
+            <input
+                type="text"
+                id="image"
+                placeholder="Or paste an image URL"
+            >
+
+        </div>
+
+
+        <div class="form-group full">
+
+            <label>
+                Description
+            </label>
+
+            <textarea
+                id="description"
+                placeholder="Write product description..."
+            ></textarea>
+
+        </div>
+
+
+        <div class="checkbox-row">
+
+            <input
+                type="checkbox"
+                id="renewed"
+            >
+
+            <label for="renewed">
+                Renewed Product
+            </label>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================
+         PRODUCT INFORMATION BUILDER
+    ========================== -->
+
+    <div class="admin-box" style="padding:0; margin-top:25px; box-shadow:none;">
+
+        <div class="builder-header">
+
+            <h2>
+                Product Information
+            </h2>
+
+            <button
+                type="button"
+                class="add-section-btn"
+                onclick="addInformationSection()"
+            >
+                + Add Information Section
+            </button>
+
+        </div>
+
+        <div class="builder-help">
+
+            Add as many sections as you want.
+            Each product can have different sections.
+            Example: Item details, Features & Specs,
+            Style, Materials & Care, Warranty, What's Included, etc.
+
+        </div>
+
+        <div
+            id="informationSections"
+        ></div>
+
+    </div>
+
+
+    <!-- =========================
+         CUSTOMER REVIEWS
+    ========================== -->
+
+    <div class="admin-box" style="padding:0; margin-top:25px; box-shadow:none;">
+
+        <div class="builder-header">
+
+            <h2>
+                Customer Reviews
+            </h2>
+
+            <button
+                type="button"
+                class="add-review-btn"
+                onclick="addReview()"
+            >
+                + Add Review
+            </button>
+
+        </div>
+
+        <div class="builder-help">
+
+            Add reviews manually for this product.
+            You can add as many reviews as you want.
+
+        </div>
+
+        <div
+            id="reviewsContainer"
+        ></div>
+
+    </div>
+
+
+    <div class="form-buttons">
+
+        <button
+            type="submit"
+            class="save-btn"
+            id="saveButton"
+        >
+            Add Product
+        </button>
+
+        <button
+            type="button"
+            class="cancel-btn"
+            onclick="resetForm()"
+        >
+            Cancel
+        </button>
+
+    </div>
+
+
+</form>
+
+
+<!-- LIVE PREVIEW -->
+
+<div class="preview-box">
+
+    <h2>
+        Product Preview
+    </h2>
+
+    <div class="preview-card">
+
+        <div
+            class="preview-image"
+            id="previewImage"
+        >
+            📦
+        </div>
+
+        <div
+            class="preview-title"
+            id="previewTitle"
+        >
+            Product Name
+        </div>
+
+        <div class="stars">
+
+            <span id="previewStars">
+                ☆☆☆☆☆
+            </span>
+
+            <span id="previewReviews">
+                (0)
+            </span>
+
+        </div>
+
+        <div class="preview-price">
+
+            $<span id="previewPrice">
+                0.00
+            </span>
+
+        </div>
+
+        <div class="preview-old-price">
+
+            List Price:
+
+            <del>
+                $<span id="previewOldPrice">
+                    0.00
+                </span>
+            </del>
+
+            <span
+                class="preview-discount"
+                id="previewDiscount"
+            >
+                0% off
+            </span>
+
+        </div>
+
+        <div
+            class="preview-stock"
+            id="previewStock"
+        >
+            Out of Stock
+        </div>
+
+        <p id="previewDescription">
+            Product description will appear here.
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- ALL PRODUCTS -->
+
+<div class="admin-box">
+
+<h2>
+    All Products
+</h2>
+
+<div style="overflow-x:auto;">
+
+    <table class="products-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Discount</th>
+                <th>Stock</th>
+                <th>Category</th>
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="adminProducts"></tbody>
+
+    </table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="products.js"></script>
+
+
+<script>
+
+/* ========================================
+   SUPABASE
+======================================== */
+
+const SUPABASE_URL =
+    "https://couztwgxdpisnqurlvbs.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_V6cuw9f9Q6aAYsd_4xGebQ_cZcEZSTU";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* ========================================
+   VARIABLES
+======================================== */
+
+let adminProducts = [];
+
+let editingId = null;
+
+let selectedImages = [];
+
+let informationSections = [];
+
+let productReviews = [];
 
 
 /* ========================================
@@ -1231,7 +1257,9 @@ let selectedStoreLogo = "";
 function loadStoreLogo() {
 
     const savedLogo =
-        localStorage.getItem("amaz0nLogo");
+        localStorage.getItem(
+            "amaz0nLogo"
+        );
 
     const preview =
         document.getElementById(
@@ -1433,1955 +1461,2562 @@ function removeStoreLogo() {
 
 }
 
- 
-/* ======================================== 
-   LOAD 
-======================================== */ 
- 
-function loadProducts() { 
- 
-    const saved = 
-        localStorage.getItem("amaz0nProducts"); 
- 
-    if (saved) { 
- 
-        try { 
- 
-            adminProducts = 
-                JSON.parse(saved); 
- 
-        } catch (error) { 
- 
-            adminProducts = 
-                [...products]; 
- 
-        } 
- 
-    } else { 
- 
-        adminProducts = 
-            [...products]; 
- 
-    } 
- 
- 
-    adminProducts.forEach(product => { 
- 
-        if (!Array.isArray(product.images)) { 
- 
-            product.images = 
-                product.image 
-                    ? [product.image] 
-                    : []; 
- 
-        } 
- 
-        if (!Array.isArray(product.informationSections)) { 
- 
-            product.informationSections = []; 
- 
-        } 
- 
-        if (!Array.isArray(product.customerReviews)) { 
- 
-            product.customerReviews = []; 
- 
-        } 
- 
-    }); 
- 
- 
-    displayAdminProducts(); 
- 
-    updatePreview(); 
- 
-    renderInformationSections(); 
- 
-    renderReviews(); 
- 
-} 
- 
- 
-/* ======================================== 
-   SAVE 
-======================================== */ 
- 
-function saveProducts() { 
- 
-    try { 
- 
-        localStorage.setItem( 
-            "amaz0nProducts", 
-            JSON.stringify(adminProducts) 
-        ); 
- 
-        return true; 
- 
-    } catch (error) { 
- 
-        alert( 
-            "Image/data is too large for browser storage. Please use smaller images." 
-        ); 
- 
-        return false; 
- 
-    } 
- 
-} 
- 
- 
-/* ======================================== 
-   MULTIPLE IMAGE FILES 
-======================================== */ 
- 
-document 
-    .getElementById("imageFiles") 
-    .addEventListener( 
-        "change", 
-        function(event) { 
- 
-            const files = 
-                Array.from(event.target.files); 
- 
-            if (files.length === 0) { 
-                return; 
-            } 
- 
- 
-            files.forEach(file => { 
- 
-                if ( 
-                    !file.type.startsWith("image/") 
-                ) { 
- 
-                    alert( 
-                        file.name + 
-                        " is not an image." 
-                    ); 
- 
-                    return; 
- 
-                } 
- 
- 
-                if ( 
-                    file.size > 2 * 1024 * 1024 
-                ) { 
- 
-                    alert( 
-                        file.name + 
-                        " is larger than 2MB." 
-                    ); 
- 
-                    return; 
- 
-                } 
- 
- 
-                const reader = 
-                    new FileReader(); 
- 
- 
-                reader.onload = 
-                    function(e) { 
- 
-                        selectedImages.push( 
-                            e.target.result 
-                        ); 
- 
-                        updateImagePreview(); 
- 
-                        updatePreview(); 
- 
-                    }; 
- 
- 
-                reader.readAsDataURL(file); 
- 
-            }); 
- 
- 
-            event.target.value = ""; 
- 
-        } 
-    ); 
- 
- 
-/* ======================================== 
-   IMAGE PREVIEW 
-======================================== */ 
- 
-function updateImagePreview() { 
- 
-    const box = 
-        document.getElementById( 
-            "imagePreview" 
-        ); 
- 
- 
-    box.innerHTML = ""; 
- 
- 
-    if ( 
-        selectedImages.length === 0 
-    ) { 
- 
-        box.innerHTML = 
-            "<div style='font-size:50px;'>📦</div>"; 
- 
-        return; 
- 
-    } 
- 
- 
-    selectedImages.forEach( 
-        function(image, index) { 
- 
-            const imageBox = 
-                document.createElement("div"); 
- 
-            imageBox.className = 
-                "uploaded-image"; 
- 
- 
-            imageBox.innerHTML = ` 
- 
-                <img 
-                    src="${image}" 
-                > 
- 
-                ${ 
-                    index === 0 
-                    ? `<div class="main-image-label"> 
-                            Main Image 
-                       </div>` 
-                    : "" 
-                } 
- 
-                <button 
-                    type="button" 
-                    class="remove-image" 
-                    onclick="removeImage(${index})" 
-                > 
-                    × 
-                </button> 
- 
-            `; 
- 
- 
-            box.appendChild(imageBox); 
- 
-        } 
-    ); 
- 
-} 
- 
- 
-/* ======================================== 
-   REMOVE IMAGE 
-======================================== */ 
- 
-function removeImage(index) { 
- 
-    selectedImages.splice( 
-        index, 
-        1 
-    ); 
- 
-    updateImagePreview(); 
- 
-    updatePreview(); 
- 
-} 
- 
- 
-/* ======================================== 
-   IMAGE URL 
-======================================== */ 
- 
-document 
-    .getElementById("image") 
-    .addEventListener( 
-        "input", 
-        function() { 
- 
-            updateImagePreview(); 
- 
-            updatePreview(); 
- 
-        } 
-    ); 
- 
- 
-/* ======================================== 
-   DISCOUNT 
-======================================== */ 
- 
-function calculateDiscount() { 
- 
-    const price = 
-        Number( 
-            document.getElementById("price").value 
-        ); 
- 
- 
-    const oldPrice = 
-        Number( 
-            document.getElementById("oldPrice").value 
-        ); 
- 
- 
-    if ( 
-        oldPrice > price && 
-        oldPrice > 0 
-    ) { 
- 
-        return Math.round( 
-            ((oldPrice - price) / oldPrice) * 100 
-        ); 
- 
-    } 
- 
- 
-    return 0; 
- 
-} 
- 
- 
-function updateDiscountDisplay() { 
- 
-    const discount = 
-        calculateDiscount(); 
- 
- 
-    document.getElementById( 
-        "discountDisplay" 
-    ).innerText = 
-        "Discount: " + 
-        discount + 
-        "%"; 
- 
- 
-    document.getElementById( 
-        "previewDiscount" 
-    ).innerText = 
-        discount + 
-        "% off"; 
- 
-} 
- 
- 
-/* ======================================== 
-   STOCK 
-======================================== */ 
- 
-function getStockStatus(stock) { 
- 
-    stock = 
-        Number(stock); 
- 
- 
-    if (stock <= 0) { 
- 
-        return { 
-            text: "Out of Stock", 
-            className: "stock-out" 
-        }; 
- 
-    } 
- 
- 
-    if (stock <= 5) { 
- 
-        return { 
-            text: 
-                "Only " + 
-                stock + 
-                " left in stock", 
- 
-            className: 
-                "stock-low" 
-        }; 
- 
-    } 
- 
- 
-    return { 
-        text: "In Stock", 
-        className: "stock-good" 
-    }; 
- 
-} 
- 
- 
-function updateStockDisplay() { 
- 
-    const stock = 
-        Number( 
-            document.getElementById( 
-                "stock" 
-            ).value 
-        ) || 0; 
- 
- 
-    const status = 
-        getStockStatus(stock); 
- 
- 
-    const box = 
-        document.getElementById( 
-            "stockStatus" 
-        ); 
- 
- 
-    box.innerText = 
-        status.text; 
- 
- 
-    box.className = 
-        "stock-status " + 
-        status.className; 
- 
- 
-    const preview = 
-        document.getElementById( 
-            "previewStock" 
-        ); 
- 
- 
-    preview.innerText = 
-        status.text; 
- 
- 
-    preview.className = 
-        "preview-stock " + 
-        status.className; 
- 
-} 
- 
- 
-/* ======================================== 
-   STARS 
-======================================== */ 
- 
-function getStars(rating) { 
- 
-    let stars = ""; 
- 
- 
-    for ( 
-        let i = 1; 
-        i <= 5; 
-        i++ 
-    ) { 
- 
-        stars += 
-            i <= Math.floor(rating) 
-                ? "★" 
-                : "☆"; 
- 
-    } 
- 
- 
-    return stars; 
- 
-} 
- 
- 
-/* ======================================== 
-   INFORMATION SECTIONS 
-======================================== */ 
- 
-function addInformationSection( 
-    title = "", 
-    content = "", 
-    image = "" 
-) { 
- 
-    informationSections.push({ 
- 
-        title: title, 
- 
-        content: content, 
- 
-        image: image 
- 
-    }); 
- 
- 
-    renderInformationSections(); 
- 
-} 
- 
- 
-function renderInformationSections() { 
- 
-    const container = 
-        document.getElementById( 
-            "informationSections" 
-        ); 
- 
- 
-    if (!container) { 
-        return; 
-    } 
- 
- 
-    container.innerHTML = ""; 
- 
- 
-    if ( 
-        informationSections.length === 0 
-    ) { 
- 
-        container.innerHTML = ` 
- 
-            <div class="no-builder-items"> 
- 
-                No information sections added yet. 
- 
-                <br><br> 
- 
-                Click 
-                <strong> 
-                    + Add Information Section 
-                </strong> 
-                to create one. 
- 
-            </div> 
- 
-        `; 
- 
-        return; 
- 
-    } 
- 
- 
-    informationSections.forEach( 
-        function(section, index) { 
- 
-            const box = 
-                document.createElement( 
-                    "div" 
-                ); 
- 
- 
-            box.className = 
-                "section-item"; 
- 
- 
-            box.innerHTML = ` 
- 
-                <div class="section-top"> 
- 
-                    <div class="section-number"> 
- 
-                        Information Section 
-                        ${index + 1} 
- 
-                    </div> 
- 
-                    <button 
-                        type="button" 
-                        class="remove-section-btn" 
-                        onclick="removeInformationSection(${index})" 
-                    > 
-                        Delete Section 
-                    </button> 
- 
-                </div> 
- 
- 
-                <div class="section-grid"> 
- 
-                    <div class="section-field"> 
- 
-                        <label> 
-                            Section Heading 
-                        </label> 
- 
-                        <input 
-                            type="text" 
-                            value="${escapeHTML(section.title || "")}" 
-                            placeholder="Example: Item details" 
-                            oninput="updateInformationSection(${index}, 'title', this.value)" 
-                        > 
- 
-                    </div> 
- 
- 
-                    <div class="section-field"> 
- 
-                        <label> 
-                            Image URL (optional) 
-                        </label> 
- 
-                        <input 
-                            type="text" 
-                            value="${escapeHTML(section.image || "")}" 
-                            placeholder="Optional image URL" 
-                            oninput="updateInformationSection(${index}, 'image', this.value)" 
-                        > 
- 
-                        ${ 
-                            section.image 
-                            ? ` 
-                                <div class="section-image-preview"> 
-                                    <img 
-                                        src="${section.image}" 
-                                        onerror="this.style.display='none';" 
-                                    > 
-                                </div> 
-                              ` 
-                            : "" 
-                        } 
- 
-                    </div> 
- 
- 
-                    <div class="section-field full"> 
- 
-                        <label> 
-                            Section Content 
-                        </label> 
- 
-                        <textarea 
-                            placeholder="Write the details for this section..." 
-                            oninput="updateInformationSection(${index}, 'content', this.value)" 
-                        >${escapeHTML(section.content || "")}</textarea> 
- 
-                    </div> 
- 
-                </div> 
- 
-            `; 
- 
- 
-            container.appendChild(box); 
- 
-        } 
-    ); 
- 
-} 
- 
- 
-function updateInformationSection( 
-    index, 
-    field, 
-    value 
-) { 
- 
-    if ( 
-        informationSections[index] 
-    ) { 
- 
-        informationSections[index][field] = 
-            value; 
- 
-    } 
- 
-} 
- 
- 
-function removeInformationSection(index) { 
- 
-    informationSections.splice( 
-        index, 
-        1 
-    ); 
- 
-    renderInformationSections(); 
- 
-} 
- 
- 
-/* ======================================== 
-   REVIEWS 
-======================================== */ 
- 
-function addReview( 
-    reviewer = "", 
-    rating = 5, 
-    title = "", 
-    text = "", 
-    date = "", 
-    image = "" 
-) { 
- 
-    productReviews.push({ 
- 
-        reviewer: reviewer, 
- 
-        rating: rating, 
- 
-        title: title, 
- 
-        text: text, 
- 
-        date: date, 
- 
-        image: image 
- 
-    }); 
- 
- 
-    renderReviews(); 
- 
-} 
- 
- 
-function renderReviews() { 
- 
-    const container = 
-        document.getElementById( 
-            "reviewsContainer" 
-        ); 
- 
- 
-    if (!container) { 
-        return; 
-    } 
- 
- 
-    container.innerHTML = ""; 
- 
- 
-    if ( 
-        productReviews.length === 0 
-    ) { 
- 
-        container.innerHTML = ` 
- 
-            <div class="no-builder-items"> 
- 
-                No customer reviews added yet. 
- 
-                <br><br> 
- 
-                Click 
-                <strong> 
-                    + Add Review 
-                </strong> 
-                to create one. 
- 
-            </div> 
- 
-        `; 
- 
-        return; 
- 
-    } 
- 
- 
-    productReviews.forEach( 
-        function(review, index) { 
- 
-            const box = 
-                document.createElement( 
-                    "div" 
-                ); 
- 
- 
-            box.className = 
-                "review-item"; 
- 
- 
-            box.innerHTML = ` 
- 
-                <div class="review-top"> 
- 
-                    <div class="review-number"> 
- 
-                        Review ${index + 1} 
- 
-                    </div> 
- 
-                    <button 
-                        type="button" 
-                        class="remove-review-btn" 
-                        onclick="removeReview(${index})" 
-                    > 
-                        Delete Review 
-                    </button> 
- 
-                </div> 
- 
- 
-                <div class="review-grid"> 
- 
- 
-                    <div class="review-field"> 
- 
-                        <label> 
-                            Reviewer Name 
-                        </label> 
- 
-                        <input 
-                            type="text" 
-                            value="${escapeHTML(review.reviewer || "")}" 
-                            placeholder="Example: John" 
-                            oninput="updateReview(${index}, 'reviewer', this.value)" 
-                        > 
- 
-                    </div> 
- 
- 
-                    <div class="review-field"> 
- 
-                        <label> 
-                            Star Rating 
-                        </label> 
- 
-                        <select 
-                            onchange="updateReview(${index}, 'rating', Number(this.value))" 
-                        > 
- 
-                            <option value="5" ${Number(review.rating) === 5 ? "selected" : ""}> 
-                                ★★★★★ - 5 
-                            </option> 
- 
-                            <option value="4" ${Number(review.rating) === 4 ? "selected" : ""}> 
-                                ★★★★☆ - 4 
-                            </option> 
- 
-                            <option value="3" ${Number(review.rating) === 3 ? "selected" : ""}> 
-                                ★★★☆☆ - 3 
-                            </option> 
- 
-                            <option value="2" ${Number(review.rating) === 2 ? "selected" : ""}> 
-                                ★★☆☆☆ - 2 
-                            </option> 
- 
-                            <option value="1" ${Number(review.rating) === 1 ? "selected" : ""}> 
-                                ★☆☆☆☆ - 1 
-                            </option> 
- 
-                        </select> 
- 
-                    </div> 
- 
- 
-                    <div class="review-field full"> 
- 
-                        <label> 
-                            Review Title 
-                        </label> 
- 
-                        <input 
-                            type="text" 
-                            value="${escapeHTML(review.title || "")}" 
-                            placeholder="Example: Excellent product" 
-                            oninput="updateReview(${index}, 'title', this.value)" 
-                        > 
- 
-                    </div> 
- 
- 
-                    <div class="review-field full"> 
- 
-                        <label> 
-                            Review Text 
-                        </label> 
- 
-                        <textarea 
-                            placeholder="Write customer's review..." 
-                            oninput="updateReview(${index}, 'text', this.value)" 
-                        >${escapeHTML(review.text || "")}</textarea> 
- 
-                    </div> 
- 
- 
-                    <div class="review-field"> 
- 
-                        <label> 
-                            Review Date 
-                        </label> 
- 
-                        <input 
-                            type="text" 
-                            value="${escapeHTML(review.date || "")}" 
-                            placeholder="Example: September 15, 2026" 
-                            oninput="updateReview(${index}, 'date', this.value)" 
-                        > 
- 
-                    </div> 
- 
- 
-                    <div class="review-field"> 
- 
-                        <label> 
-                            Review Image URL (optional) 
-                        </label> 
- 
-                        <input 
-                            type="text" 
-                            value="${escapeHTML(review.image || "")}" 
-                            placeholder="Optional image URL" 
-                            oninput="updateReview(${index}, 'image', this.value)" 
-                        > 
- 
-                    </div> 
- 
- 
-                </div> 
- 
-            `; 
- 
- 
-            container.appendChild(box); 
- 
-        } 
-    ); 
- 
-} 
- 
- 
-function updateReview( 
-    index, 
-    field, 
-    value 
-) { 
- 
-    if ( 
-        productReviews[index] 
-    ) { 
- 
-        productReviews[index][field] = 
-            value; 
- 
-    } 
- 
-} 
- 
- 
-function removeReview(index) { 
- 
-    productReviews.splice( 
-        index, 
-        1 
-    ); 
- 
-    renderReviews(); 
- 
-} 
- 
- 
-/* ======================================== 
-   ESCAPE HTML 
-======================================== */ 
- 
-function escapeHTML(value) { 
- 
-    return String(value || "") 
-        .replace(/&/g, "&amp;") 
-        .replace(/</g, "&lt;") 
-        .replace(/>/g, "&gt;") 
-        .replace(/"/g, "&quot;") 
-        .replace(/'/g, "&#039;"); 
- 
-} 
- 
- 
-/* ======================================== 
-   LIVE PREVIEW 
-======================================== */ 
- 
-function updatePreview() { 
- 
-    const title = 
-        document.getElementById( 
-            "title" 
-        ).value || 
-        "Product Name"; 
- 
- 
-    const price = 
-        Number( 
-            document.getElementById( 
-                "price" 
-            ).value 
-        ) || 0; 
- 
- 
-    const oldPrice = 
-        Number( 
-            document.getElementById( 
-                "oldPrice" 
-            ).value 
-        ) || 0; 
- 
- 
-    const rating = 
-        Number( 
-            document.getElementById( 
-                "rating" 
-            ).value 
-        ) || 0; 
- 
- 
-    const reviews = 
-        Number( 
-            document.getElementById( 
-                "reviews" 
-            ).value 
-        ) || 0; 
- 
- 
-    const description = 
-        document.getElementById( 
-            "description" 
-        ).value || 
-        "Product description will appear here."; 
- 
- 
-    document.getElementById( 
-        "previewTitle" 
-    ).innerText = 
-        title; 
- 
- 
-    document.getElementById( 
-        "previewPrice" 
-    ).innerText = 
-        price.toFixed(2); 
- 
- 
-    document.getElementById( 
-        "previewOldPrice" 
-    ).innerText = 
-        oldPrice.toFixed(2); 
- 
- 
-    document.getElementById( 
-        "previewStars" 
-    ).innerText = 
-        getStars(rating); 
- 
- 
-    document.getElementById( 
-        "previewReviews" 
-    ).innerText = 
-        "(" + 
-        reviews + 
-        ")"; 
- 
- 
-    document.getElementById( 
-        "previewDescription" 
-    ).innerText = 
-        description; 
- 
- 
-    updateDiscountDisplay(); 
- 
-    updateStockDisplay(); 
- 
-    updateImagePreview(); 
- 
- 
-    const preview = 
-        document.getElementById( 
-            "previewImage" 
-        ); 
- 
- 
-    if ( 
-        selectedImages.length > 0 
-    ) { 
- 
-        preview.innerHTML = ` 
- 
-            <img 
-                src="${selectedImages[0]}" 
-            > 
- 
-        `; 
- 
-    } 
- 
-    else { 
- 
-        const url = 
-            document 
-                .getElementById("image") 
-                .value 
-                .trim(); 
- 
- 
-        if (url) { 
- 
-            preview.innerHTML = ` 
- 
-                <img 
-                    src="${url}" 
-                    onerror="this.parentElement.innerHTML='📦';" 
-                > 
- 
-            `; 
- 
-        } 
- 
-        else { 
- 
-            preview.innerText = 
-                "📦"; 
- 
-        } 
- 
-    } 
- 
-} 
- 
- 
-/* ======================================== 
-   DISPLAY PRODUCTS 
-======================================== */ 
- 
-function displayAdminProducts() { 
- 
-    const container = 
-        document.getElementById( 
-            "adminProducts" 
-        ); 
- 
-    container.innerHTML = ""; 
- 
- 
-    if ( 
-        adminProducts.length === 0 
-    ) { 
- 
-        container.innerHTML = ` 
- 
-            <tr> 
- 
-                <td 
-                    colspan="7" 
-                    class="empty-message" 
-                > 
-                    No products found. 
-                </td> 
- 
-            </tr> 
- 
-        `; 
- 
-        return; 
- 
-    } 
- 
- 
-    adminProducts.forEach( 
-        product => { 
- 
-            const row = 
-                document.createElement( 
-                    "tr" 
-                ); 
- 
- 
-            let imageHTML = 
-                "📦"; 
- 
- 
-            if ( 
-                product.images && 
-                product.images.length > 0 
-            ) { 
- 
-                imageHTML = ` 
- 
-                    <img 
-                        src="${product.images[0]}" 
-                        class="product-admin-image" 
-                    > 
- 
-                `; 
- 
-            } 
- 
-            else if ( 
-                product.image 
-            ) { 
- 
-                imageHTML = ` 
- 
-                    <img 
-                        src="${product.image}" 
-                        class="product-admin-image" 
-                    > 
- 
-                `; 
- 
-            } 
- 
- 
-            const status = 
-                getStockStatus( 
-                    product.stock 
-                ); 
- 
- 
-            const discount = 
-                product.oldPrice > 
-                product.price 
- 
-                    ? Math.round( 
-                        ( 
-                            ( 
-                                product.oldPrice - 
-                                product.price 
-                            ) 
-                            / 
-                            product.oldPrice 
-                        ) * 100 
-                    ) 
- 
-                    : 0; 
- 
- 
-            const infoCount = 
-                Array.isArray( 
-                    product.informationSections 
-                ) 
-                ? product.informationSections.length 
-                : 0; 
- 
- 
-            const reviewCount = 
-                Array.isArray( 
-                    product.customerReviews 
-                ) 
-                ? product.customerReviews.length 
-                : 0; 
- 
- 
-            row.innerHTML = ` 
- 
-                <td> 
-                    ${imageHTML} 
-                </td> 
- 
-                <td> 
- 
-                    <strong> 
-                        ${product.title} 
-                    </strong> 
- 
- 
-                    ${ 
-                        product.images && 
-                        product.images.length > 1 
- 
-                        ? ` 
-                            <div style=" 
-                                font-size:11px; 
-                                color:#666; 
-                                margin-top:4px; 
-                            "> 
-                                ${product.images.length} 
-                                images 
-                            </div> 
-                          ` 
- 
-                        : "" 
-                    } 
- 
- 
-                    ${ 
-                        infoCount > 0 
- 
-                        ? ` 
-                            <div style=" 
-                                font-size:11px; 
-                                color:#007185; 
-                                margin-top:4px; 
-                            "> 
-                                ${infoCount} 
-                                information sections 
-                            </div> 
-                          ` 
- 
-                        : "" 
-                    } 
- 
- 
-                    ${ 
-                        reviewCount > 0 
- 
-                        ? ` 
-                            <div style=" 
-                                font-size:11px; 
-                                color:#b12704; 
-                                margin-top:3px; 
-                            "> 
-                                ${reviewCount} 
-                                customer reviews 
-                            </div> 
-                          ` 
- 
-                        : "" 
-                    } 
- 
-                </td> 
- 
-                <td> 
-                    $${Number( 
-                        product.price 
-                    ).toFixed(2)} 
-                </td> 
- 
-                <td> 
-                    ${discount}% 
-                </td> 
- 
-                <td 
-                    class="${status.className}" 
-                > 
-                    ${status.text} 
-                </td> 
- 
-                <td> 
-                    ${product.category} 
-                </td> 
- 
-                <td> 
- 
-                    <button 
-                        class="edit-btn" 
-                        onclick="editProduct(${product.id})" 
-                    > 
-                        Edit 
-                    </button> 
- 
-                    <button 
-                        class="delete-btn" 
-                        onclick="deleteProduct(${product.id})" 
-                    > 
-                        Delete 
-                    </button> 
- 
-                </td> 
- 
-            `; 
- 
- 
-            container.appendChild(row); 
- 
-        } 
-    ); 
- 
-} 
- 
- 
-/* ======================================== 
-   ADD / UPDATE PRODUCT 
-======================================== */ 
- 
-document 
-    .getElementById("productForm") 
-    .addEventListener( 
-        "submit", 
-        function(event) { 
- 
-            event.preventDefault(); 
- 
- 
-            const price = 
-                Number( 
-                    document.getElementById( 
-                        "price" 
-                    ).value 
-                ); 
- 
- 
-            const oldPrice = 
-                Number( 
-                    document.getElementById( 
-                        "oldPrice" 
-                    ).value 
-                ) || 0; 
- 
- 
-            const discount = 
-                calculateDiscount(); 
- 
- 
-            let finalImages = 
-                [...selectedImages]; 
- 
- 
-            if ( 
-                finalImages.length === 0 
-            ) { 
- 
-                const imageUrl = 
-                    document 
-                        .getElementById( 
-                            "image" 
-                        ) 
-                        .value 
-                        .trim(); 
- 
- 
-                if (imageUrl) { 
- 
-                    finalImages.push( 
-                        imageUrl 
-                    ); 
- 
-                } 
- 
-            } 
- 
- 
-            const productData = { 
- 
-                id: 
-                    editingId !== null 
-                        ? editingId 
-                        : getNextId(), 
- 
- 
-                title: 
-                    document 
-                        .getElementById( 
-                            "title" 
-                        ) 
-                        .value 
-                        .trim(), 
- 
- 
-                price: 
-                    price, 
- 
- 
-                oldPrice: 
-                    oldPrice, 
- 
- 
-                discount: 
-                    discount, 
- 
- 
-                condition: 
-                    document 
-                        .getElementById( 
-                            "condition" 
-                        ) 
-                        .value, 
- 
- 
-                rating: 
-                    Number( 
-                        document 
-                            .getElementById( 
-                                "rating" 
-                            ) 
-                            .value 
-                    ) || 0, 
- 
- 
-                reviews: 
-                    Number( 
-                        document 
-                            .getElementById( 
-                                "reviews" 
-                            ) 
-                            .value 
-                    ) || 0, 
- 
- 
-                stock: 
-                    Number( 
-                        document 
-                            .getElementById( 
-                                "stock" 
-                            ) 
-                            .value 
-                    ) || 0, 
- 
- 
-                category: 
-                    document 
-                        .getElementById( 
-                            "category" 
-                        ) 
-                        .value, 
- 
- 
-                images: 
-                    finalImages, 
- 
- 
-                image: 
-                    finalImages[0] || "", 
- 
- 
-                description: 
-                    document 
-                        .getElementById( 
-                            "description" 
-                        ) 
-                        .value 
-                        .trim(), 
- 
- 
-                renewed: 
-                    document 
-                        .getElementById( 
-                            "renewed" 
-                        ) 
-                        .checked, 
- 
- 
-                informationSections: 
-                    JSON.parse( 
-                        JSON.stringify( 
-                            informationSections 
-                        ) 
-                    ), 
- 
- 
-                customerReviews: 
-                    JSON.parse( 
-                        JSON.stringify( 
-                            productReviews 
-                        ) 
-                    ) 
- 
-            }; 
- 
- 
-            if ( 
-                editingId !== null 
-            ) { 
- 
-                const index = 
-                    adminProducts.findIndex( 
-                        item => 
-                            item.id === 
-                            editingId 
-                    ); 
- 
-                if (index !== -1) { 
- 
-                    adminProducts[index] = 
-                        productData; 
- 
-                } 
- 
-                alert( 
-                    "Product updated successfully!" 
-                ); 
- 
-            } 
- 
-            else { 
- 
-                adminProducts.push( 
-                    productData 
-                ); 
- 
- 
-                alert( 
-                    "Product added successfully!" 
-                ); 
- 
-            } 
- 
- 
-            if ( 
-                saveProducts() 
-            ) { 
- 
-                resetForm(); 
- 
-                displayAdminProducts(); 
- 
-            } 
- 
-        } 
-    ); 
- 
- 
-/* ======================================== 
-   NEXT ID 
-======================================== */ 
- 
-function getNextId() { 
- 
-    if ( 
-        adminProducts.length === 0 
-    ) { 
- 
-        return 1; 
- 
-    } 
- 
- 
-    return Math.max( 
-        ...adminProducts.map( 
-            item => 
-                Number(item.id) || 0 
-        ) 
-    ) + 1; 
- 
-} 
- 
- 
-/* ======================================== 
-   EDIT PRODUCT 
-======================================== */ 
- 
-function editProduct(id) { 
- 
-    const product = 
-        adminProducts.find( 
-            item => 
-                item.id === id 
-        ); 
- 
- 
-    if (!product) { 
- 
-        return; 
- 
-    } 
- 
- 
-    editingId = 
-        id; 
- 
- 
-    if ( 
-        Array.isArray( 
-            product.images 
-        ) 
-    ) { 
- 
-        selectedImages = 
-            [...product.images]; 
- 
-    } 
- 
-    else if ( 
-        product.image 
-    ) { 
- 
-        selectedImages = 
-            [product.image]; 
- 
-    } 
- 
-    else { 
- 
-        selectedImages = []; 
- 
-    } 
- 
- 
-    informationSections = 
-        Array.isArray( 
-            product.informationSections 
-        ) 
-        ? JSON.parse( 
-            JSON.stringify( 
-                product.informationSections 
-            ) 
-        ) 
-        : []; 
- 
- 
-    productReviews = 
-        Array.isArray( 
-            product.customerReviews 
-        ) 
-        ? JSON.parse( 
-            JSON.stringify( 
-                product.customerReviews 
-            ) 
-        ) 
-        : []; 
- 
- 
-    document.getElementById( 
-        "title" 
-    ).value = 
-        product.title || ""; 
- 
- 
-    document.getElementById( 
-        "price" 
-    ).value = 
-        product.price || ""; 
- 
- 
-    document.getElementById( 
-        "oldPrice" 
-    ).value = 
-        product.oldPrice || ""; 
- 
- 
-    document.getElementById( 
-        "stock" 
-    ).value = 
-        product.stock || ""; 
- 
- 
-    document.getElementById( 
-        "rating" 
-    ).value = 
-        product.rating || ""; 
- 
- 
-    document.getElementById( 
-        "reviews" 
-    ).value = 
-        product.reviews || ""; 
- 
- 
-    document.getElementById( 
-        "category" 
-    ).value = 
-        product.category || "Other"; 
- 
- 
-    document.getElementById( 
-        "condition" 
-    ).value = 
-        product.condition || "New"; 
- 
- 
-    if ( 
-        selectedImages.length === 1 && 
-        typeof selectedImages[0] === "string" && 
-        !selectedImages[0] 
-            .startsWith("data:image/") 
-    ) { 
- 
-        document.getElementById( 
-            "image" 
-        ).value = 
-            selectedImages[0]; 
- 
-    } 
- 
-    else { 
- 
-        document.getElementById( 
-            "image" 
-        ).value = 
-            ""; 
- 
-    } 
- 
- 
-    document.getElementById( 
-        "description" 
-    ).value = 
-        product.description || ""; 
- 
- 
-    document.getElementById( 
-        "renewed" 
-    ).checked = 
-        product.renewed === true; 
- 
- 
-    document.getElementById( 
-        "formTitle" 
-    ).innerText = 
-        "Edit Product"; 
- 
- 
-    document.getElementById( 
-        "saveButton" 
-    ).innerText = 
-        "Update Product"; 
- 
- 
-    updateImagePreview(); 
- 
-    updatePreview(); 
- 
-    renderInformationSections(); 
- 
-    renderReviews(); 
- 
- 
-    window.scrollTo({ 
- 
-        top: 0, 
- 
-        behavior: "smooth" 
- 
-    }); 
- 
-} 
- 
- 
-/* ======================================== 
-   DELETE 
-======================================== */ 
- 
-function deleteProduct(id) { 
- 
-    const product = 
-        adminProducts.find( 
-            item => 
-                item.id === id 
-        ); 
- 
- 
-    if (!product) { 
- 
-        return; 
- 
-    } 
- 
- 
-    if ( 
-        !confirm( 
-            'Delete "' + 
-            product.title + 
-            '"?' 
-        ) 
-    ) { 
- 
-        return; 
- 
-    } 
- 
- 
-    adminProducts = 
-        adminProducts.filter( 
-            item => 
-                item.id !== id 
-        ); 
- 
- 
-    if ( 
-        saveProducts() 
-    ) { 
- 
-        displayAdminProducts(); 
- 
- 
-        alert( 
-            "Product deleted successfully!" 
-        ); 
- 
-    } 
- 
-} 
- 
- 
-/* ======================================== 
-   RESET 
-======================================== */ 
- 
-function resetForm() { 
- 
-    editingId = 
-        null; 
- 
- 
-    selectedImages = 
-        []; 
- 
- 
-    informationSections = 
-        []; 
- 
- 
-    productReviews = 
-        []; 
- 
- 
-    document 
-        .getElementById( 
-            "productForm" 
-        ) 
-        .reset(); 
- 
- 
-    document.getElementById( 
-        "formTitle" 
-    ).innerText = 
-        "Add New Product"; 
- 
- 
-    document.getElementById( 
-        "saveButton" 
-    ).innerText = 
-        "Add Product"; 
- 
- 
-    document.getElementById( 
-        "imagePreview" 
-    ).innerHTML = 
-        "<div style='font-size:50px;'>📦</div>"; 
- 
- 
-    renderInformationSections(); 
- 
-    renderReviews(); 
- 
-    updatePreview(); 
- 
-} 
- 
- 
-/* ======================================== 
-   HOME 
-======================================== */ 
- 
-function goHome() { 
- 
-    window.location.href = 
-        "index.html"; 
- 
-} 
- 
- 
-/* ======================================== 
-   LIVE EVENTS 
-======================================== */ 
- 
-[ 
-    "title", 
-    "price", 
-    "oldPrice", 
-    "stock", 
-    "rating", 
-    "reviews", 
-    "image", 
-    "description" 
-].forEach( 
-    id => { 
- 
-        document 
-            .getElementById(id) 
-            .addEventListener( 
-                "input", 
-                updatePreview 
-            ); 
- 
-    } 
-); 
- 
- 
-/* ======================================== 
-   START 
-======================================== */ 
- 
+
+/* ========================================
+   DATABASE -> APP FORMAT
+======================================== */
+
+function databaseProductToApp(product) {
+
+    return {
+
+        id:
+            Number(product.id),
+
+        title:
+            product.title || "",
+
+        price:
+            Number(product.price || 0),
+
+        oldPrice:
+            Number(product.old_price || 0),
+
+        discount:
+            Number(product.discount || 0),
+
+        condition:
+            product.condition || "New",
+
+        rating:
+            Number(product.rating || 0),
+
+        reviews:
+            Number(product.reviews || 0),
+
+        stock:
+            Number(product.stock || 0),
+
+        category:
+            product.category || "Other",
+
+        image:
+            product.image || "",
+
+        images:
+            Array.isArray(product.images)
+                ? product.images
+                : product.image
+                    ? [product.image]
+                    : [],
+
+        description:
+            product.description || "",
+
+        renewed:
+            product.renewed === true,
+
+        informationSections:
+            Array.isArray(product.information_sections)
+                ? product.information_sections
+                : [],
+
+        customerReviews:
+            Array.isArray(product.customer_reviews)
+                ? product.customer_reviews
+                : []
+
+    };
+
+}
+
+
+/* ========================================
+   APP -> DATABASE FORMAT
+======================================== */
+
+function appProductToDatabase(product) {
+
+    return {
+
+        id:
+            Number(product.id),
+
+        title:
+            product.title || "",
+
+        price:
+            Number(product.price || 0),
+
+        old_price:
+            Number(product.oldPrice || 0),
+
+        discount:
+            Number(product.discount || 0),
+
+        condition:
+            product.condition || "New",
+
+        rating:
+            Number(product.rating || 0),
+
+        reviews:
+            Number(product.reviews || 0),
+
+        stock:
+            Number(product.stock || 0),
+
+        category:
+            product.category || "Other",
+
+        image:
+            product.image || "",
+
+        images:
+            Array.isArray(product.images)
+                ? product.images
+                : [],
+
+        description:
+            product.description || "",
+
+        renewed:
+            product.renewed === true,
+
+        information_sections:
+            Array.isArray(product.informationSections)
+                ? product.informationSections
+                : [],
+
+        customer_reviews:
+            Array.isArray(product.customerReviews)
+                ? product.customerReviews
+                : []
+
+    };
+
+}
+
+
+/* ========================================
+   LOAD PRODUCTS FROM SUPABASE
+======================================== */
+
+async function loadProducts() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("products")
+                .select("*")
+                .order("id", {
+                    ascending: true
+                });
+
+        if (error) {
+            throw error;
+        }
+
+
+        /*
+           DATABASE EMPTY
+           SEED DEFAULT PRODUCTS
+        */
+
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
+            const defaultProducts =
+                products.map(
+                    function(product) {
+
+                        return appProductToDatabase(
+                            {
+                                ...product,
+
+                                images:
+                                    Array.isArray(product.images)
+                                        ? product.images
+                                        : product.image
+                                            ? [product.image]
+                                            : [],
+
+                                informationSections:
+                                    Array.isArray(product.informationSections)
+                                        ? product.informationSections
+                                        : [],
+
+                                customerReviews:
+                                    Array.isArray(product.customerReviews)
+                                        ? product.customerReviews
+                                        : []
+                            }
+                        );
+
+                    }
+                );
+
+
+            const {
+                data: seededData,
+                error: seedError
+            } =
+                await supabaseClient
+                    .from("products")
+                    .insert(
+                        defaultProducts
+                    )
+                    .select("*");
+
+
+            if (seedError) {
+
+                console.error(
+                    "Seed error:",
+                    seedError
+                );
+
+                /*
+                   If seeding fails,
+                   still show local products.
+                */
+
+                adminProducts =
+                    defaultProducts.map(
+                        databaseProductToApp
+                    );
+
+            }
+
+            else {
+
+                adminProducts =
+                    (seededData || []).map(
+                        databaseProductToApp
+                    );
+
+            }
+
+        }
+
+        else {
+
+            adminProducts =
+                data.map(
+                    databaseProductToApp
+                );
+
+        }
+
+
+        normalizeProducts();
+
+        displayAdminProducts();
+
+        updatePreview();
+
+        renderInformationSections();
+
+        renderReviews();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Supabase load error:",
+            error
+        );
+
+        alert(
+            "Products load nahi ho rahe. Supabase connection check karo."
+        );
+
+
+        /*
+           Fallback
+        */
+
+        adminProducts =
+            [...products].map(
+                function(product) {
+
+                    return {
+
+                        ...product,
+
+                        images:
+                            Array.isArray(product.images)
+                                ? product.images
+                                : product.image
+                                    ? [product.image]
+                                    : [],
+
+                        informationSections:
+                            Array.isArray(product.informationSections)
+                                ? product.informationSections
+                                : [],
+
+                        customerReviews:
+                            Array.isArray(product.customerReviews)
+                                ? product.customerReviews
+                                : []
+
+                    };
+
+                }
+            );
+
+
+        displayAdminProducts();
+
+        updatePreview();
+
+        renderInformationSections();
+
+        renderReviews();
+
+    }
+
+}
+
+
+/* ========================================
+   NORMALIZE PRODUCTS
+======================================== */
+
+function normalizeProducts() {
+
+    adminProducts.forEach(
+        function(product) {
+
+            if (
+                !Array.isArray(
+                    product.images
+                )
+            ) {
+
+                product.images =
+                    product.image
+                        ? [product.image]
+                        : [];
+
+            }
+
+            if (
+                !Array.isArray(
+                    product.informationSections
+                )
+            ) {
+
+                product.informationSections =
+                    [];
+
+            }
+
+            if (
+                !Array.isArray(
+                    product.customerReviews
+                )
+            ) {
+
+                product.customerReviews =
+                    [];
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ========================================
+   SAVE ALL PRODUCTS TO SUPABASE
+======================================== */
+
+async function saveProducts() {
+
+    try {
+
+        const databaseProducts =
+            adminProducts.map(
+                appProductToDatabase
+            );
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("products")
+                .upsert(
+                    databaseProducts,
+                    {
+                        onConflict: "id"
+                    }
+                )
+                .select("*");
+
+
+        if (error) {
+
+            console.error(
+                "Supabase save error:",
+                error
+            );
+
+            alert(
+                "Product save nahi hua:\n" +
+                error.message
+            );
+
+            return false;
+
+        }
+
+
+        if (data) {
+
+            adminProducts =
+                data.map(
+                    databaseProductToApp
+                );
+
+        }
+
+
+        return true;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+        alert(
+            "Product save nahi hua. Internet/Supabase connection check karo."
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* ========================================
+   SAVE SINGLE PRODUCT
+======================================== */
+
+async function saveSingleProduct(
+    product
+) {
+
+    try {
+
+        const databaseProduct =
+            appProductToDatabase(
+                product
+            );
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("products")
+                .upsert(
+                    databaseProduct,
+                    {
+                        onConflict: "id"
+                    }
+                )
+                .select("*")
+                .single();
+
+
+        if (error) {
+
+            console.error(
+                "Supabase product error:",
+                error
+            );
+
+            alert(
+                "Product save nahi hua:\n" +
+                error.message
+            );
+
+            return null;
+
+        }
+
+
+        return databaseProductToApp(
+            data
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+        alert(
+            "Product save nahi hua."
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* ========================================
+   MULTIPLE IMAGE FILES
+======================================== */
+
+document
+    .getElementById("imageFiles")
+    .addEventListener(
+        "change",
+        function(event) {
+
+            const files =
+                Array.from(
+                    event.target.files
+                );
+
+            if (
+                files.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            files.forEach(
+                function(file) {
+
+                    if (
+                        !file.type.startsWith(
+                            "image/"
+                        )
+                    ) {
+
+                        alert(
+                            file.name +
+                            " is not an image."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        file.size >
+                        2 * 1024 * 1024
+                    ) {
+
+                        alert(
+                            file.name +
+                            " is larger than 2MB."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function(e) {
+
+                            selectedImages.push(
+                                e.target.result
+                            );
+
+                            updateImagePreview();
+
+                            updatePreview();
+
+                        };
+
+
+                    reader.readAsDataURL(
+                        file
+                    );
+
+                }
+            );
+
+
+            event.target.value = "";
+
+        }
+    );
+
+
+/* ========================================
+   IMAGE PREVIEW
+======================================== */
+
+function updateImagePreview() {
+
+    const box =
+        document.getElementById(
+            "imagePreview"
+        );
+
+
+    box.innerHTML = "";
+
+
+    if (
+        selectedImages.length === 0
+    ) {
+
+        box.innerHTML =
+            "<div style='font-size:50px;'>📦</div>";
+
+        return;
+
+    }
+
+
+    selectedImages.forEach(
+        function(image, index) {
+
+            const imageBox =
+                document.createElement(
+                    "div"
+                );
+
+
+            imageBox.className =
+                "uploaded-image";
+
+
+            imageBox.innerHTML = `
+
+                <img
+                    src="${image}"
+                >
+
+                ${
+                    index === 0
+                    ? `<div class="main-image-label">
+                            Main Image
+                       </div>`
+                    : ""
+                }
+
+                <button
+                    type="button"
+                    class="remove-image"
+                    onclick="removeImage(${index})"
+                >
+                    ×
+                </button>
+
+            `;
+
+
+            box.appendChild(
+                imageBox
+            );
+
+        }
+    );
+
+}
+
+
+/* ========================================
+   REMOVE IMAGE
+======================================== */
+
+function removeImage(index) {
+
+    selectedImages.splice(
+        index,
+        1
+    );
+
+    updateImagePreview();
+
+    updatePreview();
+
+}
+
+
+/* ========================================
+   IMAGE URL
+======================================== */
+
+document
+    .getElementById("image")
+    .addEventListener(
+        "input",
+        function() {
+
+            updateImagePreview();
+
+            updatePreview();
+
+        }
+    );
+
+
+/* ========================================
+   DISCOUNT
+======================================== */
+
+function calculateDiscount() {
+
+    const price =
+        Number(
+            document.getElementById(
+                "price"
+            ).value
+        );
+
+
+    const oldPrice =
+        Number(
+            document.getElementById(
+                "oldPrice"
+            ).value
+        );
+
+
+    if (
+        oldPrice > price &&
+        oldPrice > 0
+    ) {
+
+        return Math.round(
+            (
+                (
+                    oldPrice -
+                    price
+                )
+                /
+                oldPrice
+            ) * 100
+        );
+
+    }
+
+
+    return 0;
+
+}
+
+
+function updateDiscountDisplay() {
+
+    const discount =
+        calculateDiscount();
+
+
+    document.getElementById(
+        "discountDisplay"
+    ).innerText =
+        "Discount: " +
+        discount +
+        "%";
+
+
+    document.getElementById(
+        "previewDiscount"
+    ).innerText =
+        discount +
+        "% off";
+
+}
+
+
+/* ========================================
+   STOCK
+======================================== */
+
+function getStockStatus(stock) {
+
+    stock =
+        Number(stock);
+
+
+    if (
+        stock <= 0
+    ) {
+
+        return {
+
+            text:
+                "Out of Stock",
+
+            className:
+                "stock-out"
+
+        };
+
+    }
+
+
+    if (
+        stock <= 5
+    ) {
+
+        return {
+
+            text:
+                "Only " +
+                stock +
+                " left in stock",
+
+            className:
+                "stock-low"
+
+        };
+
+    }
+
+
+    return {
+
+        text:
+            "In Stock",
+
+        className:
+            "stock-good"
+
+    };
+
+}
+
+
+function updateStockDisplay() {
+
+    const stock =
+        Number(
+            document.getElementById(
+                "stock"
+            ).value
+        ) || 0;
+
+
+    const status =
+        getStockStatus(
+            stock
+        );
+
+
+    const box =
+        document.getElementById(
+            "stockStatus"
+        );
+
+
+    box.innerText =
+        status.text;
+
+
+    box.className =
+        "stock-status " +
+        status.className;
+
+
+    const preview =
+        document.getElementById(
+            "previewStock"
+        );
+
+
+    preview.innerText =
+        status.text;
+
+
+    preview.className =
+        "preview-stock " +
+        status.className;
+
+}
+
+
+/* ========================================
+   STARS
+======================================== */
+
+function getStars(rating) {
+
+    let stars = "";
+
+
+    for (
+        let i = 1;
+        i <= 5;
+        i++
+    ) {
+
+        stars +=
+            i <= Math.floor(rating)
+                ? "★"
+                : "☆";
+
+    }
+
+
+    return stars;
+
+}
+
+
+/* ========================================
+   INFORMATION SECTIONS
+======================================== */
+
+function addInformationSection(
+    title = "",
+    content = "",
+    image = ""
+) {
+
+    informationSections.push({
+
+        title:
+            title,
+
+        content:
+            content,
+
+        image:
+            image
+
+    });
+
+
+    renderInformationSections();
+
+}
+
+
+function renderInformationSections() {
+
+    const container =
+        document.getElementById(
+            "informationSections"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (
+        informationSections.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="no-builder-items">
+
+                No information sections added yet.
+
+                <br><br>
+
+                Click
+                <strong>
+                    + Add Information Section
+                </strong>
+                to create one.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    informationSections.forEach(
+        function(section, index) {
+
+            const box =
+                document.createElement(
+                    "div"
+                );
+
+
+            box.className =
+                "section-item";
+
+
+            box.innerHTML = `
+
+                <div class="section-top">
+
+                    <div class="section-number">
+
+                        Information Section
+                        ${index + 1}
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="remove-section-btn"
+                        onclick="removeInformationSection(${index})"
+                    >
+                        Delete Section
+                    </button>
+
+                </div>
+
+
+                <div class="section-grid">
+
+                    <div class="section-field">
+
+                        <label>
+                            Section Heading
+                        </label>
+
+                        <input
+                            type="text"
+                            value="${escapeHTML(section.title || "")}"
+                            placeholder="Example: Item details"
+                            oninput="updateInformationSection(${index}, 'title', this.value)"
+                        >
+
+                    </div>
+
+
+                    <div class="section-field">
+
+                        <label>
+                            Image URL (optional)
+                        </label>
+
+                        <input
+                            type="text"
+                            value="${escapeHTML(section.image || "")}"
+                            placeholder="Optional image URL"
+                            oninput="updateInformationSection(${index}, 'image', this.value)"
+                        >
+
+                        ${
+                            section.image
+                            ? `
+                                <div class="section-image-preview">
+                                    <img
+                                        src="${section.image}"
+                                        onerror="this.style.display='none';"
+                                    >
+                                </div>
+                              `
+                            : ""
+                        }
+
+                    </div>
+
+
+                    <div class="section-field full">
+
+                        <label>
+                            Section Content
+                        </label>
+
+                        <textarea
+                            placeholder="Write the details for this section..."
+                            oninput="updateInformationSection(${index}, 'content', this.value)"
+                        >${escapeHTML(section.content || "")}</textarea>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                box
+            );
+
+        }
+    );
+
+}
+
+
+function updateInformationSection(
+    index,
+    field,
+    value
+) {
+
+    if (
+        informationSections[index]
+    ) {
+
+        informationSections[index][field] =
+            value;
+
+    }
+
+}
+
+
+function removeInformationSection(
+    index
+) {
+
+    informationSections.splice(
+        index,
+        1
+    );
+
+    renderInformationSections();
+
+}
+
+
+/* ========================================
+   REVIEWS
+======================================== */
+
+function addReview(
+    reviewer = "",
+    rating = 5,
+    title = "",
+    text = "",
+    date = "",
+    image = ""
+) {
+
+    productReviews.push({
+
+        reviewer:
+            reviewer,
+
+        rating:
+            rating,
+
+        title:
+            title,
+
+        text:
+            text,
+
+        date:
+            date,
+
+        image:
+            image
+
+    });
+
+
+    renderReviews();
+
+}
+
+
+function renderReviews() {
+
+    const container =
+        document.getElementById(
+            "reviewsContainer"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (
+        productReviews.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="no-builder-items">
+
+                No customer reviews added yet.
+
+                <br><br>
+
+                Click
+                <strong>
+                    + Add Review
+                </strong>
+                to create one.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    productReviews.forEach(
+        function(review, index) {
+
+            const box =
+                document.createElement(
+                    "div"
+                );
+
+
+            box.className =
+                "review-item";
+
+
+            box.innerHTML = `
+
+                <div class="review-top">
+
+                    <div class="review-number">
+
+                        Review ${index + 1}
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="remove-review-btn"
+                        onclick="removeReview(${index})"
+                    >
+                        Delete Review
+                    </button>
+
+                </div>
+
+
+                <div class="review-grid">
+
+
+                    <div class="review-field">
+
+                        <label>
+                            Reviewer Name
+                        </label>
+
+                        <input
+                            type="text"
+                            value="${escapeHTML(review.reviewer || "")}"
+                            placeholder="Example: John"
+                            oninput="updateReview(${index}, 'reviewer', this.value)"
+                        >
+
+                    </div>
+
+
+                    <div class="review-field">
+
+                        <label>
+                            Star Rating
+                        </label>
+
+                        <select
+                            onchange="updateReview(${index}, 'rating', Number(this.value))"
+                        >
+
+                            <option value="5" ${Number(review.rating) === 5 ? "selected" : ""}>
+                                ★★★★★ - 5
+                            </option>
+
+                            <option value="4" ${Number(review.rating) === 4 ? "selected" : ""}>
+                                ★★★★☆ - 4
+                            </option>
+
+                            <option value="3" ${Number(review.rating) === 3 ? "selected" : ""}>
+                                ★★★☆☆ - 3
+                            </option>
+
+                            <option value="2" ${Number(review.rating) === 2 ? "selected" : ""}>
+                                ★★☆☆☆ - 2
+                            </option>
+
+                            <option value="1" ${Number(review.rating) === 1 ? "selected" : ""}>
+                                ★☆☆☆☆ - 1
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="review-field full">
+
+                        <label>
+                            Review Title
+                        </label>
+
+                        <input
+                            type="text"
+                            value="${escapeHTML(review.title || "")}"
+                            placeholder="Example: Excellent product"
+                            oninput="updateReview(${index}, 'title', this.value)"
+                        >
+
+                    </div>
+
+
+                    <div class="review-field full">
+
+                        <label>
+                            Review Text
+                        </label>
+
+                        <textarea
+                            placeholder="Write customer's review..."
+                            oninput="updateReview(${index}, 'text', this.value)"
+                        >${escapeHTML(review.text || "")}</textarea>
+
+                    </div>
+
+
+                    <div class="review-field">
+
+                        <label>
+                            Review Date
+                        </label>
+
+                        <input
+                            type="text"
+                            value="${escapeHTML(review.date || "")}"
+                            placeholder="Example: September 15, 2026"
+                            oninput="updateReview(${index}, 'date', this.value)"
+                        >
+
+                    </div>
+
+
+                    <div class="review-field">
+
+                        <label>
+                            Review Image URL (optional)
+                        </label>
+
+                        <input
+                            type="text"
+                            value="${escapeHTML(review.image || "")}"
+                            placeholder="Optional image URL"
+                            oninput="updateReview(${index}, 'image', this.value)"
+                        >
+
+                    </div>
+
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                box
+            );
+
+        }
+    );
+
+}
+
+
+function updateReview(
+    index,
+    field,
+    value
+) {
+
+    if (
+        productReviews[index]
+    ) {
+
+        productReviews[index][field] =
+            value;
+
+    }
+
+}
+
+
+function removeReview(index) {
+
+    productReviews.splice(
+        index,
+        1
+    );
+
+    renderReviews();
+
+}
+
+
+/* ========================================
+   ESCAPE HTML
+======================================== */
+
+function escapeHTML(value) {
+
+    return String(value || "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* ========================================
+   LIVE PREVIEW
+======================================== */
+
+function updatePreview() {
+
+    const title =
+        document.getElementById(
+            "title"
+        ).value ||
+        "Product Name";
+
+
+    const price =
+        Number(
+            document.getElementById(
+                "price"
+            ).value
+        ) || 0;
+
+
+    const oldPrice =
+        Number(
+            document.getElementById(
+                "oldPrice"
+            ).value
+        ) || 0;
+
+
+    const rating =
+        Number(
+            document.getElementById(
+                "rating"
+            ).value
+        ) || 0;
+
+
+    const reviews =
+        Number(
+            document.getElementById(
+                "reviews"
+            ).value
+        ) || 0;
+
+
+    const description =
+        document.getElementById(
+            "description"
+        ).value ||
+        "Product description will appear here.";
+
+
+    document.getElementById(
+        "previewTitle"
+    ).innerText =
+        title;
+
+
+    document.getElementById(
+        "previewPrice"
+    ).innerText =
+        price.toFixed(2);
+
+
+    document.getElementById(
+        "previewOldPrice"
+    ).innerText =
+        oldPrice.toFixed(2);
+
+
+    document.getElementById(
+        "previewStars"
+    ).innerText =
+        getStars(rating);
+
+
+    document.getElementById(
+        "previewReviews"
+    ).innerText =
+        "(" +
+        reviews +
+        ")";
+
+
+    document.getElementById(
+        "previewDescription"
+    ).innerText =
+        description;
+
+
+    updateDiscountDisplay();
+
+    updateStockDisplay();
+
+    updateImagePreview();
+
+
+    const preview =
+        document.getElementById(
+            "previewImage"
+        );
+
+
+    if (
+        selectedImages.length > 0
+    ) {
+
+        preview.innerHTML = `
+
+            <img
+                src="${selectedImages[0]}"
+            >
+
+        `;
+
+    }
+
+    else {
+
+        const url =
+            document
+                .getElementById("image")
+                .value
+                .trim();
+
+
+        if (url) {
+
+            preview.innerHTML = `
+
+                <img
+                    src="${url}"
+                    onerror="this.parentElement.innerHTML='📦';"
+                >
+
+            `;
+
+        }
+
+        else {
+
+            preview.innerText =
+                "📦";
+
+        }
+
+    }
+
+}
+
+
+/* ========================================
+   DISPLAY PRODUCTS
+======================================== */
+
+function displayAdminProducts() {
+
+    const container =
+        document.getElementById(
+            "adminProducts"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (
+        adminProducts.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="7"
+                    class="empty-message"
+                >
+                    No products found.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    adminProducts.forEach(
+        product => {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            let imageHTML =
+                "📦";
+
+
+            if (
+                product.images &&
+                product.images.length > 0
+            ) {
+
+                imageHTML = `
+
+                    <img
+                        src="${product.images[0]}"
+                        class="product-admin-image"
+                    >
+
+                `;
+
+            }
+
+            else if (
+                product.image
+            ) {
+
+                imageHTML = `
+
+                    <img
+                        src="${product.image}"
+                        class="product-admin-image"
+                    >
+
+                `;
+
+            }
+
+
+            const status =
+                getStockStatus(
+                    product.stock
+                );
+
+
+            const discount =
+                product.oldPrice >
+                product.price
+
+                    ? Math.round(
+                        (
+                            (
+                                product.oldPrice -
+                                product.price
+                            )
+                            /
+                            product.oldPrice
+                        ) * 100
+                    )
+
+                    : 0;
+
+
+            const infoCount =
+                Array.isArray(
+                    product.informationSections
+                )
+                ? product.informationSections.length
+                : 0;
+
+
+            const reviewCount =
+                Array.isArray(
+                    product.customerReviews
+                )
+                ? product.customerReviews.length
+                : 0;
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${imageHTML}
+                </td>
+
+                <td>
+
+                    <strong>
+                        ${escapeHTML(product.title)}
+                    </strong>
+
+
+                    ${
+                        product.images &&
+                        product.images.length > 1
+
+                        ? `
+                            <div style="
+                                font-size:11px;
+                                color:#666;
+                                margin-top:4px;
+                            ">
+                                ${product.images.length}
+                                images
+                            </div>
+                          `
+
+                        : ""
+                    }
+
+
+                    ${
+                        infoCount > 0
+
+                        ? `
+                            <div style="
+                                font-size:11px;
+                                color:#007185;
+                                margin-top:4px;
+                            ">
+                                ${infoCount}
+                                information sections
+                            </div>
+                          `
+
+                        : ""
+                    }
+
+
+                    ${
+                        reviewCount > 0
+
+                        ? `
+                            <div style="
+                                font-size:11px;
+                                color:#b12704;
+                                margin-top:3px;
+                            ">
+                                ${reviewCount}
+                                customer reviews
+                            </div>
+                          `
+
+                        : ""
+                    }
+
+                </td>
+
+                <td>
+                    $${Number(
+                        product.price
+                    ).toFixed(2)}
+                </td>
+
+                <td>
+                    ${discount}%
+                </td>
+
+                <td
+                    class="${status.className}"
+                >
+                    ${status.text}
+                </td>
+
+                <td>
+                    ${escapeHTML(product.category)}
+                </td>
+
+                <td>
+
+                    <button
+                        class="edit-btn"
+                        onclick="editProduct(${product.id})"
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteProduct(${product.id})"
+                    >
+                        Delete
+                    </button>
+
+                </td>
+
+            `;
+
+
+            container.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+/* ========================================
+   ADD / UPDATE PRODUCT
+======================================== */
+
+document
+    .getElementById("productForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const saveButton =
+                document.getElementById(
+                    "saveButton"
+                );
+
+
+            const originalButtonText =
+                saveButton.innerText;
+
+
+            saveButton.disabled =
+                true;
+
+
+            saveButton.innerText =
+                "Saving...";
+
+
+            try {
+
+                const price =
+                    Number(
+                        document.getElementById(
+                            "price"
+                        ).value
+                    );
+
+
+                const oldPrice =
+                    Number(
+                        document.getElementById(
+                            "oldPrice"
+                        ).value
+                    ) || 0;
+
+
+                const discount =
+                    calculateDiscount();
+
+
+                let finalImages =
+                    [...selectedImages];
+
+
+                if (
+                    finalImages.length === 0
+                ) {
+
+                    const imageUrl =
+                        document
+                            .getElementById(
+                                "image"
+                            )
+                            .value
+                            .trim();
+
+
+                    if (imageUrl) {
+
+                        finalImages.push(
+                            imageUrl
+                        );
+
+                    }
+
+                }
+
+
+                const productData = {
+
+                    id:
+                        editingId !== null
+                            ? editingId
+                            : getNextId(),
+
+
+                    title:
+                        document
+                            .getElementById(
+                                "title"
+                            )
+                            .value
+                            .trim(),
+
+
+                    price:
+                        price,
+
+
+                    oldPrice:
+                        oldPrice,
+
+
+                    discount:
+                        discount,
+
+
+                    condition:
+                        document
+                            .getElementById(
+                                "condition"
+                            )
+                            .value,
+
+
+                    rating:
+                        Number(
+                            document
+                                .getElementById(
+                                    "rating"
+                                )
+                                .value
+                        ) || 0,
+
+
+                    reviews:
+                        Number(
+                            document
+                                .getElementById(
+                                    "reviews"
+                                )
+                                .value
+                        ) || 0,
+
+
+                    stock:
+                        Number(
+                            document
+                                .getElementById(
+                                    "stock"
+                                )
+                                .value
+                        ) || 0,
+
+
+                    category:
+                        document
+                            .getElementById(
+                                "category"
+                            )
+                            .value,
+
+
+                    images:
+                        finalImages,
+
+
+                    image:
+                        finalImages[0] || "",
+
+
+                    description:
+                        document
+                            .getElementById(
+                                "description"
+                            )
+                            .value
+                            .trim(),
+
+
+                    renewed:
+                        document
+                            .getElementById(
+                                "renewed"
+                            )
+                            .checked,
+
+
+                    informationSections:
+                        JSON.parse(
+                            JSON.stringify(
+                                informationSections
+                            )
+                        ),
+
+
+                    customerReviews:
+                        JSON.parse(
+                            JSON.stringify(
+                                productReviews
+                            )
+                        )
+
+                };
+
+
+                const savedProduct =
+                    await saveSingleProduct(
+                        productData
+                    );
+
+
+                if (!savedProduct) {
+
+                    return;
+
+                }
+
+
+                if (
+                    editingId !== null
+                ) {
+
+                    const index =
+                        adminProducts.findIndex(
+                            item =>
+                                Number(item.id) ===
+                                Number(editingId)
+                        );
+
+
+                    if (
+                        index !== -1
+                    ) {
+
+                        adminProducts[index] =
+                            savedProduct;
+
+                    }
+
+                    else {
+
+                        adminProducts.push(
+                            savedProduct
+                        );
+
+                    }
+
+
+                    alert(
+                        "Product updated successfully!"
+                    );
+
+                }
+
+                else {
+
+                    adminProducts.push(
+                        savedProduct
+                    );
+
+
+                    alert(
+                        "Product added successfully!"
+                    );
+
+                }
+
+
+                normalizeProducts();
+
+                resetForm();
+
+                displayAdminProducts();
+
+
+            }
+
+            finally {
+
+                saveButton.disabled =
+                    false;
+
+                saveButton.innerText =
+                    editingId !== null
+                        ? "Update Product"
+                        : originalButtonText;
+
+            }
+
+        }
+    );
+
+
+/* ========================================
+   NEXT ID
+======================================== */
+
+function getNextId() {
+
+    if (
+        adminProducts.length === 0
+    ) {
+
+        return 1;
+
+    }
+
+
+    return Math.max(
+        ...adminProducts.map(
+            item =>
+                Number(item.id) || 0
+        )
+    ) + 1;
+
+}
+
+
+/* ========================================
+   EDIT PRODUCT
+======================================== */
+
+function editProduct(id) {
+
+    const product =
+        adminProducts.find(
+            item =>
+                Number(item.id) ===
+                Number(id)
+        );
+
+
+    if (!product) {
+
+        return;
+
+    }
+
+
+    editingId =
+        Number(id);
+
+
+    if (
+        Array.isArray(
+            product.images
+        )
+    ) {
+
+        selectedImages =
+            [...product.images];
+
+    }
+
+    else if (
+        product.image
+    ) {
+
+        selectedImages =
+            [product.image];
+
+    }
+
+    else {
+
+        selectedImages = [];
+
+    }
+
+
+    informationSections =
+        Array.isArray(
+            product.informationSections
+        )
+        ? JSON.parse(
+            JSON.stringify(
+                product.informationSections
+            )
+        )
+        : [];
+
+
+    productReviews =
+        Array.isArray(
+            product.customerReviews
+        )
+        ? JSON.parse(
+            JSON.stringify(
+                product.customerReviews
+            )
+        )
+        : [];
+
+
+    document.getElementById(
+        "title"
+    ).value =
+        product.title || "";
+
+
+    document.getElementById(
+        "price"
+    ).value =
+        product.price || "";
+
+
+    document.getElementById(
+        "oldPrice"
+    ).value =
+        product.oldPrice || "";
+
+
+    document.getElementById(
+        "stock"
+    ).value =
+        product.stock || "";
+
+
+    document.getElementById(
+        "rating"
+    ).value =
+        product.rating || "";
+
+
+    document.getElementById(
+        "reviews"
+    ).value =
+        product.reviews || "";
+
+
+    document.getElementById(
+        "category"
+    ).value =
+        product.category || "Other";
+
+
+    document.getElementById(
+        "condition"
+    ).value =
+        product.condition || "New";
+
+
+    if (
+        selectedImages.length === 1 &&
+        typeof selectedImages[0] === "string" &&
+        !selectedImages[0]
+            .startsWith("data:image/")
+    ) {
+
+        document.getElementById(
+            "image"
+        ).value =
+            selectedImages[0];
+
+    }
+
+    else {
+
+        document.getElementById(
+            "image"
+        ).value =
+            "";
+
+    }
+
+
+    document.getElementById(
+        "description"
+    ).value =
+        product.description || "";
+
+
+    document.getElementById(
+        "renewed"
+    ).checked =
+        product.renewed === true;
+
+
+    document.getElementById(
+        "formTitle"
+    ).innerText =
+        "Edit Product";
+
+
+    document.getElementById(
+        "saveButton"
+    ).innerText =
+        "Update Product";
+
+
+    updateImagePreview();
+
+    updatePreview();
+
+    renderInformationSections();
+
+    renderReviews();
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* ========================================
+   DELETE
+======================================== */
+
+async function deleteProduct(id) {
+
+    const product =
+        adminProducts.find(
+            item =>
+                Number(item.id) ===
+                Number(id)
+        );
+
+
+    if (!product) {
+
+        return;
+
+    }
+
+
+    if (
+        !confirm(
+            'Delete "' +
+            product.title +
+            '"?'
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("products")
+                .delete()
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Delete error:",
+                error
+            );
+
+            alert(
+                "Product delete nahi hua:\n" +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        adminProducts =
+            adminProducts.filter(
+                item =>
+                    Number(item.id) !==
+                    Number(id)
+            );
+
+
+        displayAdminProducts();
+
+
+        alert(
+            "Product deleted successfully!"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+        alert(
+            "Product delete nahi hua."
+        );
+
+    }
+
+}
+
+
+/* ========================================
+   RESET
+======================================== */
+
+function resetForm() {
+
+    editingId =
+        null;
+
+
+    selectedImages =
+        [];
+
+
+    informationSections =
+        [];
+
+
+    productReviews =
+        [];
+
+
+    document
+        .getElementById(
+            "productForm"
+        )
+        .reset();
+
+
+    document.getElementById(
+        "formTitle"
+    ).innerText =
+        "Add New Product";
+
+
+    document.getElementById(
+        "saveButton"
+    ).innerText =
+        "Add Product";
+
+
+    document.getElementById(
+        "imagePreview"
+    ).innerHTML =
+        "<div style='font-size:50px;'>📦</div>";
+
+
+    renderInformationSections();
+
+    renderReviews();
+
+    updatePreview();
+
+}
+
+
+/* ========================================
+   HOME
+======================================== */
+
+function goHome() {
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* ========================================
+   LIVE EVENTS
+======================================== */
+
+[
+    "title",
+    "price",
+    "oldPrice",
+    "stock",
+    "rating",
+    "reviews",
+    "image",
+    "description"
+].forEach(
+    id => {
+
+        document
+            .getElementById(id)
+            .addEventListener(
+                "input",
+                updatePreview
+            );
+
+    }
+);
+
+
+/* ========================================
+   START
+======================================== */
+
 loadStoreLogo();
 
-loadProducts(); 
- 
-</script> 
- 
-</body> 
- 
+loadProducts();
+
+</script>
+
+</body>
+
 </html>
