@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 
 <html lang="en">
@@ -542,6 +543,13 @@
 
 
 <!-- ========================================
+     SUPABASE
+======================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- ========================================
      PRODUCT DATA
 ======================================== -->
 
@@ -560,23 +568,44 @@
 
 
 // ========================================
+// SUPABASE CONNECTION
+// ========================================
+
+const SUPABASE_URL =
+    "https://couztwgxdpisnqurlvbs.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_V6cuw9f9Q6aAYsd_4xGebQ_cZcEZSTU";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+// ========================================
+// PRODUCTS FROM SUPABASE
+// ========================================
+
+let currentProducts = [];
+
+
+// ========================================
 // STORE LOGO
 // ========================================
 
 function loadStoreLogo() {
-
 
     const savedLogo =
         localStorage.getItem(
             "amaz0nLogo"
         );
 
-
     const logo =
         document.getElementById(
             "storeLogo"
         );
-
 
     if (
         !logo ||
@@ -586,7 +615,6 @@ function loadStoreLogo() {
         return;
 
     }
-
 
     logo.innerHTML = `
 
@@ -600,10 +628,186 @@ function loadStoreLogo() {
 }
 
 
-// Load saved logo
-
 loadStoreLogo();
 
+
+// ========================================
+// LOAD PRODUCTS
+// ========================================
+
+async function loadProductsFromSupabase() {
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("products")
+                .select("*")
+                .order("id", {
+                    ascending: true
+                });
+
+
+        if (error) {
+
+            console.error(
+                "Supabase products error:",
+                error
+            );
+
+            currentProducts =
+                products;
+
+            displayProducts(
+                currentProducts
+            );
+
+            return;
+
+        }
+
+
+        if (
+            Array.isArray(data) &&
+            data.length > 0
+        ) {
+
+            currentProducts =
+                data.map(
+                    function(product) {
+
+                        return {
+
+                            id:
+                                Number(
+                                    product.id
+                                ),
+
+                            title:
+                                product.title ||
+                                "",
+
+                            price:
+                                Number(
+                                    product.price
+                                ) || 0,
+
+                            oldPrice:
+                                Number(
+                                    product.old_price
+                                ) || 0,
+
+                            discount:
+                                Number(
+                                    product.discount
+                                ) || 0,
+
+                            condition:
+                                product.condition ||
+                                "New",
+
+                            rating:
+                                Number(
+                                    product.rating
+                                ) || 0,
+
+                            reviews:
+                                Number(
+                                    product.reviews
+                                ) || 0,
+
+                            stock:
+                                Number(
+                                    product.stock
+                                ) || 0,
+
+                            category:
+                                product.category ||
+                                "",
+
+                            image:
+                                product.image ||
+                                "",
+
+                            images:
+                                Array.isArray(
+                                    product.images
+                                )
+                                    ? product.images
+                                    : (
+                                        product.image
+                                            ? [
+                                                product.image
+                                            ]
+                                            : []
+                                    ),
+
+                            description:
+                                product.description ||
+                                "",
+
+                            renewed:
+                                product.renewed ===
+                                true,
+
+                            informationSections:
+                                Array.isArray(
+                                    product.information_sections
+                                )
+                                    ? product.information_sections
+                                    : [],
+
+                            customerReviews:
+                                Array.isArray(
+                                    product.customer_reviews
+                                )
+                                    ? product.customer_reviews
+                                    : []
+
+                        };
+
+                    }
+                );
+
+
+            displayProducts(
+                currentProducts
+            );
+
+        }
+
+
+        else {
+
+            currentProducts =
+                products;
+
+            displayProducts(
+                currentProducts
+            );
+
+        }
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Products loading error:",
+            error
+        );
+
+        currentProducts =
+            products;
+
+        displayProducts(
+            currentProducts
+        );
+
+    }
+
+}
 
 
 // ========================================
@@ -612,49 +816,17 @@ loadStoreLogo();
 
 function getProducts() {
 
+    if (
+        currentProducts.length > 0
+    ) {
 
-    const saved =
-        localStorage.getItem(
-            "amaz0nProducts"
-        );
-
-
-    if (saved) {
-
-
-        try {
-
-
-            const parsed =
-                JSON.parse(saved);
-
-
-            if (
-                Array.isArray(parsed)
-            ) {
-
-                return parsed;
-
-            }
-
-
-        } catch (error) {
-
-
-            console.log(
-                "Saved products error:",
-                error
-            );
-
-        }
+        return currentProducts;
 
     }
-
 
     return products;
 
 }
-
 
 
 // ========================================
@@ -663,7 +835,6 @@ function getProducts() {
 
 function getStockStatus(stock) {
 
-
     stock =
         Number(stock);
 
@@ -671,7 +842,6 @@ function getStockStatus(stock) {
     if (
         stock <= 0
     ) {
-
 
         return {
 
@@ -689,7 +859,6 @@ function getStockStatus(stock) {
     if (
         stock <= 5
     ) {
-
 
         return {
 
@@ -719,7 +888,6 @@ function getStockStatus(stock) {
 }
 
 
-
 // ========================================
 // SHOW PRODUCTS
 // ========================================
@@ -727,7 +895,6 @@ function getStockStatus(stock) {
 function displayProducts(
     productList = getProducts()
 ) {
-
 
     const container =
         document.getElementById(
@@ -750,7 +917,6 @@ function displayProducts(
         productList.length === 0
     ) {
 
-
         container.innerHTML = `
 
             <div class="search-message">
@@ -767,16 +933,13 @@ function displayProducts(
 
         `;
 
-
         return;
 
     }
 
 
-
     productList.forEach(
         product => {
-
 
             const card =
                 document.createElement(
@@ -786,7 +949,6 @@ function displayProducts(
 
             card.className =
                 "product";
-
 
 
             // ========================================
@@ -800,7 +962,6 @@ function displayProducts(
             if (
                 product.image
             ) {
-
 
                 imageContent = `
 
@@ -816,9 +977,7 @@ function displayProducts(
 
             }
 
-
             else {
-
 
                 if (
                     product.category ===
@@ -830,7 +989,6 @@ function displayProducts(
 
                 }
 
-
                 else if (
                     product.category ===
                     "Electronics"
@@ -840,7 +998,6 @@ function displayProducts(
                         "🎧";
 
                 }
-
 
                 else if (
                     product.category ===
@@ -852,7 +1009,6 @@ function displayProducts(
 
                 }
 
-
                 else if (
                     product.category ===
                     "Fashion"
@@ -863,7 +1019,6 @@ function displayProducts(
 
                 }
 
-
                 else {
 
                     imageContent =
@@ -872,7 +1027,6 @@ function displayProducts(
                 }
 
             }
-
 
 
             // ========================================
@@ -885,7 +1039,6 @@ function displayProducts(
                 );
 
 
-
             // ========================================
             // BUY NOW BUTTON
             // ========================================
@@ -896,7 +1049,6 @@ function displayProducts(
             if (
                 Number(product.stock) > 0
             ) {
-
 
                 buyButton = `
 
@@ -915,9 +1067,7 @@ function displayProducts(
 
             }
 
-
             else {
-
 
                 buyButton = `
 
@@ -936,7 +1086,6 @@ function displayProducts(
             }
 
 
-
             // ========================================
             // OLD PRICE
             // ========================================
@@ -949,7 +1098,6 @@ function displayProducts(
                 Number(product.oldPrice) >
                 Number(product.price)
             ) {
-
 
                 priceInfo = `
 
@@ -999,15 +1147,11 @@ function displayProducts(
             }
 
 
-
             // ========================================
             // PRODUCT CARD
             // ========================================
 
             card.innerHTML = `
-
-
-                <!-- PRODUCT IMAGE -->
 
                 <div
                     class="product-image"
@@ -1021,9 +1165,6 @@ function displayProducts(
                 </div>
 
 
-
-                <!-- PRODUCT TITLE -->
-
                 <h2
                     onclick="
                         openProduct(${product.id})
@@ -1034,9 +1175,6 @@ function displayProducts(
 
                 </h2>
 
-
-
-                <!-- RATING -->
 
                 <div class="stars">
 
@@ -1053,9 +1191,6 @@ function displayProducts(
                 </div>
 
 
-
-                <!-- DESCRIPTION -->
-
                 <p>
 
                     ${
@@ -1065,9 +1200,6 @@ function displayProducts(
 
                 </p>
 
-
-
-                <!-- PRICE -->
 
                 <div class="price">
 
@@ -1082,14 +1214,8 @@ function displayProducts(
                 </div>
 
 
-
-                <!-- OLD PRICE / DISCOUNT -->
-
                 ${priceInfo}
 
-
-
-                <!-- STOCK -->
 
                 <p
                     class="
@@ -1103,9 +1229,6 @@ function displayProducts(
                 </p>
 
 
-
-                <!-- DELIVERY -->
-
                 <p class="delivery">
 
                     FREE Delivery
@@ -1113,14 +1236,9 @@ function displayProducts(
                 </p>
 
 
-
-                <!-- BUY BUTTON -->
-
                 ${buyButton}
 
-
             `;
-
 
 
             // ========================================
@@ -1131,10 +1249,6 @@ function displayProducts(
                 "dblclick",
                 function(event) {
 
-
-                    // Don't open product when
-                    // double clicking button
-
                     if (
                         event.target.tagName ===
                         "BUTTON"
@@ -1144,7 +1258,6 @@ function displayProducts(
 
                     }
 
-
                     openProduct(
                         product.id
                     );
@@ -1153,13 +1266,9 @@ function displayProducts(
             );
 
 
-
-            // Add card
-
             container.appendChild(
                 card
             );
-
 
         }
     );
@@ -1167,13 +1276,11 @@ function displayProducts(
 }
 
 
-
 // ========================================
 // BUY NOW
 // ========================================
 
 function buyNow(id) {
-
 
     const allProducts =
         getProducts();
@@ -1189,11 +1296,9 @@ function buyNow(id) {
 
     if (!product) {
 
-
         alert(
             "Product not found."
         );
-
 
         return;
 
@@ -1204,18 +1309,14 @@ function buyNow(id) {
         Number(product.stock) <= 0
     ) {
 
-
         alert(
             "This product is out of stock."
         );
-
 
         return;
 
     }
 
-
-    // Save Buy Now product
 
     localStorage.setItem(
         "amaz0nBuyNow",
@@ -1225,13 +1326,10 @@ function buyNow(id) {
     );
 
 
-    // Open checkout
-
     window.location.href =
         "checkout.html";
 
 }
-
 
 
 // ========================================
@@ -1239,7 +1337,6 @@ function buyNow(id) {
 // ========================================
 
 function getStars(rating) {
-
 
     rating =
         Number(rating) || 0;
@@ -1255,21 +1352,17 @@ function getStars(rating) {
         i++
     ) {
 
-
         if (
             i <=
             Math.floor(rating)
         ) {
-
 
             stars +=
                 "★";
 
         }
 
-
         else {
-
 
             stars +=
                 "☆";
@@ -1284,13 +1377,11 @@ function getStars(rating) {
 }
 
 
-
 // ========================================
 // OPEN PRODUCT
 // ========================================
 
 function openProduct(id) {
-
 
     window.location.href =
         "product.html?id=" +
@@ -1299,13 +1390,11 @@ function openProduct(id) {
 }
 
 
-
 // ========================================
 // SEARCH
 // ========================================
 
 function searchProducts() {
-
 
     const input =
         document.getElementById(
@@ -1329,40 +1418,27 @@ function searchProducts() {
         category.value;
 
 
-
     const allProducts =
         getProducts();
 
-
-    // ========================================
-    // NO SEARCH
-    // ========================================
 
     if (
         search === "" &&
         selectedCategory === "All"
     ) {
 
-
         displayProducts(
             allProducts
         );
-
 
         return;
 
     }
 
 
-
-    // ========================================
-    // FILTER
-    // ========================================
-
     const results =
         allProducts.filter(
             product => {
-
 
                 const title =
                     String(
@@ -1384,7 +1460,6 @@ function searchProducts() {
                     .toLowerCase();
 
 
-
                 const matchesText =
                     search === "" ||
 
@@ -1401,14 +1476,12 @@ function searchProducts() {
                     );
 
 
-
                 const matchesCategory =
                     selectedCategory ===
                     "All" ||
 
                     productCategory ===
                     selectedCategory;
-
 
 
                 return (
@@ -1420,13 +1493,11 @@ function searchProducts() {
         );
 
 
-
     displayProducts(
         results
     );
 
 }
-
 
 
 // ========================================
@@ -1441,17 +1512,14 @@ const searchInput =
 
 if (searchInput) {
 
-
     searchInput.addEventListener(
         "keypress",
         function(event) {
-
 
             if (
                 event.key ===
                 "Enter"
             ) {
-
 
                 searchProducts();
 
@@ -1461,7 +1529,6 @@ if (searchInput) {
     );
 
 }
-
 
 
 // ========================================
@@ -1476,11 +1543,9 @@ const searchCategory =
 
 if (searchCategory) {
 
-
     searchCategory.addEventListener(
         "change",
         function() {
-
 
             const search =
                 document.getElementById(
@@ -1493,17 +1558,14 @@ if (searchCategory) {
                 this.value !== "All"
             ) {
 
-
                 searchProducts();
 
             }
-
 
         }
     );
 
 }
-
 
 
 // ========================================
@@ -1512,9 +1574,7 @@ if (searchCategory) {
 
 function updateCartCount() {
 
-
     try {
-
 
         const cartData =
             localStorage.getItem(
@@ -1523,7 +1583,6 @@ function updateCartCount() {
 
 
         if (!cartData) {
-
 
             const countElement =
                 document.getElementById(
@@ -1544,7 +1603,6 @@ function updateCartCount() {
         }
 
 
-
         const cart =
             JSON.parse(
                 cartData
@@ -1555,15 +1613,12 @@ function updateCartCount() {
             0;
 
 
-
         if (
             Array.isArray(cart)
         ) {
 
-
             cart.forEach(
                 item => {
-
 
                     count +=
                         Number(
@@ -1574,7 +1629,6 @@ function updateCartCount() {
             );
 
         }
-
 
 
         const countElement =
@@ -1593,9 +1647,7 @@ function updateCartCount() {
 
     }
 
-
     catch (error) {
-
 
         console.log(
             "Cart count error:",
@@ -1607,15 +1659,11 @@ function updateCartCount() {
 }
 
 
-
 // ========================================
 // START APPLICATION
 // ========================================
 
-displayProducts(
-    getProducts()
-);
-
+loadProductsFromSupabase();
 
 updateCartCount();
 
@@ -1626,3 +1674,4 @@ updateCartCount();
 </body>
 
 </html>
+```
