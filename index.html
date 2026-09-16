@@ -963,17 +963,19 @@ function displayProducts(
                 product.image
             ) {
 
-                imageContent = `
+imageContent = `
 
-                    <img
-                        src="${product.image}"
-                        alt="${product.title}"
-                        onerror="
-                            this.parentElement.innerHTML='📦';
-                        "
-                    >
+    <img 
+        src="${product.image}" 
+        alt="${product.title}"
+        style="cursor:pointer;"
+        onclick="openProduct(${product.id})"
+        onerror="
+            this.parentElement.innerHTML='📦'; 
+        "
+    >
 
-                `;
+`;
 
             }
 

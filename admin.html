@@ -1,653 +1,771 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>amaz0n - Admin Products</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-
-        body {
-            background: #eaeded;
-        }
-
-        .admin-header {
-            background: #131921;
-            color: white;
-            padding: 18px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .admin-header h1 {
-            margin: 0;
-            font-size: 25px;
-        }
-
-        .back-btn {
-            background: #febd69;
-            color: #111;
-            border: 0;
-            padding: 10px 18px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .admin-container {
-            max-width: 1200px;
-            margin: 25px auto;
-            padding: 0 20px;
-        }
-
-        .admin-box {
-            background: white;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 5px;
-            box-shadow: 0 1px 5px #ccc;
-        }
-
-        .admin-box h2 {
-            margin-top: 0;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 15px;
-        }
-
-        /* =========================
-           STORE LOGO
-        ========================= */
-
-        .store-logo-box {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .store-logo-upload {
-            border: 2px dashed #aaa;
-            padding: 25px;
-            background: #fafafa;
-            text-align: center;
-            border-radius: 5px;
-        }
-
-        .store-logo-upload input {
-            margin-top: 12px;
-        }
-
-        .store-logo-preview {
-            margin-top: 15px;
-            min-height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-        }
-
-        .store-logo-preview img {
-            max-width: 300px;
-            max-height: 120px;
-            object-fit: contain;
-        }
-
-        .store-logo-empty {
-            color: #777;
-            font-size: 14px;
-        }
-
-        .logo-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .save-logo-btn {
-            background: #ffd814;
-            border: 1px solid #fcd200;
-            padding: 11px 22px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .remove-logo-btn {
-            background: #e7e7e7;
-            border: 1px solid #999;
-            padding: 11px 22px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .logo-help {
-            color: #666;
-            font-size: 13px;
-            margin-top: 5px;
-        }
-
-        /* =========================
-           PRODUCT FORM
-        ========================= */
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group.full {
-            grid-column: 1 / -1;
-        }
-
-        .form-group label {
-            font-weight: bold;
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 11px;
-            border: 1px solid #aaa;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .image-upload {
-            border: 2px dashed #aaa;
-            padding: 20px;
-            background: #fafafa;
-            text-align: center;
-            border-radius: 5px;
-        }
-
-        .image-upload input {
-            margin-top: 10px;
-            border: 0;
-            padding: 0;
-        }
-
-        .image-help {
-            color: #666;
-            font-size: 13px;
-            margin-top: 8px;
-        }
-
-        /* =========================
-           MULTIPLE IMAGE PREVIEW
-        ========================= */
-
-        .image-preview {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 15px;
-            justify-content: center;
-        }
-
-        .uploaded-image {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            background: #f7f7f7;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .uploaded-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .remove-image {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            width: 25px;
-            height: 25px;
-            padding: 0;
-            border: 0;
-            border-radius: 50%;
-            background: #d11a2a;
-            color: white;
-            font-size: 18px;
-            line-height: 25px;
-            cursor: pointer;
-        }
-
-        .main-image-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,.65);
-            color: white;
-            font-size: 11px;
-            padding: 4px;
-        }
-
-        .discount-display {
-            margin-top: 7px;
-            color: #b12704;
-            font-weight: bold;
-        }
-
-        .stock-status {
-            margin-top: 7px;
-            font-weight: bold;
-        }
-
-        .stock-good {
-            color: #007600;
-            font-weight: bold;
-        }
-
-        .stock-low {
-            color: #b12704;
-            font-weight: bold;
-        }
-
-        .stock-out {
-            color: #cc0000;
-            font-weight: bold;
-        }
-
-        .checkbox-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 25px;
-        }
-
-        .checkbox-row input {
-            width: 18px;
-            height: 18px;
-        }
-
-        .form-buttons {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .save-btn {
-            background: #ffd814;
-            border: 1px solid #fcd200;
-            padding: 12px 25px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .cancel-btn {
-            background: #ddd;
-            border: 1px solid #aaa;
-            padding: 12px 25px;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-
-        .preview-box {
-            margin-top: 25px;
-            border-top: 1px solid #ddd;
-            padding-top: 20px;
-        }
-
-        .preview-card {
-            border: 1px solid #ddd;
-            padding: 20px;
-            max-width: 500px;
-            background: white;
-        }
-
-        .preview-image {
-            height: 180px;
-            background: #f7f7f7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            margin-bottom: 15px;
-            font-size: 80px;
-        }
-
-        .preview-image img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .preview-title {
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
-
-        .preview-price {
-            font-size: 27px;
-            margin: 10px 0;
-        }
-
-        .preview-old-price {
-            color: #555;
-        }
-
-        .preview-discount {
-            color: #b12704;
-            font-weight: bold;
-            margin-left: 8px;
-        }
-
-        .preview-stock {
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        .products-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .products-table th,
-        .products-table td {
-            border-bottom: 1px solid #ddd;
-            padding: 12px 8px;
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        .products-table th {
-            background: #f3f3f3;
-        }
-
-        .product-admin-image {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-            background: #f7f7f7;
-        }
-
-        .edit-btn {
-            background: #ffd814;
-            border: 0;
-            padding: 8px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 5px;
-        }
-
-        .delete-btn {
-            background: #e7e7e7;
-            border: 1px solid #999;
-            padding: 8px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .empty-message {
-            text-align: center;
-            padding: 25px;
-            color: #666;
-        }
-
-        /* =========================
-           PRODUCT INFORMATION
-        ========================= */
-
-        .builder-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .builder-header h2 {
-            margin: 0;
-            border: 0;
-            padding: 0;
-        }
-
-        .add-section-btn,
-        .add-review-btn {
-            background: #007185;
-            color: white;
-            border: 0;
-            padding: 10px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .add-section-btn:hover,
-        .add-review-btn:hover {
-            background: #005f6b;
-        }
-
-        .builder-help {
-            color: #666;
-            font-size: 13px;
-            margin-bottom: 15px;
-        }
-
-        .section-item {
-            border: 1px solid #ccc;
-            background: #fafafa;
-            padding: 15px;
-            margin-bottom: 12px;
-            border-radius: 5px;
-        }
-
-        .section-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .section-number {
-            font-weight: bold;
-            color: #555;
-        }
-
-        .remove-section-btn,
-        .remove-review-btn {
-            background: #d11a2a;
-            color: white;
-            border: 0;
-            padding: 7px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .section-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .section-field {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .section-field.full {
-            grid-column: 1 / -1;
-        }
-
-        .section-field label {
-            font-weight: bold;
-            font-size: 13px;
-            margin-bottom: 5px;
-        }
-
-        .section-field input,
-        .section-field textarea {
-            padding: 10px;
-            border: 1px solid #aaa;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .section-field textarea {
-            min-height: 110px;
-            resize: vertical;
-        }
-
-        /* =========================
-           REVIEWS
-        ========================= */
-
-        .review-item {
-            border: 1px solid #ccc;
-            background: #fafafa;
-            padding: 15px;
-            margin-bottom: 12px;
-            border-radius: 5px;
-        }
-
-        .review-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .review-number {
-            font-weight: bold;
-            color: #555;
-        }
-
-        .review-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .review-field {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .review-field.full {
-            grid-column: 1 / -1;
-        }
-
-        .review-field label {
-            font-weight: bold;
-            font-size: 13px;
-            margin-bottom: 5px;
-        }
-
-        .review-field input,
-        .review-field select,
-        .review-field textarea {
-            padding: 10px;
-            border: 1px solid #aaa;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .review-field textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .no-builder-items {
-            padding: 20px;
-            text-align: center;
-            color: #777;
-            border: 1px dashed #bbb;
-            background: #fafafa;
-        }
-
-        .section-image-preview {
-            margin-top: 7px;
-        }
-
-        .section-image-preview img {
-            max-width: 120px;
-            max-height: 100px;
-            object-fit: contain;
-            border: 1px solid #ddd;
-            background: white;
-        }
-
-        @media (max-width: 700px) {
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .products-table {
-                font-size: 12px;
-            }
-
-            .products-table th,
-            .products-table td {
-                padding: 7px 4px;
-            }
-
-            .admin-container {
-                padding: 0 10px;
-            }
-
-            .section-grid,
-            .review-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-field.full,
-            .review-field.full {
-                grid-column: auto;
-            }
-
-            .builder-header {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>amaz0n - Admin Products</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body {
+    background: #eaeded;
+    margin: 0;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+#adminLogin {
+    min-height: 100vh;
+    background: #eaeded;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.login-box {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 1px 8px #bbb;
+    box-sizing: border-box;
+}
+
+.login-box h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.login-box p {
+    color: #666;
+}
+
+.login-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.login-btn {
+    width: 100%;
+    background: #ffd814;
+    border: 1px solid #fcd200;
+    padding: 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.login-btn:hover {
+    background: #f7ca00;
+}
+
+#loginMessage {
+    margin-top: 15px;
+    color: #b12704;
+    text-align: center;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+#adminApp {
+    display: none;
+}
+
+.admin-header {
+    background: #131921;
+    color: white;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.admin-header h1 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.back-btn,
+.logout-btn {
+    border: 0;
+    padding: 10px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.back-btn {
+    background: #febd69;
+    color: #111;
+}
+
+.logout-btn {
+    background: #e7e7e7;
+    color: #111;
+}
+
+.admin-container {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 0 20px;
+}
+
+.admin-box {
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px #ccc;
+}
+
+.admin-box h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.store-logo-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.store-logo-upload {
+    border: 2px dashed #aaa;
+    padding: 25px;
+    background: #fafafa;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.store-logo-upload input {
+    margin-top: 12px;
+}
+
+.store-logo-preview {
+    margin-top: 15px;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.store-logo-preview img {
+    max-width: 300px;
+    max-height: 120px;
+    object-fit: contain;
+}
+
+.store-logo-empty {
+    color: #777;
+    font-size: 14px;
+}
+
+.logo-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.save-logo-btn,
+.remove-logo-btn {
+    padding: 11px 22px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.save-logo-btn {
+    background: #ffd814;
+    border: 1px solid #fcd200;
+}
+
+.remove-logo-btn {
+    background: #e7e7e7;
+    border: 1px solid #999;
+}
+
+.logo-help,
+.image-help,
+.builder-help {
+    color: #666;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 11px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* =========================
+   IMAGES
+========================= */
+
+.image-upload {
+    border: 2px dashed #aaa;
+    padding: 20px;
+    background: #fafafa;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.image-upload input {
+    margin-top: 10px;
+}
+
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.uploaded-image {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.uploaded-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.remove-image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #d11a2a;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.main-image-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,.65);
+    color: white;
+    font-size: 11px;
+    padding: 4px;
+}
+
+/* =========================
+   DISCOUNT / STOCK
+========================= */
+
+.discount-display {
+    margin-top: 7px;
+    color: #b12704;
+    font-weight: bold;
+}
+
+.stock-status {
+    margin-top: 7px;
+    font-weight: bold;
+}
+
+.stock-good {
+    color: #007600;
+}
+
+.stock-low {
+    color: #b12704;
+}
+
+.stock-out {
+    color: #cc0000;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 25px;
+}
+
+.checkbox-row input {
+    width: 18px;
+    height: 18px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.form-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.save-btn,
+.cancel-btn {
+    padding: 12px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.save-btn {
+    background: #ffd814;
+    border: 1px solid #fcd200;
+}
+
+.cancel-btn {
+    background: #ddd;
+    border: 1px solid #aaa;
+}
+
+/* =========================
+   PREVIEW
+========================= */
+
+.preview-box {
+    margin-top: 25px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.preview-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    max-width: 500px;
+    background: white;
+}
+
+.preview-image {
+    height: 180px;
+    background: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 15px;
+    font-size: 80px;
+}
+
+.preview-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.preview-title {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.preview-price {
+    font-size: 27px;
+    margin: 10px 0;
+}
+
+.preview-old-price {
+    color: #555;
+}
+
+.preview-discount {
+    color: #b12704;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.preview-stock {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* =========================
+   INFORMATION
+========================= */
+
+.builder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.builder-header h2 {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+.add-section-btn,
+.add-review-btn {
+    background: #007185;
+    color: white;
+    border: 0;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.section-item,
+.review-item {
+    border: 1px solid #ccc;
+    background: #fafafa;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 5px;
+}
+
+.section-top,
+.review-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.section-number,
+.review-number {
+    font-weight: bold;
+    color: #555;
+}
+
+.remove-section-btn,
+.remove-review-btn {
+    background: #d11a2a;
+    color: white;
+    border: 0;
+    padding: 7px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.section-grid,
+.review-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.section-field,
+.review-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-field.full,
+.review-field.full {
+    grid-column: 1 / -1;
+}
+
+.section-field label,
+.review-field label {
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.section-field input,
+.section-field textarea,
+.review-field input,
+.review-field select,
+.review-field textarea {
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.section-field textarea,
+.review-field textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.no-builder-items,
+.empty-message {
+    padding: 20px;
+    text-align: center;
+    color: #777;
+}
+
+.section-image-preview {
+    margin-top: 7px;
+}
+
+.section-image-preview img {
+    max-width: 120px;
+    max-height: 100px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    background: white;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.products-table th,
+.products-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 12px 8px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.products-table th {
+    background: #f3f3f3;
+}
+
+.product-admin-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    background: #f7f7f7;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.edit-btn {
+    background: #ffd814;
+    border: 0;
+}
+
+.delete-btn {
+    background: #e7e7e7;
+    border: 1px solid #999;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .admin-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-header h1 {
+        font-size: 21px;
+    }
+
+    .header-buttons {
+        flex-wrap: wrap;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-grid,
+    .review-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-field.full,
+    .review-field.full {
+        grid-column: auto;
+    }
+
+    .admin-container {
+        padding: 0 10px;
+    }
+
+    .admin-box {
+        padding: 16px;
+    }
+
+    .products-table {
+        font-size: 12px;
+    }
+
+    .products-table th,
+    .products-table td {
+        padding: 7px 4px;
+    }
+
+    .builder-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+}
+
+</style>
 
 </head>
 
 <body>
 
+
+<!-- =====================================================
+     LOGIN SCREEN
+===================================================== -->
+
+<div id="adminLogin">
+
+    <div class="login-box">
+
+        <h2>amaz0n Admin Login</h2>
+
+        <p>
+            Admin panel access ke liye login karein.
+        </p>
+
+        <input
+            type="email"
+            id="adminEmail"
+            class="login-input"
+            placeholder="Admin Email"
+            autocomplete="email"
+        >
+
+        <input
+            type="password"
+            id="adminPassword"
+            class="login-input"
+            placeholder="Password"
+            autocomplete="current-password"
+        >
+
+        <button
+            type="button"
+            class="login-btn"
+            id="loginButton"
+            onclick="adminLogin()"
+        >
+            Login
+        </button>
+
+        <div id="loginMessage"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ADMIN APP
+===================================================== -->
+
+<div id="adminApp">
+
+
 <div class="admin-header">
 
     <h1>amaz0n Admin Panel</h1>
 
-    <button
-        class="back-btn"
-        onclick="goHome()"
-    >
-        ← Back to Store
-    </button>
+    <div class="header-buttons">
+
+        <button
+            class="logout-btn"
+            onclick="adminLogout()"
+        >
+            Logout
+        </button>
+
+        <button
+            class="back-btn"
+            onclick="goHome()"
+        >
+            ← Back to Store
+        </button>
+
+    </div>
 
 </div>
 
@@ -655,15 +773,13 @@
 <div class="admin-container">
 
 
-<!-- =========================
+<!-- =====================================================
      STORE LOGO
-========================= -->
+===================================================== -->
 
 <div class="admin-box">
 
-    <h2>
-        Store Logo
-    </h2>
+    <h2>Store Logo</h2>
 
     <div class="store-logo-box">
 
@@ -690,9 +806,11 @@
                 class="store-logo-preview"
                 id="storeLogoPreview"
             >
+
                 <div class="store-logo-empty">
                     No logo uploaded yet.
                 </div>
+
             </div>
 
         </div>
@@ -722,6 +840,10 @@
 </div>
 
 
+<!-- =====================================================
+     PRODUCT FORM
+===================================================== -->
+
 <div class="admin-box">
 
 <h2 id="formTitle">
@@ -732,477 +854,452 @@
 <form id="productForm">
 
 
-    <div class="form-grid">
+<div class="form-grid">
 
 
-        <div class="form-group full">
+<div class="form-group full">
 
-            <label>
-                Product Name
-            </label>
+<label>Product Name</label>
 
-            <input
-                type="text"
-                id="title"
-                placeholder="Example: Apple iPhone 17e"
-                required
-            >
+<input
+    type="text"
+    id="title"
+    placeholder="Example: Apple iPhone 17e"
+    required
+>
 
-        </div>
+</div>
 
 
-        <div class="form-group">
+<div class="form-group">
 
-            <label>
-                Sale Price ($)
-            </label>
+<label>Sale Price ($)</label>
 
-            <input
-                type="number"
-                id="price"
-                step="0.01"
-                min="0"
-                required
-            >
+<input
+    type="number"
+    id="price"
+    step="0.01"
+    min="0"
+    required
+>
 
-        </div>
+</div>
 
 
-        <div class="form-group">
+<div class="form-group">
 
-            <label>
-                Old Price ($)
-            </label>
+<label>Old Price ($)</label>
 
-            <input
-                type="number"
-                id="oldPrice"
-                step="0.01"
-                min="0"
-            >
+<input
+    type="number"
+    id="oldPrice"
+    step="0.01"
+    min="0"
+>
 
-            <div
-                class="discount-display"
-                id="discountDisplay"
-            >
-                Discount: 0%
-            </div>
+<div
+    class="discount-display"
+    id="discountDisplay"
+>
+    Discount: 0%
+</div>
 
-        </div>
+</div>
 
 
-        <div class="form-group">
+<div class="form-group">
 
-            <label>
-                Stock Quantity
-            </label>
+<label>Stock Quantity</label>
 
-            <input
-                type="number"
-                id="stock"
-                min="0"
-                value="0"
-                required
-            >
+<input
+    type="number"
+    id="stock"
+    min="0"
+    value="0"
+    required
+>
 
-            <div
-                class="stock-status"
-                id="stockStatus"
-            >
-                Out of Stock
-            </div>
+<div
+    class="stock-status"
+    id="stockStatus"
+>
+    Out of Stock
+</div>
 
-        </div>
+</div>
 
 
-        <div class="form-group">
+<div class="form-group">
 
-            <label>
-                Rating
-            </label>
+<label>Rating</label>
 
-            <input
-                type="number"
-                id="rating"
-                min="0"
-                max="5"
-                step="0.1"
-                value="4.5"
-            >
+<input
+    type="number"
+    id="rating"
+    min="0"
+    max="5"
+    step="0.1"
+    value="4.5"
+>
 
-        </div>
+</div>
 
 
-        <div class="form-group">
+<div class="form-group">
 
-            <label>
-                Reviews
-            </label>
+<label>Reviews</label>
 
-            <input
-                type="number"
-                id="reviews"
-                min="0"
-                value="0"
-            >
+<input
+    type="number"
+    id="reviews"
+    min="0"
+    value="0"
+>
 
-        </div>
+</div>
 
 
-        <div class="form-group">
+<div class="form-group">
 
-            <label>
-                Category
-            </label>
+<label>Category</label>
 
-            <select id="category">
+<select id="category">
 
-                <option value="Mobiles">Mobiles</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Computers">Computers</option>
-                <option value="Home">Home</option>
-                <option value="Fashion">Fashion</option>
-                <option value="Beauty">Beauty</option>
-                <option value="Other">Other</option>
+<option value="Mobiles">Mobiles</option>
+<option value="Electronics">Electronics</option>
+<option value="Computers">Computers</option>
+<option value="Home">Home</option>
+<option value="Fashion">Fashion</option>
+<option value="Beauty">Beauty</option>
+<option value="Other">Other</option>
 
-            </select>
+</select>
 
-        </div>
+</div>
 
 
-        <div class="form-group">
+<div class="form-group">
 
-            <label>
-                Condition
-            </label>
+<label>Condition</label>
 
-            <select id="condition">
+<select id="condition">
 
-                <option value="New">New</option>
+<option value="New">New</option>
+<option value="Renewed">Renewed</option>
+<option value="Renewed Premium">Renewed Premium</option>
+<option value="Used">Used</option>
 
-                <option value="Renewed">
-                    Renewed
-                </option>
+</select>
 
-                <option value="Renewed Premium">
-                    Renewed Premium
-                </option>
+</div>
 
-                <option value="Used">
-                    Used
-                </option>
 
-            </select>
+<!-- IMAGES -->
 
-        </div>
+<div class="form-group full">
 
+<label>Product Images</label>
 
-        <!-- =========================
-             MULTIPLE IMAGE UPLOAD
-        ========================== -->
+<div class="image-upload">
 
-        <div class="form-group full">
+<strong>
+Choose multiple product images
+</strong>
 
-            <label>
-                Product Images
-            </label>
+<br>
 
-            <div class="image-upload">
+<input
+    type="file"
+    id="imageFiles"
+    accept="image/*"
+    multiple
+>
 
-                <strong>
-                    Choose multiple product images
-                </strong>
+<div class="image-help">
+JPG, PNG or WEBP recommended.
+Maximum 2MB each.
+</div>
 
-                <br>
+<div
+    class="image-preview"
+    id="imagePreview"
+></div>
 
-                <input
-                    type="file"
-                    id="imageFiles"
-                    accept="image/*"
-                    multiple
-                >
+</div>
 
-                <div class="image-help">
-                    JPG, PNG or WEBP recommended.
-                    You can select multiple images.
-                    Maximum 2MB each.
-                </div>
+</div>
 
-                <div
-                    class="image-preview"
-                    id="imagePreview"
-                ></div>
 
-            </div>
+<div class="form-group full">
 
-        </div>
+<label>Image URL (optional)</label>
 
+<input
+    type="text"
+    id="image"
+    placeholder="Or paste an image URL"
+>
 
-        <div class="form-group full">
+</div>
 
-            <label>
-                Image URL (optional)
-            </label>
 
-            <input
-                type="text"
-                id="image"
-                placeholder="Or paste an image URL"
-            >
+<div class="form-group full">
 
-        </div>
+<label>Description</label>
 
+<textarea
+    id="description"
+    placeholder="Write product description..."
+></textarea>
 
-        <div class="form-group full">
+</div>
 
-            <label>
-                Description
-            </label>
 
-            <textarea
-                id="description"
-                placeholder="Write product description..."
-            ></textarea>
+<div class="checkbox-row">
 
-        </div>
+<input
+    type="checkbox"
+    id="renewed"
+>
 
+<label for="renewed">
+    Renewed Product
+</label>
 
-        <div class="checkbox-row">
+</div>
 
-            <input
-                type="checkbox"
-                id="renewed"
-            >
 
-            <label for="renewed">
-                Renewed Product
-            </label>
+</div>
 
-        </div>
 
+<!-- =====================================================
+     PRODUCT INFORMATION
+===================================================== -->
 
-    </div>
+<div
+    class="admin-box"
+    style="padding:0; margin-top:25px; box-shadow:none;"
+>
 
+<div class="builder-header">
 
-    <!-- =========================
-         PRODUCT INFORMATION BUILDER
-    ========================== -->
+<h2>
+Product Information
+</h2>
 
-    <div class="admin-box" style="padding:0; margin-top:25px; box-shadow:none;">
+<button
+    type="button"
+    class="add-section-btn"
+    onclick="addInformationSection()"
+>
++ Add Information Section
+</button>
 
-        <div class="builder-header">
+</div>
 
-            <h2>
-                Product Information
-            </h2>
+<div class="builder-help">
 
-            <button
-                type="button"
-                class="add-section-btn"
-                onclick="addInformationSection()"
-            >
-                + Add Information Section
-            </button>
+Add as many sections as you want.
+Example: Item details, Features & Specs,
+Style, Materials & Care, Warranty, What's Included.
 
-        </div>
+</div>
 
-        <div class="builder-help">
+<div id="informationSections"></div>
 
-            Add as many sections as you want.
-            Each product can have different sections.
-            Example: Item details, Features & Specs,
-            Style, Materials & Care, Warranty, What's Included, etc.
+</div>
 
-        </div>
 
-        <div
-            id="informationSections"
-        ></div>
+<!-- =====================================================
+     REVIEWS
+===================================================== -->
 
-    </div>
+<div
+    class="admin-box"
+    style="padding:0; margin-top:25px; box-shadow:none;"
+>
 
+<div class="builder-header">
 
-    <!-- =========================
-         CUSTOMER REVIEWS
-    ========================== -->
+<h2>
+Customer Reviews
+</h2>
 
-    <div class="admin-box" style="padding:0; margin-top:25px; box-shadow:none;">
+<button
+    type="button"
+    class="add-review-btn"
+    onclick="addReview()"
+>
++ Add Review
+</button>
 
-        <div class="builder-header">
+</div>
 
-            <h2>
-                Customer Reviews
-            </h2>
+<div class="builder-help">
 
-            <button
-                type="button"
-                class="add-review-btn"
-                onclick="addReview()"
-            >
-                + Add Review
-            </button>
+Add reviews manually for this product.
 
-        </div>
+</div>
 
-        <div class="builder-help">
+<div id="reviewsContainer"></div>
 
-            Add reviews manually for this product.
-            You can add as many reviews as you want.
+</div>
 
-        </div>
 
-        <div
-            id="reviewsContainer"
-        ></div>
+<div class="form-buttons">
 
-    </div>
+<button
+    type="submit"
+    class="save-btn"
+    id="saveButton"
+>
+Add Product
+</button>
 
+<button
+    type="button"
+    class="cancel-btn"
+    onclick="resetForm()"
+>
+Cancel
+</button>
 
-    <div class="form-buttons">
-
-        <button
-            type="submit"
-            class="save-btn"
-            id="saveButton"
-        >
-            Add Product
-        </button>
-
-        <button
-            type="button"
-            class="cancel-btn"
-            onclick="resetForm()"
-        >
-            Cancel
-        </button>
-
-    </div>
+</div>
 
 
 </form>
 
 
-<!-- LIVE PREVIEW -->
+<!-- =====================================================
+     PREVIEW
+===================================================== -->
 
 <div class="preview-box">
 
-    <h2>
-        Product Preview
-    </h2>
+<h2>
+Product Preview
+</h2>
 
-    <div class="preview-card">
+<div class="preview-card">
 
-        <div
-            class="preview-image"
-            id="previewImage"
-        >
-            📦
-        </div>
+<div
+    class="preview-image"
+    id="previewImage"
+>
+📦
+</div>
 
-        <div
-            class="preview-title"
-            id="previewTitle"
-        >
-            Product Name
-        </div>
+<div
+    class="preview-title"
+    id="previewTitle"
+>
+Product Name
+</div>
 
-        <div class="stars">
+<div class="stars">
 
-            <span id="previewStars">
-                ☆☆☆☆☆
-            </span>
+<span id="previewStars">
+☆☆☆☆☆
+</span>
 
-            <span id="previewReviews">
-                (0)
-            </span>
+<span id="previewReviews">
+(0)
+</span>
 
-        </div>
+</div>
 
-        <div class="preview-price">
+<div class="preview-price">
 
-            $<span id="previewPrice">
-                0.00
-            </span>
+$<span id="previewPrice">
+0.00
+</span>
 
-        </div>
+</div>
 
-        <div class="preview-old-price">
+<div class="preview-old-price">
 
-            List Price:
+List Price:
 
-            <del>
-                $<span id="previewOldPrice">
-                    0.00
-                </span>
-            </del>
+<del>
+$<span id="previewOldPrice">
+0.00
+</span>
+</del>
 
-            <span
-                class="preview-discount"
-                id="previewDiscount"
-            >
-                0% off
-            </span>
+<span
+    class="preview-discount"
+    id="previewDiscount"
+>
+0% off
+</span>
 
-        </div>
+</div>
 
-        <div
-            class="preview-stock"
-            id="previewStock"
-        >
-            Out of Stock
-        </div>
+<div
+    class="preview-stock"
+    id="previewStock"
+>
+Out of Stock
+</div>
 
-        <p id="previewDescription">
-            Product description will appear here.
-        </p>
-
-    </div>
+<p id="previewDescription">
+Product description will appear here.
+</p>
 
 </div>
 
 </div>
 
+</div>
 
-<!-- ALL PRODUCTS -->
+
+<!-- =====================================================
+     ALL PRODUCTS
+===================================================== -->
 
 <div class="admin-box">
 
 <h2>
-    All Products
+All Products
 </h2>
 
 <div style="overflow-x:auto;">
 
-    <table class="products-table">
+<table class="products-table">
 
-        <thead>
+<thead>
 
-            <tr>
+<tr>
 
-                <th>Image</th>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Discount</th>
-                <th>Stock</th>
-                <th>Category</th>
-                <th>Action</th>
+<th>Image</th>
+<th>Product</th>
+<th>Price</th>
+<th>Discount</th>
+<th>Stock</th>
+<th>Category</th>
+<th>Action</th>
 
-            </tr>
+</tr>
 
-        </thead>
+</thead>
 
-        <tbody id="adminProducts"></tbody>
+<tbody id="adminProducts"></tbody>
 
-    </table>
-
-</div>
+</table>
 
 </div>
 
 </div>
 
 
-<!-- SUPABASE -->
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1211,9 +1308,9 @@
 
 <script>
 
-/* ========================================
+/* =====================================================
    SUPABASE
-======================================== */
+===================================================== */
 
 const SUPABASE_URL =
     "https://couztwgxdpisnqurlvbs.supabase.co";
@@ -1228,9 +1325,9 @@ const supabaseClient =
     );
 
 
-/* ========================================
+/* =====================================================
    VARIABLES
-======================================== */
+===================================================== */
 
 let adminProducts = [];
 
@@ -1242,17 +1339,221 @@ let informationSections = [];
 
 let productReviews = [];
 
-
-/* ========================================
-   STORE LOGO
-======================================== */
-
 let selectedStoreLogo = "";
 
 
-/* ========================================
-   LOAD STORE LOGO
-======================================== */
+/* =====================================================
+   LOGIN
+===================================================== */
+
+async function adminLogin() {
+
+    const email =
+        document
+            .getElementById("adminEmail")
+            .value
+            .trim();
+
+    const password =
+        document
+            .getElementById("adminPassword")
+            .value;
+
+    const message =
+        document.getElementById(
+            "loginMessage"
+        );
+
+    const loginButton =
+        document.getElementById(
+            "loginButton"
+        );
+
+
+    if (!email || !password) {
+
+        message.innerText =
+            "Email aur password dono enter karo.";
+
+        return;
+
+    }
+
+
+    message.innerText =
+        "Logging in...";
+
+    loginButton.disabled =
+        true;
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .signInWithPassword({
+
+                    email: email,
+
+                    password: password
+
+                });
+
+
+        if (error) {
+
+            console.error(error);
+
+            message.innerText =
+                "Login failed: " +
+                error.message;
+
+            return;
+
+        }
+
+
+        if (!data.session) {
+
+            message.innerText =
+                "Login session nahi mili.";
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "adminLogin"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "adminApp"
+        ).style.display = "block";
+
+
+        loadStoreLogo();
+
+        await loadProducts();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        message.innerText =
+            "Login failed. Please try again.";
+
+    }
+
+    finally {
+
+        loginButton.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+async function adminLogout() {
+
+    await supabaseClient.auth.signOut();
+
+    adminProducts = [];
+
+    document.getElementById(
+        "adminApp"
+    ).style.display = "none";
+
+    document.getElementById(
+        "adminLogin"
+    ).style.display = "flex";
+
+    document.getElementById(
+        "adminEmail"
+    ).value = "";
+
+    document.getElementById(
+        "adminPassword"
+    ).value = "";
+
+    document.getElementById(
+        "loginMessage"
+    ).innerText = "";
+
+}
+
+
+/* =====================================================
+   CHECK SESSION
+===================================================== */
+
+async function initAdmin() {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.getSession();
+
+
+    if (error) {
+
+        console.error(error);
+
+        document.getElementById(
+            "adminLogin"
+        ).style.display = "flex";
+
+        return;
+
+    }
+
+
+    if (data.session) {
+
+        document.getElementById(
+            "adminLogin"
+        ).style.display = "none";
+
+        document.getElementById(
+            "adminApp"
+        ).style.display = "block";
+
+        loadStoreLogo();
+
+        await loadProducts();
+
+    }
+
+    else {
+
+        document.getElementById(
+            "adminLogin"
+        ).style.display = "flex";
+
+        document.getElementById(
+            "adminApp"
+        ).style.display = "none";
+
+    }
+
+}
+
+
+/* =====================================================
+   STORE LOGO
+===================================================== */
 
 function loadStoreLogo() {
 
@@ -1266,9 +1567,11 @@ function loadStoreLogo() {
             "storeLogoPreview"
         );
 
+
     if (!preview) {
         return;
     }
+
 
     if (savedLogo) {
 
@@ -1303,9 +1606,9 @@ function loadStoreLogo() {
 }
 
 
-/* ========================================
-   STORE LOGO FILE
-======================================== */
+/* =====================================================
+   LOGO FILE
+===================================================== */
 
 document
     .getElementById("storeLogoFile")
@@ -1316,12 +1619,16 @@ document
             const file =
                 event.target.files[0];
 
+
             if (!file) {
                 return;
             }
 
+
             if (
-                !file.type.startsWith("image/")
+                !file.type.startsWith(
+                    "image/"
+                )
             ) {
 
                 alert(
@@ -1334,8 +1641,10 @@ document
 
             }
 
+
             if (
-                file.size > 2 * 1024 * 1024
+                file.size >
+                2 * 1024 * 1024
             ) {
 
                 alert(
@@ -1348,8 +1657,10 @@ document
 
             }
 
+
             const reader =
                 new FileReader();
+
 
             reader.onload =
                 function(e) {
@@ -1357,12 +1668,10 @@ document
                     selectedStoreLogo =
                         e.target.result;
 
-                    const preview =
-                        document.getElementById(
-                            "storeLogoPreview"
-                        );
 
-                    preview.innerHTML = `
+                    document.getElementById(
+                        "storeLogoPreview"
+                    ).innerHTML = `
 
                         <img
                             src="${selectedStoreLogo}"
@@ -1373,15 +1682,16 @@ document
 
                 };
 
+
             reader.readAsDataURL(file);
 
         }
     );
 
 
-/* ========================================
-   SAVE STORE LOGO
-======================================== */
+/* =====================================================
+   SAVE LOGO
+===================================================== */
 
 function saveStoreLogo() {
 
@@ -1394,6 +1704,7 @@ function saveStoreLogo() {
         return;
 
     }
+
 
     try {
 
@@ -1419,9 +1730,9 @@ function saveStoreLogo() {
 }
 
 
-/* ========================================
-   REMOVE STORE LOGO
-======================================== */
+/* =====================================================
+   REMOVE LOGO
+===================================================== */
 
 function removeStoreLogo() {
 
@@ -1435,15 +1746,18 @@ function removeStoreLogo() {
 
     }
 
+
     localStorage.removeItem(
         "amaz0nLogo"
     );
 
     selectedStoreLogo = "";
 
+
     document.getElementById(
         "storeLogoFile"
     ).value = "";
+
 
     document.getElementById(
         "storeLogoPreview"
@@ -1455,6 +1769,7 @@ function removeStoreLogo() {
 
     `;
 
+
     alert(
         "Store logo removed."
     );
@@ -1462,9 +1777,9 @@ function removeStoreLogo() {
 }
 
 
-/* ========================================
-   DATABASE -> APP FORMAT
-======================================== */
+/* =====================================================
+   DATABASE -> APP
+===================================================== */
 
 function databaseProductToApp(product) {
 
@@ -1517,23 +1832,27 @@ function databaseProductToApp(product) {
             product.renewed === true,
 
         informationSections:
-            Array.isArray(product.information_sections)
-                ? product.information_sections
-                : [],
+            Array.isArray(
+                product.information_sections
+            )
+            ? product.information_sections
+            : [],
 
         customerReviews:
-            Array.isArray(product.customer_reviews)
-                ? product.customer_reviews
-                : []
+            Array.isArray(
+                product.customer_reviews
+            )
+            ? product.customer_reviews
+            : []
 
     };
 
 }
 
 
-/* ========================================
-   APP -> DATABASE FORMAT
-======================================== */
+/* =====================================================
+   APP -> DATABASE
+===================================================== */
 
 function appProductToDatabase(product) {
 
@@ -1584,23 +1903,27 @@ function appProductToDatabase(product) {
             product.renewed === true,
 
         information_sections:
-            Array.isArray(product.informationSections)
-                ? product.informationSections
-                : [],
+            Array.isArray(
+                product.informationSections
+            )
+            ? product.informationSections
+            : [],
 
         customer_reviews:
-            Array.isArray(product.customerReviews)
-                ? product.customerReviews
-                : []
+            Array.isArray(
+                product.customerReviews
+            )
+            ? product.customerReviews
+            : []
 
     };
 
 }
 
 
-/* ========================================
-   LOAD PRODUCTS FROM SUPABASE
-======================================== */
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
 
 async function loadProducts() {
 
@@ -1613,19 +1936,18 @@ async function loadProducts() {
             await supabaseClient
                 .from("products")
                 .select("*")
-                .order("id", {
-                    ascending: true
-                });
+                .order(
+                    "id",
+                    {
+                        ascending: true
+                    }
+                );
+
 
         if (error) {
             throw error;
         }
 
-
-        /*
-           DATABASE EMPTY
-           SEED DEFAULT PRODUCTS
-        */
 
         if (
             !data ||
@@ -1636,28 +1958,34 @@ async function loadProducts() {
                 products.map(
                     function(product) {
 
-                        return appProductToDatabase(
-                            {
-                                ...product,
+                        return appProductToDatabase({
 
-                                images:
-                                    Array.isArray(product.images)
-                                        ? product.images
-                                        : product.image
-                                            ? [product.image]
-                                            : [],
+                            ...product,
 
-                                informationSections:
-                                    Array.isArray(product.informationSections)
-                                        ? product.informationSections
-                                        : [],
+                            images:
+                                Array.isArray(
+                                    product.images
+                                )
+                                ? product.images
+                                : product.image
+                                    ? [product.image]
+                                    : [],
 
-                                customerReviews:
-                                    Array.isArray(product.customerReviews)
-                                        ? product.customerReviews
-                                        : []
-                            }
-                        );
+                            informationSections:
+                                Array.isArray(
+                                    product.informationSections
+                                )
+                                ? product.informationSections
+                                : [],
+
+                            customerReviews:
+                                Array.isArray(
+                                    product.customerReviews
+                                )
+                                ? product.customerReviews
+                                : []
+
+                        });
 
                     }
                 );
@@ -1682,11 +2010,6 @@ async function loadProducts() {
                     seedError
                 );
 
-                /*
-                   If seeding fails,
-                   still show local products.
-                */
-
                 adminProducts =
                     defaultProducts.map(
                         databaseProductToApp
@@ -1697,7 +2020,9 @@ async function loadProducts() {
             else {
 
                 adminProducts =
-                    (seededData || []).map(
+                    (
+                        seededData || []
+                    ).map(
                         databaseProductToApp
                     );
 
@@ -1725,7 +2050,6 @@ async function loadProducts() {
 
         renderReviews();
 
-
     }
 
     catch (error) {
@@ -1735,14 +2059,11 @@ async function loadProducts() {
             error
         );
 
+
         alert(
             "Products load nahi ho rahe. Supabase connection check karo."
         );
 
-
-        /*
-           Fallback
-        */
 
         adminProducts =
             [...products].map(
@@ -1753,21 +2074,27 @@ async function loadProducts() {
                         ...product,
 
                         images:
-                            Array.isArray(product.images)
-                                ? product.images
-                                : product.image
-                                    ? [product.image]
-                                    : [],
-
-                        informationSections:
-                            Array.isArray(product.informationSections)
-                                ? product.informationSections
+                            Array.isArray(
+                                product.images
+                            )
+                            ? product.images
+                            : product.image
+                                ? [product.image]
                                 : [],
 
+                        informationSections:
+                            Array.isArray(
+                                product.informationSections
+                            )
+                            ? product.informationSections
+                            : [],
+
                         customerReviews:
-                            Array.isArray(product.customerReviews)
-                                ? product.customerReviews
-                                : []
+                            Array.isArray(
+                                product.customerReviews
+                            )
+                            ? product.customerReviews
+                            : []
 
                     };
 
@@ -1788,9 +2115,9 @@ async function loadProducts() {
 }
 
 
-/* ========================================
-   NORMALIZE PRODUCTS
-======================================== */
+/* =====================================================
+   NORMALIZE
+===================================================== */
 
 function normalizeProducts() {
 
@@ -1810,6 +2137,7 @@ function normalizeProducts() {
 
             }
 
+
             if (
                 !Array.isArray(
                     product.informationSections
@@ -1820,6 +2148,7 @@ function normalizeProducts() {
                     [];
 
             }
+
 
             if (
                 !Array.isArray(
@@ -1838,90 +2167,11 @@ function normalizeProducts() {
 }
 
 
-/* ========================================
-   SAVE ALL PRODUCTS TO SUPABASE
-======================================== */
-
-async function saveProducts() {
-
-    try {
-
-        const databaseProducts =
-            adminProducts.map(
-                appProductToDatabase
-            );
-
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .from("products")
-                .upsert(
-                    databaseProducts,
-                    {
-                        onConflict: "id"
-                    }
-                )
-                .select("*");
-
-
-        if (error) {
-
-            console.error(
-                "Supabase save error:",
-                error
-            );
-
-            alert(
-                "Product save nahi hua:\n" +
-                error.message
-            );
-
-            return false;
-
-        }
-
-
-        if (data) {
-
-            adminProducts =
-                data.map(
-                    databaseProductToApp
-                );
-
-        }
-
-
-        return true;
-
-    }
-
-    catch (error) {
-
-        console.error(
-            error
-        );
-
-        alert(
-            "Product save nahi hua. Internet/Supabase connection check karo."
-        );
-
-        return false;
-
-    }
-
-}
-
-
-/* ========================================
+/* =====================================================
    SAVE SINGLE PRODUCT
-======================================== */
+===================================================== */
 
-async function saveSingleProduct(
-    product
-) {
+async function saveSingleProduct(product) {
 
     try {
 
@@ -1972,9 +2222,7 @@ async function saveSingleProduct(
 
     catch (error) {
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         alert(
             "Product save nahi hua."
@@ -1987,9 +2235,9 @@ async function saveSingleProduct(
 }
 
 
-/* ========================================
-   MULTIPLE IMAGE FILES
-======================================== */
+/* =====================================================
+   IMAGE FILES
+===================================================== */
 
 document
     .getElementById("imageFiles")
@@ -2001,14 +2249,6 @@ document
                 Array.from(
                     event.target.files
                 );
-
-            if (
-                files.length === 0
-            ) {
-
-                return;
-
-            }
 
 
             files.forEach(
@@ -2077,9 +2317,9 @@ document
     );
 
 
-/* ========================================
+/* =====================================================
    IMAGE PREVIEW
-======================================== */
+===================================================== */
 
 function updateImagePreview() {
 
@@ -2152,9 +2392,9 @@ function updateImagePreview() {
 }
 
 
-/* ========================================
+/* =====================================================
    REMOVE IMAGE
-======================================== */
+===================================================== */
 
 function removeImage(index) {
 
@@ -2170,27 +2410,9 @@ function removeImage(index) {
 }
 
 
-/* ========================================
-   IMAGE URL
-======================================== */
-
-document
-    .getElementById("image")
-    .addEventListener(
-        "input",
-        function() {
-
-            updateImagePreview();
-
-            updatePreview();
-
-        }
-    );
-
-
-/* ========================================
+/* =====================================================
    DISCOUNT
-======================================== */
+===================================================== */
 
 function calculateDiscount() {
 
@@ -2257,9 +2479,9 @@ function updateDiscountDisplay() {
 }
 
 
-/* ========================================
+/* =====================================================
    STOCK
-======================================== */
+===================================================== */
 
 function getStockStatus(stock) {
 
@@ -2267,29 +2489,19 @@ function getStockStatus(stock) {
         Number(stock);
 
 
-    if (
-        stock <= 0
-    ) {
+    if (stock <= 0) {
 
         return {
-
-            text:
-                "Out of Stock",
-
-            className:
-                "stock-out"
-
+            text: "Out of Stock",
+            className: "stock-out"
         };
 
     }
 
 
-    if (
-        stock <= 5
-    ) {
+    if (stock <= 5) {
 
         return {
-
             text:
                 "Only " +
                 stock +
@@ -2297,20 +2509,14 @@ function getStockStatus(stock) {
 
             className:
                 "stock-low"
-
         };
 
     }
 
 
     return {
-
-        text:
-            "In Stock",
-
-        className:
-            "stock-good"
-
+        text: "In Stock",
+        className: "stock-good"
     };
 
 }
@@ -2364,9 +2570,9 @@ function updateStockDisplay() {
 }
 
 
-/* ========================================
+/* =====================================================
    STARS
-======================================== */
+===================================================== */
 
 function getStars(rating) {
 
@@ -2392,9 +2598,9 @@ function getStars(rating) {
 }
 
 
-/* ========================================
+/* =====================================================
    INFORMATION SECTIONS
-======================================== */
+===================================================== */
 
 function addInformationSection(
     title = "",
@@ -2501,6 +2707,7 @@ function renderInformationSections() {
 
                 <div class="section-grid">
 
+
                     <div class="section-field">
 
                         <label>
@@ -2534,10 +2741,12 @@ function renderInformationSections() {
                             section.image
                             ? `
                                 <div class="section-image-preview">
+
                                     <img
                                         src="${section.image}"
                                         onerror="this.style.display='none';"
                                     >
+
                                 </div>
                               `
                             : ""
@@ -2553,7 +2762,7 @@ function renderInformationSections() {
                         </label>
 
                         <textarea
-                            placeholder="Write the details for this section..."
+                            placeholder="Write the details..."
                             oninput="updateInformationSection(${index}, 'content', this.value)"
                         >${escapeHTML(section.content || "")}</textarea>
 
@@ -2606,9 +2815,9 @@ function removeInformationSection(
 }
 
 
-/* ========================================
+/* =====================================================
    REVIEWS
-======================================== */
+===================================================== */
 
 function addReview(
     reviewer = "",
@@ -2753,23 +2962,28 @@ function renderReviews() {
                             onchange="updateReview(${index}, 'rating', Number(this.value))"
                         >
 
-                            <option value="5" ${Number(review.rating) === 5 ? "selected" : ""}>
+                            <option value="5"
+                                ${Number(review.rating) === 5 ? "selected" : ""}>
                                 ★★★★★ - 5
                             </option>
 
-                            <option value="4" ${Number(review.rating) === 4 ? "selected" : ""}>
+                            <option value="4"
+                                ${Number(review.rating) === 4 ? "selected" : ""}>
                                 ★★★★☆ - 4
                             </option>
 
-                            <option value="3" ${Number(review.rating) === 3 ? "selected" : ""}>
+                            <option value="3"
+                                ${Number(review.rating) === 3 ? "selected" : ""}>
                                 ★★★☆☆ - 3
                             </option>
 
-                            <option value="2" ${Number(review.rating) === 2 ? "selected" : ""}>
+                            <option value="2"
+                                ${Number(review.rating) === 2 ? "selected" : ""}>
                                 ★★☆☆☆ - 2
                             </option>
 
-                            <option value="1" ${Number(review.rating) === 1 ? "selected" : ""}>
+                            <option value="1"
+                                ${Number(review.rating) === 1 ? "selected" : ""}>
                                 ★☆☆☆☆ - 1
                             </option>
 
@@ -2885,9 +3099,9 @@ function removeReview(index) {
 }
 
 
-/* ========================================
+/* =====================================================
    ESCAPE HTML
-======================================== */
+===================================================== */
 
 function escapeHTML(value) {
 
@@ -2916,9 +3130,9 @@ function escapeHTML(value) {
 }
 
 
-/* ========================================
-   LIVE PREVIEW
-======================================== */
+/* =====================================================
+   PREVIEW
+===================================================== */
 
 function updatePreview() {
 
@@ -3010,8 +3224,6 @@ function updatePreview() {
 
     updateStockDisplay();
 
-    updateImagePreview();
-
 
     const preview =
         document.getElementById(
@@ -3036,10 +3248,9 @@ function updatePreview() {
     else {
 
         const url =
-            document
-                .getElementById("image")
-                .value
-                .trim();
+            document.getElementById(
+                "image"
+            ).value.trim();
 
 
         if (url) {
@@ -3067,9 +3278,9 @@ function updatePreview() {
 }
 
 
-/* ========================================
+/* =====================================================
    DISPLAY PRODUCTS
-======================================== */
+===================================================== */
 
 function displayAdminProducts() {
 
@@ -3161,18 +3372,18 @@ function displayAdminProducts() {
                 product.oldPrice >
                 product.price
 
-                    ? Math.round(
+                ? Math.round(
+                    (
                         (
-                            (
-                                product.oldPrice -
-                                product.price
-                            )
-                            /
-                            product.oldPrice
-                        ) * 100
-                    )
+                            product.oldPrice -
+                            product.price
+                        )
+                        /
+                        product.oldPrice
+                    ) * 100
+                )
 
-                    : 0;
+                : 0;
 
 
             const infoCount =
@@ -3196,6 +3407,7 @@ function displayAdminProducts() {
                 <td>
                     ${imageHTML}
                 </td>
+
 
                 <td>
 
@@ -3260,25 +3472,28 @@ function displayAdminProducts() {
 
                 </td>
 
+
                 <td>
                     $${Number(
                         product.price
                     ).toFixed(2)}
                 </td>
 
+
                 <td>
                     ${discount}%
                 </td>
 
-                <td
-                    class="${status.className}"
-                >
+
+                <td class="${status.className}">
                     ${status.text}
                 </td>
+
 
                 <td>
                     ${escapeHTML(product.category)}
                 </td>
+
 
                 <td>
 
@@ -3311,9 +3526,9 @@ function displayAdminProducts() {
 }
 
 
-/* ========================================
+/* =====================================================
    ADD / UPDATE PRODUCT
-======================================== */
+===================================================== */
 
 document
     .getElementById("productForm")
@@ -3330,12 +3545,12 @@ document
                 );
 
 
-            const originalButtonText =
-                saveButton.innerText;
-
-
             saveButton.disabled =
                 true;
+
+
+            const wasEditing =
+                editingId !== null;
 
 
             saveButton.innerText =
@@ -3373,12 +3588,9 @@ document
                 ) {
 
                     const imageUrl =
-                        document
-                            .getElementById(
-                                "image"
-                            )
-                            .value
-                            .trim();
+                        document.getElementById(
+                            "image"
+                        ).value.trim();
 
 
                     if (imageUrl) {
@@ -3399,98 +3611,66 @@ document
                             ? editingId
                             : getNextId(),
 
-
                     title:
-                        document
-                            .getElementById(
-                                "title"
-                            )
-                            .value
-                            .trim(),
-
+                        document.getElementById(
+                            "title"
+                        ).value.trim(),
 
                     price:
                         price,
 
-
                     oldPrice:
                         oldPrice,
-
 
                     discount:
                         discount,
 
-
                     condition:
-                        document
-                            .getElementById(
-                                "condition"
-                            )
-                            .value,
-
+                        document.getElementById(
+                            "condition"
+                        ).value,
 
                     rating:
                         Number(
-                            document
-                                .getElementById(
-                                    "rating"
-                                )
-                                .value
+                            document.getElementById(
+                                "rating"
+                            ).value
                         ) || 0,
-
 
                     reviews:
                         Number(
-                            document
-                                .getElementById(
-                                    "reviews"
-                                )
-                                .value
+                            document.getElementById(
+                                "reviews"
+                            ).value
                         ) || 0,
-
 
                     stock:
                         Number(
-                            document
-                                .getElementById(
-                                    "stock"
-                                )
-                                .value
+                            document.getElementById(
+                                "stock"
+                            ).value
                         ) || 0,
 
-
                     category:
-                        document
-                            .getElementById(
-                                "category"
-                            )
-                            .value,
-
+                        document.getElementById(
+                            "category"
+                        ).value,
 
                     images:
                         finalImages,
 
-
                     image:
                         finalImages[0] || "",
 
-
                     description:
-                        document
-                            .getElementById(
-                                "description"
-                            )
-                            .value
-                            .trim(),
-
+                        document.getElementById(
+                            "description"
+                        ).value.trim(),
 
                     renewed:
-                        document
-                            .getElementById(
-                                "renewed"
-                            )
-                            .checked,
-
+                        document.getElementById(
+                            "renewed"
+                        ).checked,
 
                     informationSections:
                         JSON.parse(
@@ -3498,7 +3678,6 @@ document
                                 informationSections
                             )
                         ),
-
 
                     customerReviews:
                         JSON.parse(
@@ -3517,15 +3696,11 @@ document
 
 
                 if (!savedProduct) {
-
                     return;
-
                 }
 
 
-                if (
-                    editingId !== null
-                ) {
+                if (wasEditing) {
 
                     const index =
                         adminProducts.findIndex(
@@ -3535,9 +3710,7 @@ document
                         );
 
 
-                    if (
-                        index !== -1
-                    ) {
+                    if (index !== -1) {
 
                         adminProducts[index] =
                             savedProduct;
@@ -3579,7 +3752,6 @@ document
 
                 displayAdminProducts();
 
-
             }
 
             finally {
@@ -3588,9 +3760,7 @@ document
                     false;
 
                 saveButton.innerText =
-                    editingId !== null
-                        ? "Update Product"
-                        : originalButtonText;
+                    "Add Product";
 
             }
 
@@ -3598,9 +3768,9 @@ document
     );
 
 
-/* ========================================
+/* =====================================================
    NEXT ID
-======================================== */
+===================================================== */
 
 function getNextId() {
 
@@ -3623,9 +3793,9 @@ function getNextId() {
 }
 
 
-/* ========================================
-   EDIT PRODUCT
-======================================== */
+/* =====================================================
+   EDIT
+===================================================== */
 
 function editProduct(id) {
 
@@ -3638,9 +3808,7 @@ function editProduct(id) {
 
 
     if (!product) {
-
         return;
-
     }
 
 
@@ -3749,7 +3917,6 @@ function editProduct(id) {
 
     if (
         selectedImages.length === 1 &&
-        typeof selectedImages[0] === "string" &&
         !selectedImages[0]
             .startsWith("data:image/")
     ) {
@@ -3815,9 +3982,9 @@ function editProduct(id) {
 }
 
 
-/* ========================================
+/* =====================================================
    DELETE
-======================================== */
+===================================================== */
 
 async function deleteProduct(id) {
 
@@ -3830,9 +3997,7 @@ async function deleteProduct(id) {
 
 
     if (!product) {
-
         return;
-
     }
 
 
@@ -3899,9 +4064,7 @@ async function deleteProduct(id) {
 
     catch (error) {
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         alert(
             "Product delete nahi hua."
@@ -3912,9 +4075,9 @@ async function deleteProduct(id) {
 }
 
 
-/* ========================================
-   RESET
-======================================== */
+/* =====================================================
+   RESET FORM
+===================================================== */
 
 function resetForm() {
 
@@ -3934,11 +4097,9 @@ function resetForm() {
         [];
 
 
-    document
-        .getElementById(
-            "productForm"
-        )
-        .reset();
+    document.getElementById(
+        "productForm"
+    ).reset();
 
 
     document.getElementById(
@@ -3968,9 +4129,9 @@ function resetForm() {
 }
 
 
-/* ========================================
+/* =====================================================
    HOME
-======================================== */
+===================================================== */
 
 function goHome() {
 
@@ -3980,9 +4141,9 @@ function goHome() {
 }
 
 
-/* ========================================
+/* =====================================================
    LIVE EVENTS
-======================================== */
+===================================================== */
 
 [
     "title",
@@ -4007,16 +4168,35 @@ function goHome() {
 );
 
 
-/* ========================================
+/* =====================================================
+   ENTER KEY LOGIN
+===================================================== */
+
+document
+    .getElementById("adminPassword")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                adminLogin();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
    START
-======================================== */
+===================================================== */
 
-loadStoreLogo();
-
-loadProducts();
+initAdmin();
 
 </script>
 
 </body>
-
 </html>
