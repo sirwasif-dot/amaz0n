@@ -994,11 +994,11 @@ body {
 </div>
 
 
-<!-- IMAGES -->
+<!-- MAIN PRODUCT IMAGES -->
 
 <div class="form-group full">
 
-<label>Product Images</label>
+<label>Product Images (for listing / product page)</label>
 
 <div class="image-upload">
 
@@ -1039,6 +1039,56 @@ Maximum 2MB each.
     id="image"
     placeholder="Or paste an image URL"
 >
+
+</div>
+
+
+<!-- ORDER DETAILS IMAGE (IMPORTANT) -->
+
+<div class="form-group full">
+
+<label>Order Details Image (for Checkout)</label>
+
+<div class="image-upload">
+
+<strong>
+Choose image for Order Details / Checkout page
+</strong>
+
+<br>
+
+<input
+    type="file"
+    id="orderDetailsImageFile"
+    accept="image/*"
+>
+
+<div class="image-help">
+Yeh image sirf Checkout ke Order Details section mein show hogi.
+JPG, PNG or WEBP. Maximum 2MB.
+</div>
+
+<div
+    id="orderDetailsImagePreview"
+    style="
+        margin-top:15px;
+        min-height:120px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:#fff;
+        border:1px solid #ddd;
+        border-radius:5px;
+        padding:10px;
+        box-sizing:border-box;
+    "
+>
+    <span style="color:#777;">
+        No Order Details image selected.
+    </span>
+</div>
+
+</div>
 
 </div>
 
@@ -1340,6 +1390,8 @@ let informationSections = [];
 let productReviews = [];
 
 let selectedStoreLogo = "";
+
+let selectedOrderDetailsImage = "";
 
 
 /* =====================================================
@@ -1818,6 +1870,12 @@ function databaseProductToApp(product) {
         image:
             product.image || "",
 
+        // Order Details ke liye dedicated image
+        orderDetailsImage:
+            product.order_details_image ||
+            product.orderDetailsImage ||
+            "",
+
         images:
             Array.isArray(product.images)
                 ? product.images
@@ -1890,6 +1948,10 @@ function appProductToDatabase(product) {
 
         image:
             product.image || "",
+
+        // Order Details image
+        order_details_image:
+            product.orderDetailsImage || "",
 
         images:
             Array.isArray(product.images)
@@ -2231,6 +2293,122 @@ async function saveSingleProduct(product) {
         return null;
 
     }
+
+}
+
+
+/* =====================================================
+   ORDER DETAILS IMAGE
+===================================================== */
+
+document
+    .getElementById("orderDetailsImageFile")
+    .addEventListener(
+        "change",
+        function(event) {
+
+            const file =
+                event.target.files[0];
+
+
+            if (!file) {
+                return;
+            }
+
+
+            if (
+                !file.type.startsWith("image/")
+            ) {
+
+                alert(
+                    "Please select an image file."
+                );
+
+                event.target.value = "";
+
+                return;
+
+            }
+
+
+            if (
+                file.size >
+                2 * 1024 * 1024
+            ) {
+
+                alert(
+                    "Order Details image must be smaller than 2MB."
+                );
+
+                event.target.value = "";
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(e) {
+
+                    selectedOrderDetailsImage =
+                        e.target.result;
+
+                    updateOrderDetailsImagePreview();
+
+                };
+
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+
+function updateOrderDetailsImagePreview() {
+
+    const box =
+        document.getElementById(
+            "orderDetailsImagePreview"
+        );
+
+
+    if (!box) {
+        return;
+    }
+
+
+    if (!selectedOrderDetailsImage) {
+
+        box.innerHTML = `
+
+            <span style="color:#777;">
+                No Order Details image selected.
+            </span>
+
+        `;
+
+        return;
+
+    }
+
+
+    box.innerHTML = `
+
+        <img
+            src="${selectedOrderDetailsImage}"
+            alt="Order Details Image"
+            style="
+                max-width:220px;
+                max-height:180px;
+                object-fit:contain;
+            "
+        >
+
+    `;
 
 }
 
@@ -3436,6 +3614,21 @@ function displayAdminProducts() {
 
 
                     ${
+                        product.orderDetailsImage
+                        ? `
+                            <div style="
+                                font-size:11px;
+                                color:#007185;
+                                margin-top:4px;
+                            ">
+                                ✓ Order Details image set
+                            </div>
+                          `
+                        : ""
+                    }
+
+
+                    ${
                         infoCount > 0
 
                         ? `
@@ -3662,6 +3855,10 @@ document
                     image:
                         finalImages[0] || "",
 
+                    // Order Details Image (manual)
+                    orderDetailsImage:
+                        selectedOrderDetailsImage || "",
+
                     description:
                         document.getElementById(
                             "description"
@@ -3841,6 +4038,13 @@ function editProduct(id) {
         selectedImages = [];
 
     }
+
+
+    // Order Details Image load
+    selectedOrderDetailsImage =
+        product.orderDetailsImage || "";
+
+    updateOrderDetailsImagePreview();
 
 
     informationSections =
@@ -4087,6 +4291,12 @@ function resetForm() {
 
     selectedImages =
         [];
+
+
+    selectedOrderDetailsImage =
+        "";
+
+    updateOrderDetailsImagePreview();
 
 
     informationSections =

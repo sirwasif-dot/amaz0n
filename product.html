@@ -590,7 +590,7 @@
     <!-- BREADCRUMB -->
 
     <div class="product-breadcrumb" id="productBreadcrumb">
-        
+
         Electronics › Mobiles › Smartphones ›
         Apple iPhone
 
@@ -1078,10 +1078,94 @@
 
 function buyNow() {
 
-    alert(
-        "Buy Now selected.\n\n" +
-        "Checkout system will be connected later."
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const productId =
+        Number(params.get("id"));
+
+    if (!productId) {
+
+        alert("Product information is missing.");
+        return;
+
+    }
+
+    const product =
+        JSON.parse(
+            localStorage.getItem("amaz0nBuyNow") || "null"
+        );
+
+    /*
+       Product page ka current product
+       Supabase se load ho raha hai.
+       Isliye displayed product ki information
+       DOM se li ja rahi hai.
+    */
+
+    const titleElement =
+        document.querySelector(
+            ".product-info h1"
+        );
+
+    const priceElement =
+        document.querySelector(
+            ".discount-price"
+        );
+
+    const title =
+        titleElement
+            ? titleElement.innerText.trim()
+            : "";
+
+    const priceText =
+        priceElement
+            ? priceElement.innerText
+            : "0";
+
+    const price =
+        Number(
+            priceText
+                .replace(/[^0-9.]/g, "")
+        ) || 0;
+
+
+    if (!title || price <= 0) {
+
+        alert(
+            "Product information could not be loaded."
+        );
+
+        return;
+
+    }
+
+
+    const buyNowProduct = {
+
+        id: productId,
+
+        name: title,
+
+        price: price,
+
+        quantity: 1
+
+    };
+
+
+    localStorage.setItem(
+        "amaz0nBuyNow",
+        JSON.stringify(
+            buyNowProduct
+        )
     );
+
+
+    window.location.href =
+        "checkout.html";
 
 }
 
