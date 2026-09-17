@@ -299,28 +299,35 @@
         }
 
         .product-description h2 {
-            font-size: 24px;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 25px 0 12px 0;
+            color: #0f1111;
         }
 
         .product-description p {
-            line-height: 1.6;
-            color: #333;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #0f1111;
+            margin-bottom: 12px;
         }
 
         .details-table {
             width: 100%;
             max-width: 700px;
             border-collapse: collapse;
+            font-size: 14px;
         }
 
         .details-table td {
-            padding: 10px;
+            padding: 8px 10px;
             border-bottom: 1px solid #ddd;
         }
 
         .details-table td:first-child {
-            font-weight: bold;
-            width: 35%;
+            font-weight: 700;
+            width: 30%;
+            color: #565959;
         }
 
         /* RELATED PRODUCTS */
@@ -1074,99 +1081,48 @@
 
 <script>
 
-/* BUY NOW */
+/* BUY NOW - FIXED (image ab save hogi) */
 
 function buyNow() {
 
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-    const productId =
-        Number(params.get("id"));
+    const params = new URLSearchParams(window.location.search);
+    const productId = Number(params.get("id"));
 
     if (!productId) {
-
         alert("Product information is missing.");
         return;
-
     }
 
-    const product =
-        JSON.parse(
-            localStorage.getItem("amaz0nBuyNow") || "null"
-        );
+    const titleElement = document.querySelector(".product-info h1");
+    const priceElement = document.querySelector(".discount-price");
+    const mainImage = document.querySelector("#mainProductImage");
 
-    /*
-       Product page ka current product
-       Supabase se load ho raha hai.
-       Isliye displayed product ki information
-       DOM se li ja rahi hai.
-    */
+    const title = titleElement ? titleElement.innerText.trim() : "";
+    const priceText = priceElement ? priceElement.innerText : "0";
+    const price = Number(priceText.replace(/[^0-9.]/g, "")) || 0;
 
-    const titleElement =
-        document.querySelector(
-            ".product-info h1"
-        );
-
-    const priceElement =
-        document.querySelector(
-            ".discount-price"
-        );
-
-    const title =
-        titleElement
-            ? titleElement.innerText.trim()
-            : "";
-
-    const priceText =
-        priceElement
-            ? priceElement.innerText
-            : "0";
-
-    const price =
-        Number(
-            priceText
-                .replace(/[^0-9.]/g, "")
-        ) || 0;
-
+    // Image nikalne ka try
+    let image = "";
+    if (mainImage && mainImage.src) {
+        image = mainImage.src;
+    }
 
     if (!title || price <= 0) {
-
-        alert(
-            "Product information could not be loaded."
-        );
-
+        alert("Product information could not be loaded.");
         return;
-
     }
 
-
     const buyNowProduct = {
-
         id: productId,
-
         name: title,
-
+        title: title,
         price: price,
-
+        image: image,          // ← yeh line important hai
         quantity: 1
-
     };
 
-
-    localStorage.setItem(
-        "amaz0nBuyNow",
-        JSON.stringify(
-            buyNowProduct
-        )
-    );
-
-
-    window.location.href =
-        "checkout.html";
-
+    localStorage.setItem("amaz0nBuyNow", JSON.stringify(buyNowProduct));
+    window.location.href = "checkout.html";
 }
 
 
