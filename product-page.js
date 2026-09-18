@@ -1,7 +1,75 @@
 /* ========================================
    DYNAMIC PRODUCT PAGE
-   SUPABASE REST + LOCAL FALLBACK
+   SUPABASE REST + LOCAL FALLBACK + CACHE
 ======================================== */
+
+/* ========================================
+   GET PRODUCTS WITH CACHE (Fast Loading)
+======================================== */
+
+async function getAllProductsFast() {
+
+    const CACHE_KEY = "amaz0nProductsCache";
+    const CACHE_TIME_KEY = "amaz0nProductsCacheTime";
+    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+    // Pehle cache check karo
+    const cached = localStorage.getItem(CACHE_KEY);
+    const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+
+    if (cached && cachedTime) {
+        const age = Date.now() - Number(cachedTime);
+        if (age < CACHE_DURATION) {
+            try {
+                const products = JSON.parse(cached);
+                if (Array.isArray(products) && products.length > 0) {
+                    console.log("Using cached products (fast)");
+                    return products.map(normalizeProduct);
+                }
+            } catch (e) {}
+        }
+    }
+
+    // Cache nahi mila to Supabase se lao
+    const SUPABASE_URL = "https://couztwgxdpisnqurlvbs.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_V6cuw9f9Q6aAYsd_4xGebQ_cZcEZSTU";
+
+    try {
+        const response = await fetch(
+            SUPABASE_URL + "/rest/v1/products?select=*&order=id.asc",
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": "Bearer " + SUPABASE_KEY
+                }
+            }
+        );
+
+        if (!response.ok) throw new Error("Supabase error");
+
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+            // Cache save karo
+            localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+            localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
+            console.log("Products loaded from Supabase + cached");
+            return data.map(normalizeProduct);
+        }
+    } catch (err) {
+        console.error("Supabase failed:", err);
+    }
+
+    // Fallback to products.js
+    if (typeof products !== "undefined" && Array.isArray(products)) {
+        console.log("Using products.js fallback");
+        return products.map(normalizeProduct);
+    }
+
+    return [];
+}
+
 
 async function loadProductPage() {
 
@@ -41,110 +109,10 @@ async function loadProductPage() {
 
 
         /* ========================================
-           SUPABASE SETTINGS
+           GET ALL PRODUCTS (with cache)
         ======================================== */
 
-        const SUPABASE_URL =
-            "https://couztwgxdpisnqurlvbs.supabase.co";
-
-        const SUPABASE_KEY =
-            "sb_publishable_V6cuw9f9Q6aAYsd_4xGebQ_cZcEZSTU";
-
-
-        /* ========================================
-           GET ALL PRODUCTS
-        ======================================== */
-
-        let allProducts = [];
-
-
-        try {
-
-            const response =
-                await fetch(
-                    SUPABASE_URL +
-                    "/rest/v1/products?select=*&order=id.asc",
-                    {
-                        method: "GET",
-
-                        headers: {
-                            "apikey": SUPABASE_KEY,
-                            "Authorization":
-                                "Bearer " +
-                                SUPABASE_KEY
-                        }
-                    }
-                );
-
-
-            console.log(
-                "Supabase HTTP status:",
-                response.status
-            );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Supabase HTTP error " +
-                    response.status
-                );
-
-            }
-
-
-            const data =
-                await response.json();
-
-
-            console.log(
-                "Supabase products:",
-                data
-            );
-
-
-            if (Array.isArray(data)) {
-
-                allProducts =
-                    data.map(
-                        normalizeProduct
-                    );
-
-            }
-
-        }
-
-        catch (supabaseError) {
-
-            console.error(
-                "Supabase fetch failed:",
-                supabaseError
-            );
-
-        }
-
-
-        /* ========================================
-           LOCAL PRODUCTS FALLBACK
-        ======================================== */
-
-        if (
-            allProducts.length === 0 &&
-            typeof products !== "undefined" &&
-            Array.isArray(products)
-        ) {
-
-            console.log(
-                "Using products.js fallback"
-            );
-
-
-            allProducts =
-                products.map(
-                    normalizeProduct
-                );
-
-        }
+        let allProducts = await getAllProductsFast();
 
 
         console.log(
@@ -562,23 +530,25 @@ async function loadProductPage() {
                 productImages.length > 0
             ) {
 
-                mainImage.innerHTML = `
-
-                    <img
-                        id="mainProductImage"
-                        src="${productImages[0]}"
-                        alt="${escapeHTML(product.title)}"
-                        style="
-                            max-width:100%;
-                            max-height:100%;
-                            width:100%;
-                            height:100%;
-                            object-fit:contain;
-                            display:block;
-                        "
-                    >
-
-                `;
+mainImage.innerHTML = `
+    <img
+        id="mainProductImage"
+        src="${productImages[0]}"
+        alt="${escapeHTML(product.title)}"
+        loading="lazy"
+        decoding="async"
+        style="
+            max-width:100%;
+            max-height:100%;
+            width:100%;
+            height:100%;
+            object-fit:contain;
+            display:block;
+            background:#f7f7f7;
+        "
+        onerror="this.style.display='none';"
+    >
+`;
 
 
                 let thumbnailContainer =

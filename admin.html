@@ -1017,7 +1017,7 @@ Choose multiple product images
 
 <div class="image-help">
 JPG, PNG or WEBP recommended.
-Maximum 2MB each.
+Images will be uploaded to Supabase Storage (fast).
 </div>
 
 <div
@@ -1367,6 +1367,8 @@ const SUPABASE_URL =
 
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_V6cuw9f9Q6aAYsd_4xGebQ_cZcEZSTU";
+
+const BUCKET_NAME = "products";   // <-- yahan apna bucket name
 
 const supabaseClient =
     window.supabase.createClient(
@@ -2298,14 +2300,43 @@ async function saveSingleProduct(product) {
 
 
 /* =====================================================
-   ORDER DETAILS IMAGE
+   HELPER: Upload single file to Supabase Storage
+===================================================== */
+
+async function uploadToStorage(file, folder = "products") {
+
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+    const filePath = `${folder}/${fileName}`;
+
+    const { data, error } = await supabaseClient.storage
+        .from(BUCKET_NAME)
+        .upload(filePath, file, {
+            cacheControl: '3600',
+            upsert: false
+        });
+
+    if (error) {
+        throw error;
+    }
+
+    const { data: urlData } = supabaseClient.storage
+        .from(BUCKET_NAME)
+        .getPublicUrl(filePath);
+
+    return urlData.publicUrl;
+}
+
+
+/* =====================================================
+   ORDER DETAILS IMAGE  (ab Storage pe upload)
 ===================================================== */
 
 document
     .getElementById("orderDetailsImageFile")
     .addEventListener(
         "change",
-        function(event) {
+        async function(event) {
 
             const file =
                 event.target.files[0];
@@ -2347,22 +2378,24 @@ document
             }
 
 
-            const reader =
-                new FileReader();
+            try {
 
+                // temporary preview
+                const tempUrl = URL.createObjectURL(file);
+                selectedOrderDetailsImage = tempUrl;
+                updateOrderDetailsImagePreview();
 
-            reader.onload =
-                function(e) {
+                // actual upload
+                const publicUrl = await uploadToStorage(file, "order-details");
+                selectedOrderDetailsImage = publicUrl;
+                updateOrderDetailsImagePreview();
 
-                    selectedOrderDetailsImage =
-                        e.target.result;
-
-                    updateOrderDetailsImagePreview();
-
-                };
-
-
-            reader.readAsDataURL(file);
+            } catch (err) {
+                console.error(err);
+                alert("Order Details image upload fail: " + err.message);
+                selectedOrderDetailsImage = "";
+                updateOrderDetailsImagePreview();
+            }
 
         }
     );
@@ -2414,80 +2447,73 @@ function updateOrderDetailsImagePreview() {
 
 
 /* =====================================================
-   IMAGE FILES
+   IMAGE FILES  (ab Storage pe upload)
 ===================================================== */
 
 document
     .getElementById("imageFiles")
     .addEventListener(
         "change",
-        function(event) {
+        async function(event) {
 
             const files =
                 Array.from(
                     event.target.files
                 );
 
+            if (files.length === 0) return;
 
-            files.forEach(
-                function(file) {
+            // show loading
+            const previewBox = document.getElementById("imagePreview");
+            previewBox.innerHTML = "<div style='padding:20px;color:#007185;'>Uploading images...</div>";
 
-                    if (
-                        !file.type.startsWith(
-                            "image/"
-                        )
-                    ) {
+            for (const file of files) {
 
-                        alert(
-                            file.name +
-                            " is not an image."
-                        );
+                if (
+                    !file.type.startsWith(
+                        "image/"
+                    )
+                ) {
 
-                        return;
-
-                    }
-
-
-                    if (
-                        file.size >
-                        2 * 1024 * 1024
-                    ) {
-
-                        alert(
-                            file.name +
-                            " is larger than 2MB."
-                        );
-
-                        return;
-
-                    }
-
-
-                    const reader =
-                        new FileReader();
-
-
-                    reader.onload =
-                        function(e) {
-
-                            selectedImages.push(
-                                e.target.result
-                            );
-
-                            updateImagePreview();
-
-                            updatePreview();
-
-                        };
-
-
-                    reader.readAsDataURL(
-                        file
+                    alert(
+                        file.name +
+                        " is not an image."
                     );
 
-                }
-            );
+                    continue;
 
+                }
+
+
+                if (
+                    file.size >
+                    2 * 1024 * 1024
+                ) {
+
+                    alert(
+                        file.name +
+                        " is larger than 2MB."
+                    );
+
+                    continue;
+
+                }
+
+
+                try {
+
+                    const publicUrl = await uploadToStorage(file, "products");
+                    selectedImages.push(publicUrl);
+
+                } catch (err) {
+                    console.error(err);
+                    alert(file.name + " upload fail: " + err.message);
+                }
+
+            }
+
+            updateImagePreview();
+            updatePreview();
 
             event.target.value = "";
 
@@ -3855,7 +3881,7 @@ document
                     image:
                         finalImages[0] || "",
 
-                    // Order Details Image (manual)
+                    // Order Details Image
                     orderDetailsImage:
                         selectedOrderDetailsImage || "",
 

@@ -1,4 +1,4 @@
-```html
+html
 <!DOCTYPE html>
 
 <html lang="en">
@@ -642,7 +642,7 @@ async function loadProductsFromSupabase() {
         const { data, error } =
             await supabaseClient
                 .from("products")
-                .select("*")
+                .select("id,title,price,old_price,discount,condition,rating,reviews,stock,category,image")
                 .order("id", {
                     ascending: true
                 });
@@ -968,6 +968,8 @@ imageContent = `
     <img 
         src="${product.image}" 
         alt="${product.title}"
+        loading="lazy"
+        decoding="async"
         style="cursor:pointer;"
         onclick="openProduct(${product.id})"
         onerror="
@@ -1676,4 +1678,4 @@ updateCartCount();
 </body>
 
 </html>
-```
+
