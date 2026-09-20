@@ -797,10 +797,10 @@ body {
                 accept="image/*"
             >
 
-            <div class="logo-help">
-                JPG, PNG or WEBP recommended.
-                Logo will be saved in your browser.
-            </div>
+<div class="logo-help">
+    JPG, PNG or WEBP recommended.
+    Logo will be saved online and available on all devices.
+</div>
 
             <div
                 class="store-logo-preview"
@@ -1609,51 +1609,92 @@ async function initAdmin() {
    STORE LOGO
 ===================================================== */
 
-function loadStoreLogo() {
+/* =====================================================
+   STORE LOGO
+   SUPABASE STORAGE + DATABASE
+===================================================== */
 
-    const savedLogo =
-        localStorage.getItem(
-            "amaz0nLogo"
-        );
+async function loadStoreLogo() {
 
     const preview =
         document.getElementById(
             "storeLogoPreview"
         );
 
-
     if (!preview) {
         return;
     }
 
+    try {
 
-    if (savedLogo) {
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("store_settings")
+                .select("store_logo")
+                .eq("id", 1)
+                .maybeSingle();
 
-        selectedStoreLogo =
-            savedLogo;
 
-        preview.innerHTML = `
+        if (error) {
 
-            <img
-                src="${savedLogo}"
-                alt="Store Logo"
-            >
+            console.error(
+                "Store logo load error:",
+                error
+            );
 
-        `;
+            return;
+
+        }
+
+
+        const savedLogo =
+            data &&
+            data.store_logo
+                ? data.store_logo
+                : "";
+
+
+        if (savedLogo) {
+
+            selectedStoreLogo =
+                savedLogo;
+
+            preview.innerHTML = `
+
+                <img
+                    src="${savedLogo}"
+                    alt="Store Logo"
+                >
+
+            `;
+
+        }
+
+        else {
+
+            selectedStoreLogo = "";
+
+            preview.innerHTML = `
+
+                <div class="store-logo-empty">
+                    No logo uploaded yet.
+                </div>
+
+            `;
+
+        }
 
     }
 
-    else {
+    catch (error) {
 
-        selectedStoreLogo = "";
-
-        preview.innerHTML = `
-
-            <div class="store-logo-empty">
-                No logo uploaded yet.
-            </div>
-
-        `;
+        console.error(
+            "Store logo loading error:",
+            error
+        );
 
     }
 
@@ -1747,9 +1788,48 @@ document
    SAVE LOGO
 ===================================================== */
 
-function saveStoreLogo() {
+/* =====================================================
+   SAVE LOGO
+   UPLOAD TO SUPABASE STORAGE + SAVE URL IN DATABASE
+===================================================== */
 
-    if (!selectedStoreLogo) {
+async function saveStoreLogo() {
+
+    const fileInput =
+        document.getElementById(
+            "storeLogoFile"
+        );
+
+
+    const file =
+        fileInput &&
+        fileInput.files
+            ? fileInput.files[0]
+            : null;
+
+
+    if (!file) {
+
+        /*
+           Agar existing Supabase logo already loaded hai
+           to dobara upload ki zaroorat nahi.
+        */
+
+        if (
+            selectedStoreLogo &&
+            selectedStoreLogo.startsWith(
+                "http"
+            )
+        ) {
+
+            alert(
+                "Store logo already saved."
+            );
+
+            return;
+
+        }
+
 
         alert(
             "Please select a logo first."
@@ -1762,10 +1842,185 @@ function saveStoreLogo() {
 
     try {
 
-        localStorage.setItem(
-            "amaz0nLogo",
-            selectedStoreLogo
-        );
+        const saveButton =
+            document.querySelector(
+                ".save-logo-btn"
+            );
+
+
+        if (saveButton) {
+
+            saveButton.disabled =
+                true;
+
+            saveButton.innerText =
+                "Saving...";
+
+        }
+
+
+        /*
+           Safe file extension
+        */
+
+        let fileExt =
+            file.name
+                .split(".")
+                .pop()
+                .toLowerCase();
+
+
+        if (
+            !fileExt ||
+            fileExt.length > 10
+        ) {
+
+            fileExt =
+                "png";
+
+        }
+
+
+        /*
+           Unique logo path
+        */
+
+        const filePath =
+            "store-logo/store-logo-" +
+            Date.now() +
+            "-" +
+            Math.random()
+                .toString(36)
+                .substring(2) +
+            "." +
+            fileExt;
+
+
+        /*
+           Upload logo to existing
+           Supabase Storage bucket
+        */
+
+        const {
+            data: uploadData,
+            error: uploadError
+        } =
+            await supabaseClient
+                .storage
+                .from(BUCKET_NAME)
+                .upload(
+                    filePath,
+                    file,
+                    {
+                        cacheControl:
+                            "31536000",
+
+                        upsert:
+                            false,
+
+                        contentType:
+                            file.type
+                    }
+                );
+
+
+        if (uploadError) {
+
+            console.error(
+                "Logo upload error:",
+                uploadError
+            );
+
+            throw uploadError;
+
+        }
+
+
+        /*
+           Get public URL
+        */
+
+        const {
+            data: urlData
+        } =
+            supabaseClient
+                .storage
+                .from(BUCKET_NAME)
+                .getPublicUrl(
+                    uploadData.path
+                );
+
+
+        const publicUrl =
+            urlData &&
+            urlData.publicUrl
+                ? urlData.publicUrl
+                : "";
+
+
+        if (!publicUrl) {
+
+            throw new Error(
+                "Logo public URL generate nahi hua."
+            );
+
+        }
+
+
+        /*
+           Save URL in store_settings
+        */
+
+        const {
+            error: databaseError
+        } =
+            await supabaseClient
+                .from("store_settings")
+                .upsert(
+                    {
+                        id: 1,
+                        store_logo: publicUrl,
+                        updated_at:
+                            new Date().toISOString()
+                    },
+                    {
+                        onConflict:
+                            "id"
+                    }
+                );
+
+
+        if (databaseError) {
+
+            console.error(
+                "Store logo database error:",
+                databaseError
+            );
+
+            throw databaseError;
+
+        }
+
+
+        /*
+           Update current preview
+        */
+
+        selectedStoreLogo =
+            publicUrl;
+
+
+        document.getElementById(
+            "storeLogoPreview"
+        ).innerHTML = `
+
+            <img
+                src="${publicUrl}"
+                alt="Store Logo"
+            >
+
+        `;
+
 
         alert(
             "Store logo saved successfully!"
@@ -1775,20 +2030,53 @@ function saveStoreLogo() {
 
     catch (error) {
 
+        console.error(
+            "Store logo save error:",
+            error
+        );
+
+
         alert(
-            "Logo could not be saved. Please use a smaller image."
+            "Logo save nahi hua:\n" +
+            (
+                error.message ||
+                "Please try again."
+            )
         );
 
     }
 
+    finally {
+
+        const saveButton =
+            document.querySelector(
+                ".save-logo-btn"
+            );
+
+
+        if (saveButton) {
+
+            saveButton.disabled =
+                false;
+
+            saveButton.innerText =
+                "Save Store Logo";
+
+        }
+
+    }
+
 }
-
-
 /* =====================================================
    REMOVE LOGO
 ===================================================== */
 
-function removeStoreLogo() {
+/* =====================================================
+   REMOVE LOGO
+   REMOVE LOGO FROM DATABASE
+===================================================== */
+
+async function removeStoreLogo() {
 
     if (
         !confirm(
@@ -1801,32 +2089,127 @@ function removeStoreLogo() {
     }
 
 
-    localStorage.removeItem(
-        "amaz0nLogo"
-    );
+    try {
 
-    selectedStoreLogo = "";
-
-
-    document.getElementById(
-        "storeLogoFile"
-    ).value = "";
+        const removeButton =
+            document.querySelector(
+                ".remove-logo-btn"
+            );
 
 
-    document.getElementById(
-        "storeLogoPreview"
-    ).innerHTML = `
+        if (removeButton) {
 
-        <div class="store-logo-empty">
-            No logo uploaded yet.
-        </div>
+            removeButton.disabled =
+                true;
 
-    `;
+            removeButton.innerText =
+                "Removing...";
+
+        }
 
 
-    alert(
-        "Store logo removed."
-    );
+        /*
+           Sirf database ka logo URL remove.
+           Product images / products / orders
+           ko bilkul touch nahi karta.
+        */
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("store_settings")
+                .update({
+
+                    store_logo:
+                        null,
+
+                    updated_at:
+                        new Date().toISOString()
+
+                })
+                .eq(
+                    "id",
+                    1
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Remove logo error:",
+                error
+            );
+
+            throw error;
+
+        }
+
+
+        selectedStoreLogo =
+            "";
+
+
+        document.getElementById(
+            "storeLogoFile"
+        ).value =
+            "";
+
+
+        document.getElementById(
+            "storeLogoPreview"
+        ).innerHTML = `
+
+            <div class="store-logo-empty">
+                No logo uploaded yet.
+            </div>
+
+        `;
+
+
+        alert(
+            "Store logo removed."
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Store logo remove error:",
+            error
+        );
+
+
+        alert(
+            "Logo remove nahi hua:\n" +
+            (
+                error.message ||
+                "Please try again."
+            )
+        );
+
+    }
+
+    finally {
+
+        const removeButton =
+            document.querySelector(
+                ".remove-logo-btn"
+            );
+
+
+        if (removeButton) {
+
+            removeButton.disabled =
+                false;
+
+            removeButton.innerText =
+                "Remove Logo";
+
+        }
+
+    }
 
 }
 

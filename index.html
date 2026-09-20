@@ -193,12 +193,16 @@
         class="store-logo-link"
     >
 
-        <div
-            class="logo"
-            id="storeLogo"
-        >
-            amaz<span>0n</span>
-        </div>
+<div
+    class="logo"
+    id="storeLogo"
+>
+    <img
+        src="images/Capture.png"
+        alt="Store Logo"
+        loading="eager"
+    >
+</div>
 
     </a>
 
@@ -601,38 +605,6 @@ const PRODUCT_CACHE_KEY =
 
 const PRODUCT_CACHE_TIME_KEY =
     "amaz0nProductsCacheTime";
-
-
-/* ========================================
-   STORE LOGO
-======================================== */
-
-function loadStoreLogo() {
-
-    const savedLogo =
-        localStorage.getItem("amaz0nLogo");
-
-    const logo =
-        document.getElementById("storeLogo");
-
-    if (
-        !logo ||
-        !savedLogo
-    ) {
-
-        return;
-
-    }
-
-    logo.innerHTML = `
-        <img
-            src="${savedLogo}"
-            alt="Store Logo"
-            loading="eager"
-        >
-    `;
-
-}
 
 
 /* ========================================
@@ -1952,10 +1924,7 @@ function startApplication() {
        1. Logo immediately
     */
 
-    loadStoreLogo();
-
-
-    /*
+       /*
        2. FIRST SHOW ALL 16 LOCAL PRODUCTS
           No Supabase waiting.
     */
