@@ -1,3 +1,4 @@
+```javascript
 const products = [
 
     {
@@ -11,13 +12,10 @@ const products = [
         reviews: 124,
         stock: 7,
         category: "Mobiles",
-
         image: "images/iphone17e.jpg",
-
         description: "Apple iPhone 17e with 256GB storage in Soft Pink. Renewed Premium condition.",
         renewed: true
     },
-
 
     {
         id: 2,
@@ -30,13 +28,10 @@ const products = [
         reviews: 89,
         stock: 15,
         category: "Electronics",
-
         image: "images/headphones.jpg",
-
         description: "Premium wireless Bluetooth headphones with clear sound, comfortable design and long-lasting battery.",
         renewed: false
     },
-
 
     {
         id: 3,
@@ -49,13 +44,10 @@ const products = [
         reviews: 57,
         stock: 12,
         category: "Electronics",
-
         image: "images/smartwatch.jpg",
-
         description: "Modern smart watch with fitness tracking, activity monitoring, notifications and a stylish design.",
         renewed: false
     },
-
 
     {
         id: 4,
@@ -68,13 +60,10 @@ const products = [
         reviews: 211,
         stock: 8,
         category: "Computers",
-
         image: "images/laptop.jpg",
-
         description: "Fast and reliable laptop computer designed for work, study, browsing and entertainment.",
         renewed: false
     },
-
 
     {
         id: 5,
@@ -87,13 +76,10 @@ const products = [
         reviews: 156,
         stock: 10,
         category: "Mobiles",
-
         image: "images/smartphone.jpg",
-
         description: "Powerful unlocked smartphone with 256GB storage, high-quality camera, fast performance and modern design.",
         renewed: false
     },
-
 
     {
         id: 6,
@@ -106,11 +92,10 @@ const products = [
         reviews: 98,
         stock: 18,
         category: "Electronics",
-
         image: "images/gaming-mouse.jpg",
-
         description: "High-precision wireless gaming mouse with RGB lighting, comfortable grip and responsive controls.",
         renewed: false
     }
 
 ];
+```

@@ -1,6 +1,4 @@
-html
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -19,6 +17,21 @@ html
     href="style.css"
 >
 
+<!-- ========================================
+     SPEED OPTIMIZATION
+======================================== -->
+
+<link
+    rel="preconnect"
+    href="https://cdn.jsdelivr.net"
+>
+
+<link
+    rel="preconnect"
+    href="https://couztwgxdpisnqurlvbs.supabase.co"
+>
+
+
 <style>
 
 /* ========================================
@@ -28,12 +41,16 @@ html
 .product-image {
     cursor: pointer;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .product-image img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    display: block;
 }
 
 
@@ -126,17 +143,6 @@ html
 
 
 /* ========================================
-   PRODUCT CARD IMAGE FALLBACK
-======================================== */
-
-.product-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-/* ========================================
    MOBILE
 ======================================== */
 
@@ -150,6 +156,19 @@ html
         grid-template-columns: repeat(2, 1fr);
     }
 
+}
+
+
+/* ========================================
+   SMALL LOADING MESSAGE
+======================================== */
+
+.products-loading {
+    padding: 25px;
+    text-align: center;
+    background: white;
+    border-radius: 6px;
+    margin: 10px 0;
 }
 
 </style>
@@ -205,7 +224,6 @@ html
 
     <div class="search-box">
 
-
         <select id="searchCategory">
 
             <option value="All">
@@ -235,18 +253,19 @@ html
             type="text"
             id="search"
             placeholder="Search amaz0n"
+            autocomplete="off"
         >
 
 
         <button
             onclick="searchProducts()"
             type="button"
+            aria-label="Search"
         >
 
             🔍
 
         </button>
-
 
     </div>
 
@@ -320,61 +339,49 @@ html
 
 <nav class="main-nav">
 
-
     <div class="all">
         ☰ All
     </div>
-
 
     <div>
         Today's Deals
     </div>
 
-
     <div>
         Coupons
     </div>
-
 
     <div>
         Electronics
     </div>
 
-
     <div>
         Mobiles
     </div>
-
 
     <div>
         Fashion
     </div>
 
-
     <div>
         Home
     </div>
-
 
     <div>
         Computers
     </div>
 
-
     <div>
         Beauty
     </div>
-
 
     <div>
         Sports
     </div>
 
-
     <div>
         Best Sellers
     </div>
-
 
 </nav>
 
@@ -386,41 +393,33 @@ html
 
 <div class="category-bar">
 
-
     <h2>
         Products
     </h2>
-
 
     <span>
         Today's Deals
     </span>
 
-
     <span>
         Mobiles
     </span>
-
 
     <span>
         Computers
     </span>
 
-
     <span>
         Accessories
     </span>
-
 
     <span>
         Headphones
     </span>
 
-
     <span>
         Gaming
     </span>
-
 
 </div>
 
@@ -458,6 +457,12 @@ html
         id="productsContainer"
     >
 
+        <div class="products-loading">
+
+            Loading products...
+
+        </div>
+
     </div>
 
 
@@ -473,7 +478,6 @@ html
     id="cartBox"
     class="cart-box"
 >
-
 
     <h2>
 
@@ -514,7 +518,6 @@ html
 
     </button>
 
-
 </div>
 
 
@@ -525,18 +528,15 @@ html
 
 <footer>
 
-
     <div>
         Back to top ↑
     </div>
-
 
     <p>
 
         © 2026 amaz0n — All Rights Reserved
 
     </p>
-
 
 </footer>
 
@@ -546,11 +546,14 @@ html
      SUPABASE
 ======================================== -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
 
 
 <!-- ========================================
      PRODUCT DATA
+     YOUR 16 PRODUCTS
 ======================================== -->
 
 <script src="products.js"></script>
@@ -563,13 +566,11 @@ html
 <script src="script.js"></script>
 
 
-
 <script>
 
-
-// ========================================
-// SUPABASE CONNECTION
-// ========================================
+/* ========================================
+   SUPABASE CONNECTION
+======================================== */
 
 const SUPABASE_URL =
     "https://couztwgxdpisnqurlvbs.supabase.co";
@@ -584,28 +585,35 @@ const supabaseClient =
     );
 
 
-// ========================================
-// PRODUCTS FROM SUPABASE
-// ========================================
+/* ========================================
+   PRODUCTS
+======================================== */
 
 let currentProducts = [];
 
 
-// ========================================
-// STORE LOGO
-// ========================================
+/* ========================================
+   LOCAL PRODUCT CACHE
+======================================== */
+
+const PRODUCT_CACHE_KEY =
+    "amaz0nProductsCache";
+
+const PRODUCT_CACHE_TIME_KEY =
+    "amaz0nProductsCacheTime";
+
+
+/* ========================================
+   STORE LOGO
+======================================== */
 
 function loadStoreLogo() {
 
     const savedLogo =
-        localStorage.getItem(
-            "amaz0nLogo"
-        );
+        localStorage.getItem("amaz0nLogo");
 
     const logo =
-        document.getElementById(
-            "storeLogo"
-        );
+        document.getElementById("storeLogo");
 
     if (
         !logo ||
@@ -617,35 +625,166 @@ function loadStoreLogo() {
     }
 
     logo.innerHTML = `
-
         <img
             src="${savedLogo}"
             alt="Store Logo"
+            loading="eager"
         >
-
     `;
 
 }
 
 
-loadStoreLogo();
+/* ========================================
+   GET LOCAL PRODUCTS
+======================================== */
 
-
-// ========================================
-// LOAD PRODUCTS
-// ========================================
-
-async function loadProductsFromSupabase() {
+function getLocalProducts() {
 
     try {
 
-        const { data, error } =
+        if (
+            typeof products !== "undefined" &&
+            Array.isArray(products) &&
+            products.length > 0
+        ) {
+
+            return products;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Local products error:",
+            error
+        );
+
+    }
+
+    return [];
+
+}
+
+
+/* ========================================
+   SAVE PRODUCT CACHE
+======================================== */
+
+function saveProductCache(productList) {
+
+    try {
+
+        localStorage.setItem(
+            PRODUCT_CACHE_KEY,
+            JSON.stringify(productList)
+        );
+
+        localStorage.setItem(
+            PRODUCT_CACHE_TIME_KEY,
+            String(Date.now())
+        );
+
+    }
+
+    catch (error) {
+
+        console.log(
+            "Product cache save skipped:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ========================================
+   LOAD PRODUCT CACHE
+======================================== */
+
+function loadProductCache() {
+
+    try {
+
+        const cached =
+            localStorage.getItem(
+                PRODUCT_CACHE_KEY
+            );
+
+        if (!cached) {
+
+            return null;
+
+        }
+
+        const parsed =
+            JSON.parse(cached);
+
+        if (
+            Array.isArray(parsed) &&
+            parsed.length > 0
+        ) {
+
+            return parsed;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.log(
+            "Product cache error:",
+            error
+        );
+
+    }
+
+    return null;
+
+}
+
+
+/* ========================================
+   LOAD PRODUCTS FROM SUPABASE
+======================================== */
+
+async function loadProductsFromSupabase() {
+
+    /*
+       IMPORTANT:
+
+       Local products are already displayed
+       immediately.
+
+       Supabase loads in background.
+    */
+
+
+    try {
+
+        const result =
             await supabaseClient
                 .from("products")
-                .select("id,title,price,old_price,discount,condition,rating,reviews,stock,category,image")
-                .order("id", {
-                    ascending: true
-                });
+                .select(
+                    "id,title,price,old_price,discount,condition,rating,reviews,stock,category,image"
+                )
+                .order(
+                    "id",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+        const data =
+            result.data;
+
+        const error =
+            result.error;
 
 
         if (error) {
@@ -655,139 +794,100 @@ async function loadProductsFromSupabase() {
                 error
             );
 
-            currentProducts =
-                products;
-
-            displayProducts(
-                currentProducts
-            );
-
             return;
 
         }
 
 
         if (
-            Array.isArray(data) &&
-            data.length > 0
+            !Array.isArray(data) ||
+            data.length === 0
         ) {
 
-            currentProducts =
-                data.map(
-                    function(product) {
-
-                        return {
-
-                            id:
-                                Number(
-                                    product.id
-                                ),
-
-                            title:
-                                product.title ||
-                                "",
-
-                            price:
-                                Number(
-                                    product.price
-                                ) || 0,
-
-                            oldPrice:
-                                Number(
-                                    product.old_price
-                                ) || 0,
-
-                            discount:
-                                Number(
-                                    product.discount
-                                ) || 0,
-
-                            condition:
-                                product.condition ||
-                                "New",
-
-                            rating:
-                                Number(
-                                    product.rating
-                                ) || 0,
-
-                            reviews:
-                                Number(
-                                    product.reviews
-                                ) || 0,
-
-                            stock:
-                                Number(
-                                    product.stock
-                                ) || 0,
-
-                            category:
-                                product.category ||
-                                "",
-
-                            image:
-                                product.image ||
-                                "",
-
-                            images:
-                                Array.isArray(
-                                    product.images
-                                )
-                                    ? product.images
-                                    : (
-                                        product.image
-                                            ? [
-                                                product.image
-                                            ]
-                                            : []
-                                    ),
-
-                            description:
-                                product.description ||
-                                "",
-
-                            renewed:
-                                product.renewed ===
-                                true,
-
-                            informationSections:
-                                Array.isArray(
-                                    product.information_sections
-                                )
-                                    ? product.information_sections
-                                    : [],
-
-                            customerReviews:
-                                Array.isArray(
-                                    product.customer_reviews
-                                )
-                                    ? product.customer_reviews
-                                    : []
-
-                        };
-
-                    }
-                );
-
-
-            displayProducts(
-                currentProducts
-            );
+            return;
 
         }
 
 
-        else {
+        /*
+           Convert Supabase data
+        */
 
-            currentProducts =
-                products;
+        const supabaseProducts =
+            data.map(
+                function(product) {
 
-            displayProducts(
-                currentProducts
+                    return {
+
+                        id:
+                            Number(
+                                product.id
+                            ),
+
+                        title:
+                            product.title ||
+                            "",
+
+                        price:
+                            Number(
+                                product.price
+                            ) || 0,
+
+                        oldPrice:
+                            Number(
+                                product.old_price
+                            ) || 0,
+
+                        discount:
+                            Number(
+                                product.discount
+                            ) || 0,
+
+                        condition:
+                            product.condition ||
+                            "New",
+
+                        rating:
+                            Number(
+                                product.rating
+                            ) || 0,
+
+                        reviews:
+                            Number(
+                                product.reviews
+                            ) || 0,
+
+                        stock:
+                            Number(
+                                product.stock
+                            ) || 0,
+
+                        category:
+                            product.category ||
+                            "",
+
+                        image:
+                            product.image ||
+                            ""
+
+                    };
+
+                }
             );
 
-        }
 
+        currentProducts =
+            supabaseProducts;
+
+
+        saveProductCache(
+            supabaseProducts
+        );
+
+
+        displayProducts(
+            currentProducts
+        );
 
     }
 
@@ -798,25 +898,19 @@ async function loadProductsFromSupabase() {
             error
         );
 
-        currentProducts =
-            products;
-
-        displayProducts(
-            currentProducts
-        );
-
     }
 
 }
 
 
-// ========================================
-// GET PRODUCTS
-// ========================================
+/* ========================================
+   GET PRODUCTS
+======================================== */
 
 function getProducts() {
 
     if (
+        Array.isArray(currentProducts) &&
         currentProducts.length > 0
     ) {
 
@@ -824,19 +918,34 @@ function getProducts() {
 
     }
 
-    return products;
+
+    const cached =
+        loadProductCache();
+
+
+    if (
+        Array.isArray(cached) &&
+        cached.length > 0
+    ) {
+
+        return cached;
+
+    }
+
+
+    return getLocalProducts();
 
 }
 
 
-// ========================================
-// STOCK STATUS
-// ========================================
+/* ========================================
+   STOCK STATUS
+======================================== */
 
 function getStockStatus(stock) {
 
     stock =
-        Number(stock);
+        Number(stock) || 0;
 
 
     if (
@@ -888,9 +997,43 @@ function getStockStatus(stock) {
 }
 
 
-// ========================================
-// SHOW PRODUCTS
-// ========================================
+/* ========================================
+   ESCAPE HTML
+   SAFETY + SPEED
+======================================== */
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* ========================================
+   SHOW PRODUCTS
+======================================== */
 
 function displayProducts(
     productList = getProducts()
@@ -907,9 +1050,6 @@ function displayProducts(
         return;
 
     }
-
-
-    container.innerHTML = "";
 
 
     if (
@@ -938,8 +1078,19 @@ function displayProducts(
     }
 
 
+    /*
+       IMPORTANT:
+
+       DocumentFragment means browser
+       renders all 16 cards together.
+    */
+
+    const fragment =
+        document.createDocumentFragment();
+
+
     productList.forEach(
-        product => {
+        function(product) {
 
             const card =
                 document.createElement(
@@ -951,9 +1102,35 @@ function displayProducts(
                 "product";
 
 
-            // ========================================
-            // IMAGE
-            // ========================================
+            const productId =
+                Number(
+                    product.id
+                );
+
+
+            const title =
+                escapeHTML(
+                    product.title
+                );
+
+
+            const description =
+                escapeHTML(
+                    product.description ||
+                    "Quality product available on amaz0n."
+                );
+
+
+            const category =
+                String(
+                    product.category ||
+                    ""
+                );
+
+
+            /* ========================================
+               IMAGE
+            ======================================== */
 
             let imageContent =
                 "📦";
@@ -963,28 +1140,31 @@ function displayProducts(
                 product.image
             ) {
 
-imageContent = `
+                const safeImage =
+                    escapeHTML(
+                        product.image
+                    );
 
-    <img 
-        src="${product.image}" 
-        alt="${product.title}"
-        loading="lazy"
-        decoding="async"
-        style="cursor:pointer;"
-        onclick="openProduct(${product.id})"
-        onerror="
-            this.parentElement.innerHTML='📦'; 
-        "
-    >
 
-`;
+                imageContent = `
+
+                    <img
+                        src="${safeImage}"
+                        alt="${title}"
+                        width="300"
+                        height="300"
+                        loading="lazy"
+                        decoding="async"
+                    >
+
+                `;
 
             }
 
             else {
 
                 if (
-                    product.category ===
+                    category ===
                     "Mobiles"
                 ) {
 
@@ -994,7 +1174,7 @@ imageContent = `
                 }
 
                 else if (
-                    product.category ===
+                    category ===
                     "Electronics"
                 ) {
 
@@ -1004,7 +1184,7 @@ imageContent = `
                 }
 
                 else if (
-                    product.category ===
+                    category ===
                     "Computers"
                 ) {
 
@@ -1014,7 +1194,7 @@ imageContent = `
                 }
 
                 else if (
-                    product.category ===
+                    category ===
                     "Fashion"
                 ) {
 
@@ -1033,9 +1213,9 @@ imageContent = `
             }
 
 
-            // ========================================
-            // STOCK
-            // ========================================
+            /* ========================================
+               STOCK
+            ======================================== */
 
             const stock =
                 getStockStatus(
@@ -1043,9 +1223,9 @@ imageContent = `
                 );
 
 
-            // ========================================
-            // BUY NOW BUTTON
-            // ========================================
+            /* ========================================
+               BUY BUTTON
+            ======================================== */
 
             let buyButton;
 
@@ -1057,9 +1237,7 @@ imageContent = `
                 buyButton = `
 
                     <button
-                        onclick="
-                            buyNow(${product.id})
-                        "
+                        class="buy-now-button"
                         type="button"
                     >
 
@@ -1090,9 +1268,9 @@ imageContent = `
             }
 
 
-            // ========================================
-            // OLD PRICE
-            // ========================================
+            /* ========================================
+               OLD PRICE
+            ======================================== */
 
             let priceInfo =
                 "";
@@ -1102,6 +1280,31 @@ imageContent = `
                 Number(product.oldPrice) >
                 Number(product.price)
             ) {
+
+                const calculatedDiscount =
+                    Math.round(
+                        (
+                            (
+                                Number(
+                                    product.oldPrice
+                                ) -
+                                Number(
+                                    product.price
+                                )
+                            )
+                            /
+                            Number(
+                                product.oldPrice
+                            )
+                        )
+                        * 100
+                    );
+
+
+                const discount =
+                    product.discount ||
+                    calculatedDiscount;
+
 
                 priceInfo = `
 
@@ -1127,20 +1330,7 @@ imageContent = `
                             class="discount-text"
                         >
 
-                            ${
-                                product.discount ||
-                                Math.round(
-                                    (
-                                        (
-                                            Number(product.oldPrice) -
-                                            Number(product.price)
-                                        )
-                                        /
-                                        Number(product.oldPrice)
-                                    )
-                                    * 100
-                                )
-                            }% OFF
+                            ${discount}% OFF
 
                         </strong>
 
@@ -1151,17 +1341,15 @@ imageContent = `
             }
 
 
-            // ========================================
-            // PRODUCT CARD
-            // ========================================
+            /* ========================================
+               CARD HTML
+            ======================================== */
 
             card.innerHTML = `
 
                 <div
                     class="product-image"
-                    onclick="
-                        openProduct(${product.id})
-                    "
+                    data-product-id="${productId}"
                 >
 
                     ${imageContent}
@@ -1170,12 +1358,11 @@ imageContent = `
 
 
                 <h2
-                    onclick="
-                        openProduct(${product.id})
-                    "
+                    data-product-id="${productId}"
+                    class="product-title-click"
                 >
 
-                    ${product.title}
+                    ${title}
 
                 </h2>
 
@@ -1188,7 +1375,9 @@ imageContent = `
 
                     <span>
 
-                        (${product.reviews || 0})
+                        (${Number(
+                            product.reviews
+                        ) || 0})
 
                     </span>
 
@@ -1197,10 +1386,7 @@ imageContent = `
 
                 <p>
 
-                    ${
-                        product.description ||
-                        "Quality product available on amaz0n."
-                    }
+                    ${description}
 
                 </p>
 
@@ -1245,44 +1431,135 @@ imageContent = `
             `;
 
 
-            // ========================================
-            // DOUBLE CLICK
-            // ========================================
+            /* ========================================
+               IMAGE CLICK
+            ======================================== */
+
+            const productImage =
+                card.querySelector(
+                    ".product-image"
+                );
+
+
+            if (productImage) {
+
+                productImage.addEventListener(
+                    "click",
+                    function() {
+
+                        openProduct(
+                            productId
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* ========================================
+               TITLE CLICK
+            ======================================== */
+
+            const productTitle =
+                card.querySelector(
+                    ".product-title-click"
+                );
+
+
+            if (productTitle) {
+
+                productTitle.addEventListener(
+                    "click",
+                    function() {
+
+                        openProduct(
+                            productId
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* ========================================
+               BUY NOW CLICK
+            ======================================== */
+
+            const buyButtonElement =
+                card.querySelector(
+                    ".buy-now-button"
+                );
+
+
+            if (buyButtonElement) {
+
+                buyButtonElement.addEventListener(
+                    "click",
+                    function(event) {
+
+                        event.stopPropagation();
+
+                        buyNow(
+                            productId
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* ========================================
+               DOUBLE CLICK
+            ======================================== */
 
             card.addEventListener(
                 "dblclick",
                 function(event) {
 
                     if (
-                        event.target.tagName ===
-                        "BUTTON"
+                        event.target.closest(
+                            "button"
+                        )
                     ) {
 
                         return;
 
                     }
 
+
                     openProduct(
-                        product.id
+                        productId
                     );
 
                 }
             );
 
 
-            container.appendChild(
+            fragment.appendChild(
                 card
             );
 
         }
     );
 
+
+    /*
+       Replace all products in ONE operation.
+    */
+
+    container.replaceChildren(
+        fragment
+    );
+
 }
 
 
-// ========================================
-// BUY NOW
-// ========================================
+/* ========================================
+   BUY NOW
+======================================== */
 
 function buyNow(id) {
 
@@ -1292,9 +1569,14 @@ function buyNow(id) {
 
     const product =
         allProducts.find(
-            p =>
-                Number(p.id) ===
-                Number(id)
+            function(p) {
+
+                return (
+                    Number(p.id) ===
+                    Number(id)
+                );
+
+            }
         );
 
 
@@ -1336,9 +1618,9 @@ function buyNow(id) {
 }
 
 
-// ========================================
-// STARS
-// ========================================
+/* ========================================
+   STARS
+======================================== */
 
 function getStars(rating) {
 
@@ -1381,9 +1663,9 @@ function getStars(rating) {
 }
 
 
-// ========================================
-// OPEN PRODUCT
-// ========================================
+/* ========================================
+   OPEN PRODUCT
+======================================== */
 
 function openProduct(id) {
 
@@ -1394,9 +1676,9 @@ function openProduct(id) {
 }
 
 
-// ========================================
-// SEARCH
-// ========================================
+/* ========================================
+   SEARCH
+======================================== */
 
 function searchProducts() {
 
@@ -1410,6 +1692,16 @@ function searchProducts() {
         document.getElementById(
             "searchCategory"
         );
+
+
+    if (
+        !input ||
+        !category
+    ) {
+
+        return;
+
+    }
 
 
     const search =
@@ -1442,24 +1734,27 @@ function searchProducts() {
 
     const results =
         allProducts.filter(
-            product => {
+            function(product) {
 
                 const title =
                     String(
-                        product.title || ""
+                        product.title ||
+                        ""
                     )
                     .toLowerCase();
 
 
                 const productCategory =
                     String(
-                        product.category || ""
+                        product.category ||
+                        ""
                     );
 
 
                 const description =
                     String(
-                        product.description || ""
+                        product.description ||
+                        ""
                     )
                     .toLowerCase();
 
@@ -1473,7 +1768,9 @@ function searchProducts() {
 
                     productCategory
                         .toLowerCase()
-                        .includes(search) ||
+                        .includes(
+                            search
+                        ) ||
 
                     description.includes(
                         search
@@ -1504,9 +1801,9 @@ function searchProducts() {
 }
 
 
-// ========================================
-// ENTER SEARCH
-// ========================================
+/* ========================================
+   SEARCH ENTER
+======================================== */
 
 const searchInput =
     document.getElementById(
@@ -1517,7 +1814,7 @@ const searchInput =
 if (searchInput) {
 
     searchInput.addEventListener(
-        "keypress",
+        "keydown",
         function(event) {
 
             if (
@@ -1535,9 +1832,9 @@ if (searchInput) {
 }
 
 
-// ========================================
-// SEARCH CATEGORY CHANGE
-// ========================================
+/* ========================================
+   SEARCH CATEGORY
+======================================== */
 
 const searchCategory =
     document.getElementById(
@@ -1551,20 +1848,7 @@ if (searchCategory) {
         "change",
         function() {
 
-            const search =
-                document.getElementById(
-                    "search"
-                ).value.trim();
-
-
-            if (
-                search !== "" ||
-                this.value !== "All"
-            ) {
-
-                searchProducts();
-
-            }
+            searchProducts();
 
         }
     );
@@ -1572,11 +1856,24 @@ if (searchCategory) {
 }
 
 
-// ========================================
-// UPDATE CART COUNT
-// ========================================
+/* ========================================
+   UPDATE CART COUNT
+======================================== */
 
 function updateCartCount() {
+
+    const countElement =
+        document.getElementById(
+            "cartCount"
+        );
+
+
+    if (!countElement) {
+
+        return;
+
+    }
+
 
     try {
 
@@ -1588,19 +1885,8 @@ function updateCartCount() {
 
         if (!cartData) {
 
-            const countElement =
-                document.getElementById(
-                    "cartCount"
-                );
-
-
-            if (countElement) {
-
-                countElement.innerText =
-                    "0";
-
-            }
-
+            countElement.innerText =
+                "0";
 
             return;
 
@@ -1622,11 +1908,12 @@ function updateCartCount() {
         ) {
 
             cart.forEach(
-                item => {
+                function(item) {
 
                     count +=
                         Number(
-                            item.quantity || 1
+                            item.quantity ||
+                            1
                         );
 
                 }
@@ -1635,23 +1922,15 @@ function updateCartCount() {
         }
 
 
-        const countElement =
-            document.getElementById(
-                "cartCount"
-            );
-
-
-        if (countElement) {
-
-            countElement.innerText =
-                count;
-
-        }
-
+        countElement.innerText =
+            String(count);
 
     }
 
     catch (error) {
+
+        countElement.innerText =
+            "0";
 
         console.log(
             "Cart count error:",
@@ -1663,14 +1942,87 @@ function updateCartCount() {
 }
 
 
-// ========================================
-// START APPLICATION
-// ========================================
+/* ========================================
+   START APPLICATION
+======================================== */
 
-loadProductsFromSupabase();
+function startApplication() {
 
-updateCartCount();
+    /*
+       1. Logo immediately
+    */
 
+    loadStoreLogo();
+
+
+    /*
+       2. FIRST SHOW ALL 16 LOCAL PRODUCTS
+          No Supabase waiting.
+    */
+
+    const localProducts =
+        getLocalProducts();
+
+
+    if (
+        localProducts.length > 0
+    ) {
+
+        currentProducts =
+            localProducts;
+
+
+        displayProducts(
+            localProducts
+        );
+
+    }
+
+    else {
+
+        const cachedProducts =
+            loadProductCache();
+
+
+        if (
+            cachedProducts &&
+            cachedProducts.length > 0
+        ) {
+
+            currentProducts =
+                cachedProducts;
+
+
+            displayProducts(
+                cachedProducts
+            );
+
+        }
+
+    }
+
+
+    /*
+       3. Cart immediately
+    */
+
+    updateCartCount();
+
+
+    /*
+       4. Supabase in background
+    */
+
+    loadProductsFromSupabase();
+
+}
+
+
+/* ========================================
+   RUN
+======================================== */
+
+startApplication();
 
 </script>
 
@@ -1678,4 +2030,3 @@ updateCartCount();
 </body>
 
 </html>
-

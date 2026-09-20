@@ -19,7 +19,9 @@
 
     <style>
 
-        /* PRODUCT DETAIL PAGE */
+        /* ========================================
+           PRODUCT DETAIL PAGE
+        ======================================== */
 
         .product-page {
             max-width: 1400px;
@@ -33,8 +35,6 @@
             font-size: 13px;
             margin-bottom: 20px;
         }
-
-        /* BREADCRUMB LINKS */
 
         .product-breadcrumb a {
             color: #007185;
@@ -53,11 +53,14 @@
             gap: 35px;
         }
 
-        /* IMAGES */
+        /* ========================================
+           PRODUCT GALLERY
+        ======================================== */
 
         .product-gallery {
             display: flex;
             gap: 15px;
+            min-width: 0;
         }
 
         .thumbnail-list {
@@ -99,6 +102,7 @@
             justify-content: center;
             font-size: 180px;
             overflow: hidden;
+            min-width: 0;
         }
 
         .main-product-image img {
@@ -107,7 +111,9 @@
             object-fit: contain;
         }
 
-        /* DYNAMIC PRODUCT THUMBNAILS */
+        /* ========================================
+           DYNAMIC THUMBNAILS
+        ======================================== */
 
         .product-thumbnails {
             display: flex;
@@ -115,6 +121,7 @@
             gap: 10px;
             width: 70px;
             order: -1;
+            flex-shrink: 0;
         }
 
         .product-thumbnails .product-thumb {
@@ -127,13 +134,10 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            box-sizing: border-box;
         }
 
         .product-thumbnails .product-thumb:hover {
-            border: 2px solid #007185;
-        }
-
-        .product-thumbnails .product-thumb.active {
             border: 2px solid #007185;
         }
 
@@ -143,7 +147,9 @@
             object-fit: contain;
         }
 
-        /* INFORMATION */
+        /* ========================================
+           PRODUCT INFORMATION
+        ======================================== */
 
         .product-info h1 {
             font-size: 28px;
@@ -266,7 +272,9 @@
             background: #fa8900;
         }
 
-        /* RENEWED */
+        /* ========================================
+           RENEWED
+        ======================================== */
 
         .renewed-box {
             border: 1px solid #ddd;
@@ -290,7 +298,9 @@
             margin: 10px 0;
         }
 
-        /* DETAILS */
+        /* ========================================
+           DESCRIPTION
+        ======================================== */
 
         .product-description {
             margin-top: 35px;
@@ -330,7 +340,9 @@
             color: #565959;
         }
 
-        /* RELATED PRODUCTS */
+        /* ========================================
+           RELATED PRODUCTS
+        ======================================== */
 
         .related-products {
             margin-top: 40px;
@@ -352,6 +364,8 @@
             border: 1px solid #ddd;
             padding: 15px;
             cursor: pointer;
+            background: white;
+            min-width: 0;
         }
 
         .related-card:hover {
@@ -384,7 +398,9 @@
             font-weight: bold;
         }
 
-        /* STORE LOGO */
+        /* ========================================
+           STORE LOGO
+        ======================================== */
 
         .store-logo-link {
             display: flex;
@@ -400,7 +416,20 @@
             display: block;
         }
 
-        /* MOBILE */
+        /* ========================================
+           LOADING
+        ======================================== */
+
+        .product-loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* ========================================
+           MOBILE
+        ======================================== */
 
         @media (max-width: 800px) {
 
@@ -428,15 +457,19 @@
                 flex-direction: column;
             }
 
-            .thumbnail-list {
-                width: 100%;
-                flex-direction: row;
-            }
-
             .product-thumbnails {
                 width: 100%;
                 flex-direction: row;
                 order: 1;
+                overflow-x: auto;
+            }
+
+            .product-detail {
+                gap: 20px;
+            }
+
+            .main-product-image {
+                height: 300px;
             }
 
             .related-grid {
@@ -457,7 +490,9 @@
 <body>
 
 
-<!-- HEADER -->
+<!-- ========================================
+     HEADER
+======================================== -->
 
 <header class="top-header">
 
@@ -467,7 +502,10 @@
         id="storeLogoLink"
     >
 
-        <div class="logo" id="storeLogo">
+        <div
+            class="logo"
+            id="storeLogo"
+        >
             amaz<span>0n</span>
         </div>
 
@@ -547,7 +585,9 @@
 </header>
 
 
-<!-- NAV -->
+<!-- ========================================
+     NAV
+======================================== -->
 
 <nav class="main-nav">
 
@@ -569,8 +609,9 @@
 </nav>
 
 
-
-<!-- PRODUCT PAGE -->
+<!-- ========================================
+     PRODUCT PAGE
+======================================== -->
 
 <main class="product-page">
 
@@ -596,33 +637,37 @@
 
     <!-- BREADCRUMB -->
 
-    <div class="product-breadcrumb" id="productBreadcrumb">
-
-        Electronics › Mobiles › Smartphones ›
-        Apple iPhone
-
+    <div
+        class="product-breadcrumb"
+        id="productBreadcrumb"
+    >
+        Electronics › Mobiles › Smartphones › Apple iPhone
     </div>
-
 
 
     <div class="product-detail">
 
 
-        <!-- LEFT: PRODUCT IMAGES -->
+        <!-- ========================================
+             LEFT: PRODUCT IMAGES
+        ======================================== -->
 
         <div class="product-gallery">
 
             <div class="main-product-image">
 
-                📱
+                <span>
+                    📦
+                </span>
 
             </div>
 
         </div>
 
 
-
-        <!-- RIGHT: PRODUCT INFORMATION -->
+        <!-- ========================================
+             RIGHT: PRODUCT INFORMATION
+        ======================================== -->
 
         <div class="product-info">
 
@@ -633,9 +678,7 @@
 
 
             <h1>
-                Apple iPhone 17e, 256GB,
-                Soft Pink - Boost Mobile
-                (Renewed Premium)
+                Loading product...
             </h1>
 
 
@@ -644,7 +687,7 @@
                 ★★★★★
 
                 <span>
-                    4.5 (124 ratings)
+                    Loading...
                 </span>
 
             </div>
@@ -660,30 +703,25 @@
 
             <div class="discount-price">
 
-                <sup>$</sup>508<sup>00</sup>
+                <sup>$</sup>0.00
 
             </div>
 
 
             <div class="old-price">
 
-                List Price:
-
-                <del>
-                    $1,270.00
-                </del>
-
             </div>
 
 
             <div
+                class="discount-display"
                 style="
-                color:#cc0c39;
-                font-weight:bold;
-                margin-top:5px;
+                    color:#cc0c39;
+                    font-weight:bold;
+                    margin-top:5px;
                 "
             >
-                60% off
+                0% off
             </div>
 
 
@@ -692,7 +730,7 @@
                 Condition:
 
                 <strong>
-                    Renewed Premium
+                    Loading...
                 </strong>
 
             </div>
@@ -700,7 +738,7 @@
 
             <div class="stock">
 
-                Only 7 left in stock
+                Loading stock...
 
             </div>
 
@@ -726,12 +764,23 @@
 
                 Quantity:
 
-                <select>
+                <select id="productQuantity">
 
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
+                    <option value="1">
+                        1
+                    </option>
+
+                    <option value="2">
+                        2
+                    </option>
+
+                    <option value="3">
+                        3
+                    </option>
+
+                    <option value="4">
+                        4
+                    </option>
 
                 </select>
 
@@ -742,12 +791,7 @@
 
                 <button
                     class="add-button"
-                    onclick="
-                    addToCart(
-                    'Apple iPhone 17e 256GB Soft Pink',
-                    508
-                    )
-                    "
+                    type="button"
                 >
                     Add to Cart
                 </button>
@@ -755,6 +799,7 @@
 
                 <button
                     class="buy-button"
+                    type="button"
                     onclick="buyNow()"
                 >
                     Buy Now
@@ -768,8 +813,9 @@
     </div>
 
 
-
-    <!-- AMAZON RENEWED -->
+    <!-- ========================================
+         RENEWED
+    ======================================== -->
 
     <section class="renewed-box">
 
@@ -816,8 +862,9 @@
     </section>
 
 
-
-    <!-- DESCRIPTION -->
+    <!-- ========================================
+         DESCRIPTION
+    ======================================== -->
 
     <section class="product-description">
 
@@ -826,11 +873,7 @@
         </h2>
 
         <p>
-            Apple iPhone 17e with 256GB storage
-            in Soft Pink. This product is listed
-            as Renewed Premium and is designed
-            to provide a premium smartphone
-            experience at a lower price.
+            Loading product description...
         </p>
 
 
@@ -845,7 +888,9 @@
 
                 <td>Brand</td>
 
-                <td>Apple</td>
+                <td>
+                    Loading...
+                </td>
 
             </tr>
 
@@ -854,7 +899,9 @@
 
                 <td>Model</td>
 
-                <td>iPhone 17e</td>
+                <td>
+                    Loading...
+                </td>
 
             </tr>
 
@@ -863,7 +910,9 @@
 
                 <td>Storage</td>
 
-                <td>256GB</td>
+                <td>
+                    Loading...
+                </td>
 
             </tr>
 
@@ -872,7 +921,9 @@
 
                 <td>Color</td>
 
-                <td>Soft Pink</td>
+                <td>
+                    Loading...
+                </td>
 
             </tr>
 
@@ -881,7 +932,9 @@
 
                 <td>Condition</td>
 
-                <td>Renewed Premium</td>
+                <td>
+                    Loading...
+                </td>
 
             </tr>
 
@@ -890,7 +943,9 @@
 
                 <td>Availability</td>
 
-                <td>7 units</td>
+                <td>
+                    Loading...
+                </td>
 
             </tr>
 
@@ -899,8 +954,9 @@
     </section>
 
 
-
-    <!-- RELATED PRODUCTS -->
+    <!-- ========================================
+         RELATED PRODUCTS
+    ======================================== -->
 
     <section class="related-products">
 
@@ -911,105 +967,9 @@
 
         <div class="related-grid">
 
-
-            <div
-                class="related-card"
-                onclick="openProduct(1)"
-            >
-
-                <div class="related-image">
-                    📱
-                </div>
-
-                <h3>
-                    Smartphone 256GB
-                </h3>
-
-                <div class="rating">
-                    ★★★★★
-                </div>
-
-                <div class="related-price">
-                    $529.99
-                </div>
-
+            <div class="product-loading">
+                Loading products...
             </div>
-
-
-
-            <div
-                class="related-card"
-                onclick="openProduct(2)"
-            >
-
-                <div class="related-image">
-                    🎧
-                </div>
-
-                <h3>
-                    Wireless Headphones
-                </h3>
-
-                <div class="rating">
-                    ★★★★★
-                </div>
-
-                <div class="related-price">
-                    $49.99
-                </div>
-
-            </div>
-
-
-
-            <div
-                class="related-card"
-                onclick="openProduct(3)"
-            >
-
-                <div class="related-image">
-                    ⌚
-                </div>
-
-                <h3>
-                    Smart Watch
-                </h3>
-
-                <div class="rating">
-                    ★★★★☆
-                </div>
-
-                <div class="related-price">
-                    $79.99
-                </div>
-
-            </div>
-
-
-
-            <div
-                class="related-card"
-                onclick="openProduct(4)"
-            >
-
-                <div class="related-image">
-                    💻
-                </div>
-
-                <h3>
-                    Laptop Computer
-                </h3>
-
-                <div class="rating">
-                    ★★★★★
-                </div>
-
-                <div class="related-price">
-                    $699.99
-                </div>
-
-            </div>
-
 
         </div>
 
@@ -1019,8 +979,9 @@
 </main>
 
 
-
-<!-- CART -->
+<!-- ========================================
+     CART
+======================================== -->
 
 <div
     id="cartBox"
@@ -1053,8 +1014,9 @@
 </div>
 
 
-
-<!-- FOOTER -->
+<!-- ========================================
+     FOOTER
+======================================== -->
 
 <footer>
 
@@ -1069,91 +1031,227 @@
 </footer>
 
 
+<!-- ========================================
+     JAVASCRIPT
+     
+     IMPORTANT:
+     Version numbers are intentionally added
+     to force Chrome to download fresh files.
+======================================== -->
 
-<!-- JAVASCRIPT -->
+<script
+    src="products.js?v=999"
+></script>
 
-<script src="products.js"></script>
+<script
+    src="script.js?v=999"
+></script>
 
-<script src="script.js"></script>
-
-<script src="product-page.js"></script>
+<script
+    src="product-page.js?v=999"
+></script>
 
 
 <script>
 
-/* BUY NOW - FIXED (image ab save hogi) */
+/* ========================================
+   BUY NOW
+   Saves product + image
+======================================== */
 
 function buyNow() {
 
-    const params = new URLSearchParams(window.location.search);
-    const productId = Number(params.get("id"));
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
 
-    if (!productId) {
-        alert("Product information is missing.");
+
+    const productId =
+        Number(
+            params.get("id")
+        );
+
+
+    if (
+        !productId
+    ) {
+
+        alert(
+            "Product information is missing."
+        );
+
         return;
+
     }
 
-    const titleElement = document.querySelector(".product-info h1");
-    const priceElement = document.querySelector(".discount-price");
-    const mainImage = document.querySelector("#mainProductImage");
 
-    const title = titleElement ? titleElement.innerText.trim() : "";
-    const priceText = priceElement ? priceElement.innerText : "0";
-    const price = Number(priceText.replace(/[^0-9.]/g, "")) || 0;
+    const titleElement =
+        document.querySelector(
+            ".product-info h1"
+        );
 
-    // Image nikalne ka try
+
+    const priceElement =
+        document.querySelector(
+            ".discount-price"
+        );
+
+
+    const mainImage =
+        document.querySelector(
+            "#mainProductImage"
+        );
+
+
+    const title =
+        titleElement
+            ? titleElement.innerText.trim()
+            : "";
+
+
+    const priceText =
+        priceElement
+            ? priceElement.innerText
+            : "0";
+
+
+    const price =
+        Number(
+            priceText.replace(
+                /[^0-9.]/g,
+                ""
+            )
+        ) || 0;
+
+
     let image = "";
-    if (mainImage && mainImage.src) {
-        image = mainImage.src;
+
+
+    if (
+        mainImage &&
+        mainImage.src
+    ) {
+
+        image =
+            mainImage.src;
+
     }
 
-    if (!title || price <= 0) {
-        alert("Product information could not be loaded.");
+
+    if (
+        !title ||
+        price <= 0
+    ) {
+
+        alert(
+            "Product information could not be loaded."
+        );
+
         return;
+
     }
+
+
+    const quantityElement =
+        document.querySelector(
+            "#productQuantity"
+        );
+
+
+    const quantity =
+        quantityElement
+            ? Number(
+                quantityElement.value
+            ) || 1
+            : 1;
+
 
     const buyNowProduct = {
-        id: productId,
-        name: title,
-        title: title,
-        price: price,
-        image: image,          // ← yeh line important hai
-        quantity: 1
+
+        id:
+            productId,
+
+        name:
+            title,
+
+        title:
+            title,
+
+        price:
+            price,
+
+        image:
+            image,
+
+        quantity:
+            quantity
+
     };
 
-    localStorage.setItem("amaz0nBuyNow", JSON.stringify(buyNowProduct));
-    window.location.href = "checkout.html";
-}
 
+    localStorage.setItem(
+        "amaz0nBuyNow",
+        JSON.stringify(
+            buyNowProduct
+        )
+    );
 
-/* OPEN PRODUCT */
-
-function openProduct(id) {
 
     window.location.href =
-        "product.html?id=" + id;
+        "checkout.html";
 
 }
 
 
-/* LOAD STORE LOGO */
+/* ========================================
+   OPEN PRODUCT
+======================================== */
+
+function openProduct(
+    id
+) {
+
+    window.location.href =
+        "product.html?id=" +
+        encodeURIComponent(
+            id
+        );
+
+}
+
+
+/* ========================================
+   LOAD STORE LOGO
+======================================== */
 
 function loadStoreLogo() {
 
     const savedLogo =
-        localStorage.getItem("amaz0nLogo");
+        localStorage.getItem(
+            "amaz0nLogo"
+        );
+
 
     const logo =
-        document.getElementById("storeLogo");
+        document.getElementById(
+            "storeLogo"
+        );
 
-    if (savedLogo && logo) {
+
+    if (
+        savedLogo &&
+        logo
+    ) {
 
         logo.innerHTML = `
+
             <img
                 src="${savedLogo}"
                 class="store-logo-image"
                 alt="amaz0n"
             >
+
         `;
 
     }
@@ -1161,7 +1259,9 @@ function loadStoreLogo() {
 }
 
 
-/* RUN LOGO */
+/* ========================================
+   RUN LOGO
+======================================== */
 
 loadStoreLogo();
 
