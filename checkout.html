@@ -359,7 +359,11 @@ body {
     class="checkout-logo"
     id="checkoutLogo"
 >
-    amaz<span>0n</span>
+    <img
+        src="./images/Capture.PNG"
+        alt="Store Logo"
+        loading="eager"
+    >
 </div>
 </a>
 <div class="secure-text">
@@ -675,28 +679,6 @@ const IMAGE_FALLBACKS = {
     5: "images/smartphone.jpg",
     6: "images/gaming-mouse.jpg"
 };
-/* ========================================
-   LOAD STORE LOGO
-======================================== */
-function loadCheckoutLogo() {
-    const savedLogo =
-        localStorage.getItem(
-            "amaz0nLogo"
-        );
-    const logo =
-        document.getElementById(
-            "checkoutLogo"
-        );
-    if (!savedLogo || !logo) {
-        return;
-    }
-    logo.innerHTML = `
-        <img
-            src="${escapeHtml(savedLogo)}"
-            alt="Store Logo"
-        >
-    `;
-}
 /* ========================================
    GET ALL PRODUCTS
 ======================================== */
@@ -1408,7 +1390,6 @@ function tryAgain() {
 /* ========================================
    START CHECKOUT
 ======================================== */
-loadCheckoutLogo();
 loadCheckoutCart();
 </script>
 </body>

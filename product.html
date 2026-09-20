@@ -502,12 +502,17 @@
         id="storeLogoLink"
     >
 
-        <div
-            class="logo"
-            id="storeLogo"
-        >
-            amaz<span>0n</span>
-        </div>
+<div 
+    class="logo" 
+    id="storeLogo"
+>
+    <img
+        src="./images/Capture.PNG"
+        alt="Store Logo"
+        loading="eager"
+        class="store-logo-image"
+    >
+</div>
 
     </a>
 
@@ -1219,51 +1224,6 @@ function openProduct(
         );
 
 }
-
-
-/* ========================================
-   LOAD STORE LOGO
-======================================== */
-
-function loadStoreLogo() {
-
-    const savedLogo =
-        localStorage.getItem(
-            "amaz0nLogo"
-        );
-
-
-    const logo =
-        document.getElementById(
-            "storeLogo"
-        );
-
-
-    if (
-        savedLogo &&
-        logo
-    ) {
-
-        logo.innerHTML = `
-
-            <img
-                src="${savedLogo}"
-                class="store-logo-image"
-                alt="amaz0n"
-            >
-
-        `;
-
-    }
-
-}
-
-
-/* ========================================
-   RUN LOGO
-======================================== */
-
-loadStoreLogo();
 
 </script>
 
